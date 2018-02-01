@@ -16,6 +16,8 @@ navbar:
       href: https://github.com/davidhen
     - icon: fa-twitter
       href: https://twitter.com/daibhaidhhen
+    - icon: fa-building
+      href: http://www.ubdc.ac.uk
 output:
   html_document:
     toc: true
