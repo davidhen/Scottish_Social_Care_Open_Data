@@ -328,7 +328,6 @@ fct_count(soc_care12$meals)
 The Scottish Government report of the Social Care Survey states that Local Authorities found it difficult to collect and return data on meals. We can see that when visualising returns by Local Authority - I'm using 2012 as an example here:- 
 
 ```{r meals_by_LA, fig.height=12, fig.width=16}
-library(ggplot2)
 soc_care12 %>%
   ggplot(aes(x = meals)) +
   geom_bar(aes(y = (..count..)/sum(..count..))) +
@@ -348,11 +347,421 @@ soc_care11 %<>% select(-meals)
 soc_care12 %<>% select(-meals)
 ```
 
+##Home Care Hours
+
+Need to factorise Home Care Hours also. This variable has been pre-banded but imported as an integer. Start with the Total Hours
+
+```{r factorise_bandHRSTT}
+hrs_levels <- c("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12")
+hrs_labels <- c("Zero", "<1", "1-2", "2-4", "4-6","6-8", "8-10", "10-15", "15-20",
+                    "20-30","30-40", "40-50", "over50")
+
+soc_care10$total_hrs <- factor(soc_care10$total_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care11$total_hrs <- factor(soc_care11$total_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care12$total_hrs <- factor(soc_care12$total_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+```
+
+And the sanity check
+
+```{r total_hrs_check}
+fct_count(soc_care10$total_hrs)
+fct_count(soc_care11$total_hrs)
+fct_count(soc_care12$total_hrs)
+```
+
+This needs done for all the home care hour types...
+
+```{r factorise_bandHRSLA}
+#2010
+soc_care10$la_hrs <- factor(soc_care10$la_hrs,      #Local authority provided
+                               levels = hrs_levels, #hours
+                               labels = hrs_labels)
+
+soc_care10$pri_hrs <- factor(soc_care10$pri_hrs,    #Private company provided
+                               levels = hrs_levels, #hours
+                               labels = hrs_labels)
+
+soc_care10$vol_hrs <- factor(soc_care10$vol_hrs,   #Voluntary sector provided
+                               levels = hrs_levels,#hours
+                               labels = hrs_labels)
+
+soc_care10$pc_hrs <- factor(soc_care10$pc_hrs,     #Personal care hours
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+#2011
+soc_care11$la_hrs <- factor(soc_care11$la_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care11$pri_hrs <- factor(soc_care11$pri_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care11$vol_hrs <- factor(soc_care11$vol_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care11$pc_hrs <- factor(soc_care11$pc_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+#2012
+soc_care12$la_hrs <- factor(soc_care12$la_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care12$pri_hrs <- factor(soc_care12$pri_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care12$vol_hrs <- factor(soc_care12$vol_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care12$pc_hrs <- factor(soc_care12$pc_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+```
+
+Sanity check on the Local Authority provided hours
+
+```{r la_check}
+fct_count(soc_care10$la_hrs)
+fct_count(soc_care11$la_hrs)
+fct_count(soc_care12$la_hrs)
+```
+
+Check on the private provided hours
+
+```{r pri_hours_check}
+fct_count(soc_care10$pri_hrs)
+fct_count(soc_care11$pri_hrs)
+fct_count(soc_care12$pri_hrs)
+```
+
+Voluntary hours check
+
+```{r vol_check}
+fct_count(soc_care10$vol_hrs)
+fct_count(soc_care11$vol_hrs)
+fct_count(soc_care12$vol_hrs)
+```
+
+Personal Care hours check
+
+```{r pc_check}
+fct_count(soc_care10$pc_hrs)
+fct_count(soc_care11$pc_hrs)
+fct_count(soc_care12$pc_hrs)
+
+#Tidy up
+rm(list = c("hrs_labels", "hrs_levels"))
+```
+
+There are no Personal Care hours data for 2010 - Let's drop that now. 
+
+```{r drop_2010_pchrs}
+soc_care10 %<>%
+  select(-pc_hrs)
+```
+
+##Home Care Client Flag
+
+Factorise `hc_client` This is a derived variable indicating whether client recieved home care or not. Useful for subsetting.
+
+```{r factorise_HCclient}
+soc_care10$hc_client <- factor(soc_care10$hc_client,
+                              levels = c("0", "1"),
+                              labels = c("No", "Yes"))
+
+soc_care11$hc_client <- factor(soc_care11$hc_client,
+                              levels = c("0", "1"),
+                              labels = c("No", "Yes"))
+
+soc_care12$hc_client <- factor(soc_care12$hc_client,
+                              levels = c("0", "1"),
+                              labels = c("No", "Yes"))
+```
+
+Check it
+
+```{r hc_flag_check}
+fct_count(soc_care10$hc_client)
+fct_count(soc_care11$hc_client)
+fct_count(soc_care12$hc_client)
+```
+
+##Community alarm and Telecare
+
+2011 and 2012 data have extra variables on community alarms and telecare. Again these are dichotomous variables and need factorised.
+
+```{r telecare_variables}
+#2011
+soc_care11$other_telecare <- factor(soc_care11$other_telecare,
+                                  levels = c("0", "1"),
+                                  labels = c("No", "Yes"))
+soc_care11$comm_alarm <- factor(soc_care11$comm_alarm,
+                                        levels = c("0", "1"),
+                                        labels = c("No", "Yes"))
+soc_care11$alarm_and_tele <- factor(soc_care11$alarm_and_tele,
+                                          levels = c("0", "1"),
+                                          labels = c("No", "Yes"))
+
+#2012
+soc_care12$other_telecare <- factor(soc_care12$other_telecare,
+                                  levels = c("0", "1"),
+                                  labels = c("No", "Yes"))
+soc_care12$comm_alarm <- factor(soc_care12$comm_alarm,
+                                        levels = c("0", "1"),
+                                        labels = c("No", "Yes"))
+soc_care12$alarm_and_tele <- factor(soc_care12$alarm_and_tele,
+                                          levels = c("0", "1"),
+                                          labels = c("No", "Yes"))
+```
+
+Check them
+
+```{r check_tele}
+fct_count(soc_care11$other_telecare)
+fct_count(soc_care12$other_telecare)
+
+fct_count(soc_care11$comm_alarm)
+fct_count(soc_care12$comm_alarm)
+
+fct_count(soc_care11$alarm_and_tele)
+fct_count(soc_care12$alarm_and_tele)
+```
+
+##Living Arrangements
+
+All 3 years of data have Living Arrangement data signifying whether the client lives alone or not - factorise.
+
+The metadata reports the level "9" as "Not known". I think this counts as missing data so will code as NA.
+
+```{r factorise_living_arr}
+#2010
+soc_care10$living_arr <- factor(soc_care10$living_arr,
+                               levels = c("1", "2", "9"),
+                               labels = c("Lives Alone", "Other", "Not Known"))
+soc_care10$living_arr[soc_care10$living_arr == "Not Known"] <- NA
+soc_care10$living_arr <- fct_drop(soc_care10$living_arr, only = "Not Known")
+
+#2011
+soc_care11$living_arr <- factor(soc_care11$living_arr,
+                               levels = c("1", "2", "9"),
+                               labels = c("Lives Alone", "Other", "Not Known"))
+soc_care11$living_arr[soc_care11$living_arr == "Not Known"] <- NA
+soc_care11$living_arr <- fct_drop(soc_care11$living_arr, only = "Not Known")
+
+#2012
+soc_care12$living_arr <- factor(soc_care12$living_arr,
+                               levels = c("1", "2", "9"),
+                               labels = c("Lives Alone", "Other", "Not Known"))
+soc_care12$living_arr[soc_care12$living_arr == "Not Known"] <- NA
+soc_care12$living_arr <- fct_drop(soc_care12$living_arr, only = "Not Known")
+
+fct_count(soc_care10$living_arr)
+fct_count(soc_care11$living_arr)
+fct_count(soc_care12$living_arr)
+```
+
+##Multi Staffing
+
+The Staff variable indicates whether multiple staff required or not. Dichotomous. Factorise.
+
+```{r factorise_Staff}
+soc_care10$multi_staff <- factor(soc_care10$multi_staff,
+                           levels = c("0", "1"),
+                           labels = c("Single Staff", "2 or more Staff"))
+
+soc_care11$multi_staff <- factor(soc_care11$multi_staff,
+                           levels = c("0", "1"),
+                           labels = c("Single Staff", "2 or more Staff"))
+
+soc_care12$multi_staff <- factor(soc_care12$multi_staff,
+                           levels = c("0", "1"),
+                           labels = c("Single Staff", "2 or more Staff"))
+
+fct_count(soc_care10$multi_staff)
+fct_count(soc_care11$multi_staff)
+fct_count(soc_care12$multi_staff)
+```
 
 
+##Housing Type
+`housing_type` is an optional variable from 2010. Interesting that there is not a code for missing or not known. We'll see completeness when visualising.....
+
+```{r factorise_housing_type}
+soc_care10$housing_type <- factor(soc_care10$housing_type,
+                                    levels = c("0", "1", "9"),
+                                    labels = c("Mainstream", "Supported Housing",
+                                               "Other"))
+
+soc_care11$housing_type <- factor(soc_care11$housing_type,
+                                    levels = c("0", "1", "9"),
+                                    labels = c("Mainstream", "Supported Housing",
+                                               "Other"))
+
+soc_care12$housing_type <- factor(soc_care12$housing_type,
+                                    levels = c("0", "1", "9"),
+                                    labels = c("Mainstream", "Supported Housing",
+                                               "Other"))
+fct_count(soc_care10$housing_type)
+fct_count(soc_care11$housing_type)
+fct_count(soc_care12$housing_type)
+```
+
+We have got NA values though! Good!
 
 
+##Laundry
+`laundry` as above
 
+```{r factorise_Laundry}
+soc_care10$laundry <- factor(soc_care10$laundry,
+                                levels = c("0", "1"),
+                                labels = c("No", "Yes"))
+
+soc_care11$laundry <- factor(soc_care11$laundry,
+                                levels = c("0", "1"),
+                                labels = c("No", "Yes"))
+
+soc_care12$laundry <- factor(soc_care12$laundry,
+                                levels = c("0", "1"),
+                                labels = c("No", "Yes"))
+
+fct_count(soc_care10$laundry)
+fct_count(soc_care10$laundry)
+fct_count(soc_care12$laundry)
+```
+
+##Shopping
+`shopping` As above
+
+```{r factorise_Shopping}
+soc_care10$shopping <- factor(soc_care10$shopping,
+                                 levels = c("0", "1"),
+                                 labels = c("No", "Yes"))
+
+soc_care11$shopping <- factor(soc_care11$shopping,
+                                 levels = c("0", "1"),
+                                 labels = c("No", "Yes"))
+
+soc_care12$shopping <- factor(soc_care12$shopping,
+                                 levels = c("0", "1"),
+                                 labels = c("No", "Yes"))
+
+fct_count(soc_care10$shopping)
+fct_count(soc_care11$shopping)
+fct_count(soc_care12$shopping)
+
+```
+
+##Housing Support
+`housing_supp` As Above
+
+```{r factorise_housing_supp}
+soc_care10$housing_supp <- factor(soc_care10$housing_supp,
+                                       levels = c("0", "1"),
+                                       labels = c("No", "Yes"))
+
+soc_care11$housing_supp <- factor(soc_care11$housing_supp,
+                                       levels = c("0", "1"),
+                                       labels = c("No", "Yes"))
+
+soc_care12$housing_supp <- factor(soc_care12$housing_supp,
+                                       levels = c("0", "1"),
+                                       labels = c("No", "Yes"))
+
+fct_count(soc_care10$housing_supp)
+fct_count(soc_care11$housing_supp)
+fct_count(soc_care12$housing_supp)
+```
+
+##IoRN
+
+`iorn_score` As Above
+```{r factorise_iorn_score}
+soc_care10$iorn_score <- factor(soc_care10$iorn_score,
+                             levels = c("A", "B", "C", "D", "E", "F", "G", "H", "I"),
+                             labels = c("Low", "LowB", "Medium", "LowD", "MediumE",
+                                        "High", "MediumG", "HighH", "HighI"))
+
+soc_care11$iorn_score <- factor(soc_care11$iorn_score,
+                             levels = c("A", "B", "C", "D", "E", "F", "G", "H", "I"),
+                             labels = c("Low", "LowB", "Medium", "LowD", "MediumE",
+                                        "High", "MediumG", "HighH", "HighI"))
+
+soc_care12$iorn_score <- factor(soc_care12$iorn_score,
+                             levels = c("A", "B", "C", "D", "E", "F", "G", "H", "I"),
+                             labels = c("Low", "LowB", "Medium", "LowD", "MediumE",
+                                        "High", "MediumG", "HighH", "HighI"))
+fct_count(soc_care10$iorn_score)
+fct_count(soc_care11$iorn_score)
+fct_count(soc_care12$iorn_score)
+```
+
+So, really large levels of missing data here. I wonder if 1 council has good completion? 2012 as example again...
+
+```{r iorn_by_LA, fig.height=12, fig.width=16}
+soc_care12 %>%
+  ggplot(aes(x = iorn_score)) +
+  geom_bar() +
+  facet_wrap(~ council) +
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+So the short answer is...No. Let's drop IoRN
+
+```{r drop_iorn}
+soc_care10 %<>% select(-iorn_score)
+
+soc_care11 %<>% select(-iorn_score)
+
+soc_care12 %<>% select(-iorn_score)
+```
+
+#Check results
+
+```{r glimpse_wrangled}
+glimpse(soc_care10)
+glimpse(soc_care11)
+glimpse(soc_care12)
+```
+
+One last adjustment to make - 2012 data has a variable `new_hrs` which (correctly) has been left as an integer. However if an individual has no new home care hours a `NA` value is recorded. I'll assign `NA` values to `0`.
+
+```{r new_hrs}
+soc_care12$new_hrs %<>% replace_na(0)
+glimpse(soc_care12$new_hrs)
+```
+
+Awesome!
+
+Lets's save these tidied datasets for future reference
+
+```{r save_objs, eval=FALSE}
+save(soc_care10, file = "C://GitHub/Scottish_Social_Care_Open_Data/output/clean_data/soc_care10.RData")
+save(soc_care11, file = "C://GitHub/Scottish_Social_Care_Open_Data/output/clean_data/soc_care11.RData")
+save(soc_care12, file = "C://GitHub/Scottish_Social_Care_Open_Data/output/clean_data/soc_care12.RData")
+```
+
+#Summary
+
+Here we have imported and coerced the variables from 3 datasets. I have also dropped some variables as already they are clearly of poor quality. These are:- 
+
+* `pc_hrs` from the 2010 dataset only
+* `meals` from all datasets
+* `iorn_score` from all datasets.
+
+There may need to be other variables dropped but I will check how random data is missing in the next analysis. 
 ## Session information
 
 <!-- Insert the session information into the document -->
