@@ -1,11 +1,9 @@
 ---
-title: "Home"
+title: "Welcome"
 output:
   html_document:
     toc: false
 ---
-
-#Welcome
 
 Welcome to my research website showing some simple analyses with open data on social care published by the Scottish Government.
 
@@ -17,7 +15,7 @@ Public release data is for 3 years - 2010, 2011, and 2012 and is avaiable [here]
 
 #Other useful links
 
-[My home page](www.davidhen.com)
+[My home page](http://www.davidhen.com)
 
 
 
