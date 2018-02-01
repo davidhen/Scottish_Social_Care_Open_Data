@@ -353,7 +353,7 @@ shared across the workflowr files. -->
 <p><strong>Last updated:</strong> 2018-02-01</p>
 <!-- Insert the code version (Git commit SHA1) if Git repository exists and R
  package git2r is installed -->
-<p><strong>Code version:</strong> 34d387d</p>
+<p><strong>Code version:</strong> 9e51ba9</p>
 <!-- Add your analysis here -->
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
@@ -794,8 +794,7 @@ soc_care12$meals &lt;- factor(soc_care12$meals,
 2 Meals      9621
 3 &lt;NA&gt;     131523</code></pre>
 <p>The Scottish Government report of the Social Care Survey states that Local Authorities found it difficult to collect and return data on meals. We can see that when visualising returns by Local Authority - I’m using 2012 as an example here:-</p>
-<pre class="r"><code>library(ggplot2)
-soc_care12 %&gt;%
+<pre class="r"><code>soc_care12 %&gt;%
   ggplot(aes(x = meals)) +
   geom_bar(aes(y = (..count..)/sum(..count..))) +
   scale_y_continuous(labels = scales::percent) +
@@ -809,8 +808,825 @@ soc_care11 %&lt;&gt;% select(-meals)
 
 soc_care12 %&lt;&gt;% select(-meals)</code></pre>
 </div>
-<div id="session-information" class="section level2">
-<h2>Session information</h2>
+<div id="home-care-hours" class="section level2">
+<h2>Home Care Hours</h2>
+<p>Need to factorise Home Care Hours also. This variable has been pre-banded but imported as an integer. Start with the Total Hours</p>
+<pre class="r"><code>hrs_levels &lt;- c(&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;, &quot;11&quot;, &quot;12&quot;)
+hrs_labels &lt;- c(&quot;Zero&quot;, &quot;&lt;1&quot;, &quot;1-2&quot;, &quot;2-4&quot;, &quot;4-6&quot;,&quot;6-8&quot;, &quot;8-10&quot;, &quot;10-15&quot;, &quot;15-20&quot;,
+                    &quot;20-30&quot;,&quot;30-40&quot;, &quot;40-50&quot;, &quot;over50&quot;)
+
+soc_care10$total_hrs &lt;- factor(soc_care10$total_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care11$total_hrs &lt;- factor(soc_care11$total_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care12$total_hrs &lt;- factor(soc_care12$total_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)</code></pre>
+<p>And the sanity check</p>
+<pre class="r"><code>fct_count(soc_care10$total_hrs)</code></pre>
+<pre><code># A tibble: 13 x 2
+   f          n
+   &lt;fct&gt;  &lt;int&gt;
+ 1 Zero   10687
+ 2 &lt;1      2740
+ 3 1-2     8826
+ 4 2-4    13289
+ 5 4-6     7387
+ 6 6-8     7867
+ 7 8-10    4672
+ 8 10-15  10402
+ 9 15-20   4480
+10 20-30   2583
+11 30-40   1197
+12 40-50    555
+13 over50  1517</code></pre>
+<pre class="r"><code>fct_count(soc_care11$total_hrs)</code></pre>
+<pre><code># A tibble: 13 x 2
+   f          n
+   &lt;fct&gt;  &lt;int&gt;
+ 1 Zero   79714
+ 2 &lt;1      2146
+ 3 1-2     7466
+ 4 2-4    12612
+ 5 4-6     6982
+ 6 6-8     8271
+ 7 8-10    4635
+ 8 10-15  10541
+ 9 15-20   4270
+10 20-30   2538
+11 30-40   1237
+12 40-50    468
+13 over50  1586</code></pre>
+<pre class="r"><code>fct_count(soc_care12$total_hrs)</code></pre>
+<pre><code># A tibble: 13 x 2
+   f          n
+   &lt;fct&gt;  &lt;int&gt;
+ 1 Zero   78917
+ 2 &lt;1      2034
+ 3 1-2     6859
+ 4 2-4    11899
+ 5 4-6     7110
+ 6 6-8     8273
+ 7 8-10    4688
+ 8 10-15  10956
+ 9 15-20   4447
+10 20-30   2450
+11 30-40   1192
+12 40-50    478
+13 over50  1841</code></pre>
+<p>This needs done for all the home care hour types…</p>
+<pre class="r"><code>#2010
+soc_care10$la_hrs &lt;- factor(soc_care10$la_hrs,      #Local authority provided
+                               levels = hrs_levels, #hours
+                               labels = hrs_labels)
+
+soc_care10$pri_hrs &lt;- factor(soc_care10$pri_hrs,    #Private company provided
+                               levels = hrs_levels, #hours
+                               labels = hrs_labels)
+
+soc_care10$vol_hrs &lt;- factor(soc_care10$vol_hrs,   #Voluntary sector provided
+                               levels = hrs_levels,#hours
+                               labels = hrs_labels)
+
+soc_care10$pc_hrs &lt;- factor(soc_care10$pc_hrs,     #Personal care hours
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+#2011
+soc_care11$la_hrs &lt;- factor(soc_care11$la_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care11$pri_hrs &lt;- factor(soc_care11$pri_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care11$vol_hrs &lt;- factor(soc_care11$vol_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care11$pc_hrs &lt;- factor(soc_care11$pc_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+#2012
+soc_care12$la_hrs &lt;- factor(soc_care12$la_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care12$pri_hrs &lt;- factor(soc_care12$pri_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care12$vol_hrs &lt;- factor(soc_care12$vol_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)
+
+soc_care12$pc_hrs &lt;- factor(soc_care12$pc_hrs,
+                               levels = hrs_levels,
+                               labels = hrs_labels)</code></pre>
+<p>Sanity check on the Local Authority provided hours</p>
+<pre class="r"><code>fct_count(soc_care10$la_hrs)</code></pre>
+<pre><code># A tibble: 13 x 2
+   f          n
+   &lt;fct&gt;  &lt;int&gt;
+ 1 Zero   28319
+ 2 &lt;1      2514
+ 3 1-2     8290
+ 4 2-4    11357
+ 5 4-6     5780
+ 6 6-8     5521
+ 7 8-10    3409
+ 8 10-15   6510
+ 9 15-20   2446
+10 20-30   1066
+11 30-40    467
+12 40-50    179
+13 over50   344</code></pre>
+<pre class="r"><code>fct_count(soc_care11$la_hrs)</code></pre>
+<pre><code># A tibble: 13 x 2
+   f          n
+   &lt;fct&gt;  &lt;int&gt;
+ 1 Zero   99411
+ 2 &lt;1      2055
+ 3 1-2     6653
+ 4 2-4    10173
+ 5 4-6     5061
+ 6 6-8     5552
+ 7 8-10    3060
+ 8 10-15   6392
+ 9 15-20   2226
+10 20-30   1042
+11 30-40    420
+12 40-50    126
+13 over50   295</code></pre>
+<pre class="r"><code>fct_count(soc_care12$la_hrs)</code></pre>
+<pre><code># A tibble: 13 x 2
+   f           n
+   &lt;fct&gt;   &lt;int&gt;
+ 1 Zero   101602
+ 2 &lt;1       1844
+ 3 1-2      5739
+ 4 2-4      9019
+ 5 4-6      4666
+ 6 6-8      5265
+ 7 8-10     2889
+ 8 10-15    6104
+ 9 15-20    2049
+10 20-30     962
+11 30-40     401
+12 40-50     145
+13 over50    459</code></pre>
+<p>Check on the private provided hours</p>
+<pre class="r"><code>fct_count(soc_care10$pri_hrs)</code></pre>
+<pre><code># A tibble: 13 x 2
+   f          n
+   &lt;fct&gt;  &lt;int&gt;
+ 1 Zero   57566
+ 2 &lt;1       197
+ 3 1-2     1555
+ 4 2-4     3636
+ 5 4-6     1962
+ 6 6-8     2804
+ 7 8-10    1182
+ 8 10-15   3352
+ 9 15-20   1545
+10 20-30   1103
+11 30-40    490
+12 40-50    234
+13 over50   576</code></pre>
+<pre class="r"><code>fct_count(soc_care11$pri_hrs)</code></pre>
+<pre><code># A tibble: 13 x 2
+   f           n
+   &lt;fct&gt;   &lt;int&gt;
+ 1 Zero   121644
+ 2 &lt;1        448
+ 3 1-2      1991
+ 4 2-4      4066
+ 5 4-6      2315
+ 6 6-8      3023
+ 7 8-10     1418
+ 8 10-15    3650
+ 9 15-20    1603
+10 20-30    1027
+11 30-40     492
+12 40-50     188
+13 over50    601</code></pre>
+<pre class="r"><code>fct_count(soc_care12$pri_hrs)</code></pre>
+<pre><code># A tibble: 13 x 2
+   f           n
+   &lt;fct&gt;   &lt;int&gt;
+ 1 Zero   117804
+ 2 &lt;1        503
+ 3 1-2      2149
+ 4 2-4      4384
+ 5 4-6      2618
+ 6 6-8      3312
+ 7 8-10     1673
+ 8 10-15    4238
+ 9 15-20    1879
+10 20-30    1045
+11 30-40     544
+12 40-50     204
+13 over50    791</code></pre>
+<p>Voluntary hours check</p>
+<pre class="r"><code>fct_count(soc_care10$vol_hrs)</code></pre>
+<pre><code># A tibble: 14 x 2
+   f          n
+   &lt;fct&gt;  &lt;int&gt;
+ 1 Zero   72201
+ 2 &lt;1       316
+ 3 1-2      224
+ 4 2-4      742
+ 5 4-6      479
+ 6 6-8      335
+ 7 8-10      95
+ 8 10-15    346
+ 9 15-20    180
+10 20-30    267
+11 30-40    175
+12 40-50    104
+13 over50   547
+14 &lt;NA&gt;     191</code></pre>
+<pre class="r"><code>fct_count(soc_care11$vol_hrs)</code></pre>
+<pre><code># A tibble: 14 x 2
+   f           n
+   &lt;fct&gt;   &lt;int&gt;
+ 1 Zero   138635
+ 2 &lt;1         16
+ 3 1-2       180
+ 4 2-4       718
+ 5 4-6       435
+ 6 6-8       314
+ 7 8-10      113
+ 8 10-15     356
+ 9 15-20     188
+10 20-30     303
+11 30-40     226
+12 40-50     130
+13 over50    663
+14 &lt;NA&gt;      189</code></pre>
+<pre class="r"><code>fct_count(soc_care12$vol_hrs)</code></pre>
+<pre><code># A tibble: 14 x 2
+   f           n
+   &lt;fct&gt;   &lt;int&gt;
+ 1 Zero   137118
+ 2 &lt;1         41
+ 3 1-2       240
+ 4 2-4       768
+ 5 4-6       486
+ 6 6-8       359
+ 7 8-10      121
+ 8 10-15     435
+ 9 15-20     210
+10 20-30     294
+11 30-40     202
+12 40-50     104
+13 over50    556
+14 &lt;NA&gt;      210</code></pre>
+<p>Personal Care hours check</p>
+<pre class="r"><code>fct_count(soc_care10$pc_hrs)</code></pre>
+<pre><code># A tibble: 13 x 2
+   f          n
+   &lt;fct&gt;  &lt;int&gt;
+ 1 Zero   76202
+ 2 &lt;1         0
+ 3 1-2        0
+ 4 2-4        0
+ 5 4-6        0
+ 6 6-8        0
+ 7 8-10       0
+ 8 10-15      0
+ 9 15-20      0
+10 20-30      0
+11 30-40      0
+12 40-50      0
+13 over50     0</code></pre>
+<pre class="r"><code>fct_count(soc_care11$pc_hrs)</code></pre>
+<pre><code># A tibble: 13 x 2
+   f          n
+   &lt;fct&gt;  &lt;int&gt;
+ 1 Zero   88032
+ 2 &lt;1      2119
+ 3 1-2     5585
+ 4 2-4    11070
+ 5 4-6     6133
+ 6 6-8     8257
+ 7 8-10    3804
+ 8 10-15   9992
+ 9 15-20   3245
+10 20-30   2216
+11 30-40   1004
+12 40-50    338
+13 over50   671</code></pre>
+<pre class="r"><code>fct_count(soc_care12$pc_hrs)</code></pre>
+<pre><code># A tibble: 13 x 2
+   f          n
+   &lt;fct&gt;  &lt;int&gt;
+ 1 Zero   87124
+ 2 &lt;1      2005
+ 3 1-2     5206
+ 4 2-4    10761
+ 5 4-6     6174
+ 6 6-8     8051
+ 7 8-10    3989
+ 8 10-15  10254
+ 9 15-20   3465
+10 20-30   2018
+11 30-40    925
+12 40-50    311
+13 over50   861</code></pre>
+<pre class="r"><code>#Tidy up
+rm(list = c(&quot;hrs_labels&quot;, &quot;hrs_levels&quot;))</code></pre>
+<p>There are no Personal Care hours data for 2010 - Let’s drop that now.</p>
+<pre class="r"><code>soc_care10 %&lt;&gt;%
+  select(-pc_hrs)</code></pre>
+</div>
+<div id="home-care-client-flag" class="section level2">
+<h2>Home Care Client Flag</h2>
+<p>Factorise <code>hc_client</code> This is a derived variable indicating whether client recieved home care or not. Useful for subsetting.</p>
+<pre class="r"><code>soc_care10$hc_client &lt;- factor(soc_care10$hc_client,
+                              levels = c(&quot;0&quot;, &quot;1&quot;),
+                              labels = c(&quot;No&quot;, &quot;Yes&quot;))
+
+soc_care11$hc_client &lt;- factor(soc_care11$hc_client,
+                              levels = c(&quot;0&quot;, &quot;1&quot;),
+                              labels = c(&quot;No&quot;, &quot;Yes&quot;))
+
+soc_care12$hc_client &lt;- factor(soc_care12$hc_client,
+                              levels = c(&quot;0&quot;, &quot;1&quot;),
+                              labels = c(&quot;No&quot;, &quot;Yes&quot;))</code></pre>
+<p>Check it</p>
+<pre class="r"><code>fct_count(soc_care10$hc_client)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f         n
+  &lt;fct&gt; &lt;int&gt;
+1 No    10687
+2 Yes   65515</code></pre>
+<pre class="r"><code>fct_count(soc_care11$hc_client)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f         n
+  &lt;fct&gt; &lt;int&gt;
+1 No    79714
+2 Yes   62752</code></pre>
+<pre class="r"><code>fct_count(soc_care12$hc_client)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f         n
+  &lt;fct&gt; &lt;int&gt;
+1 No    78917
+2 Yes   62227</code></pre>
+</div>
+<div id="community-alarm-and-telecare" class="section level2">
+<h2>Community alarm and Telecare</h2>
+<p>2011 and 2012 data have extra variables on community alarms and telecare. Again these are dichotomous variables and need factorised.</p>
+<pre class="r"><code>#2011
+soc_care11$other_telecare &lt;- factor(soc_care11$other_telecare,
+                                  levels = c(&quot;0&quot;, &quot;1&quot;),
+                                  labels = c(&quot;No&quot;, &quot;Yes&quot;))
+soc_care11$comm_alarm &lt;- factor(soc_care11$comm_alarm,
+                                        levels = c(&quot;0&quot;, &quot;1&quot;),
+                                        labels = c(&quot;No&quot;, &quot;Yes&quot;))
+soc_care11$alarm_and_tele &lt;- factor(soc_care11$alarm_and_tele,
+                                          levels = c(&quot;0&quot;, &quot;1&quot;),
+                                          labels = c(&quot;No&quot;, &quot;Yes&quot;))
+
+#2012
+soc_care12$other_telecare &lt;- factor(soc_care12$other_telecare,
+                                  levels = c(&quot;0&quot;, &quot;1&quot;),
+                                  labels = c(&quot;No&quot;, &quot;Yes&quot;))
+soc_care12$comm_alarm &lt;- factor(soc_care12$comm_alarm,
+                                        levels = c(&quot;0&quot;, &quot;1&quot;),
+                                        labels = c(&quot;No&quot;, &quot;Yes&quot;))
+soc_care12$alarm_and_tele &lt;- factor(soc_care12$alarm_and_tele,
+                                          levels = c(&quot;0&quot;, &quot;1&quot;),
+                                          labels = c(&quot;No&quot;, &quot;Yes&quot;))</code></pre>
+<p>Check them</p>
+<pre class="r"><code>fct_count(soc_care11$other_telecare)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f          n
+  &lt;fct&gt;  &lt;int&gt;
+1 No    136951
+2 Yes     5515</code></pre>
+<pre class="r"><code>fct_count(soc_care12$other_telecare)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f          n
+  &lt;fct&gt;  &lt;int&gt;
+1 No    137458
+2 Yes     3686</code></pre>
+<pre class="r"><code>fct_count(soc_care11$comm_alarm)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f         n
+  &lt;fct&gt; &lt;int&gt;
+1 No    49077
+2 Yes   93389</code></pre>
+<pre class="r"><code>fct_count(soc_care12$comm_alarm)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f         n
+  &lt;fct&gt; &lt;int&gt;
+1 No    51172
+2 Yes   89972</code></pre>
+<pre class="r"><code>fct_count(soc_care11$alarm_and_tele)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f          n
+  &lt;fct&gt;  &lt;int&gt;
+1 No    130356
+2 Yes    12110</code></pre>
+<pre class="r"><code>fct_count(soc_care12$alarm_and_tele)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f          n
+  &lt;fct&gt;  &lt;int&gt;
+1 No    124930
+2 Yes    16214</code></pre>
+</div>
+<div id="living-arrangements" class="section level2">
+<h2>Living Arrangements</h2>
+<p>All 3 years of data have Living Arrangement data signifying whether the client lives alone or not - factorise.</p>
+<p>The metadata reports the level “9” as “Not known”. I think this counts as missing data so will code as NA.</p>
+<pre class="r"><code>#2010
+soc_care10$living_arr &lt;- factor(soc_care10$living_arr,
+                               levels = c(&quot;1&quot;, &quot;2&quot;, &quot;9&quot;),
+                               labels = c(&quot;Lives Alone&quot;, &quot;Other&quot;, &quot;Not Known&quot;))
+soc_care10$living_arr[soc_care10$living_arr == &quot;Not Known&quot;] &lt;- NA
+soc_care10$living_arr &lt;- fct_drop(soc_care10$living_arr, only = &quot;Not Known&quot;)
+
+#2011
+soc_care11$living_arr &lt;- factor(soc_care11$living_arr,
+                               levels = c(&quot;1&quot;, &quot;2&quot;, &quot;9&quot;),
+                               labels = c(&quot;Lives Alone&quot;, &quot;Other&quot;, &quot;Not Known&quot;))
+soc_care11$living_arr[soc_care11$living_arr == &quot;Not Known&quot;] &lt;- NA
+soc_care11$living_arr &lt;- fct_drop(soc_care11$living_arr, only = &quot;Not Known&quot;)
+
+#2012
+soc_care12$living_arr &lt;- factor(soc_care12$living_arr,
+                               levels = c(&quot;1&quot;, &quot;2&quot;, &quot;9&quot;),
+                               labels = c(&quot;Lives Alone&quot;, &quot;Other&quot;, &quot;Not Known&quot;))
+soc_care12$living_arr[soc_care12$living_arr == &quot;Not Known&quot;] &lt;- NA
+soc_care12$living_arr &lt;- fct_drop(soc_care12$living_arr, only = &quot;Not Known&quot;)
+
+fct_count(soc_care10$living_arr)</code></pre>
+<pre><code># A tibble: 3 x 2
+  f               n
+  &lt;fct&gt;       &lt;int&gt;
+1 Lives Alone 31537
+2 Other       17247
+3 &lt;NA&gt;        27418</code></pre>
+<pre class="r"><code>fct_count(soc_care11$living_arr)</code></pre>
+<pre><code># A tibble: 3 x 2
+  f               n
+  &lt;fct&gt;       &lt;int&gt;
+1 Lives Alone 38568
+2 Other       30995
+3 &lt;NA&gt;        72903</code></pre>
+<pre class="r"><code>fct_count(soc_care12$living_arr)</code></pre>
+<pre><code># A tibble: 3 x 2
+  f               n
+  &lt;fct&gt;       &lt;int&gt;
+1 Lives Alone 47982
+2 Other       34006
+3 &lt;NA&gt;        59156</code></pre>
+</div>
+<div id="multi-staffing" class="section level2">
+<h2>Multi Staffing</h2>
+<p>The Staff variable indicates whether multiple staff required or not. Dichotomous. Factorise.</p>
+<pre class="r"><code>soc_care10$multi_staff &lt;- factor(soc_care10$multi_staff,
+                           levels = c(&quot;0&quot;, &quot;1&quot;),
+                           labels = c(&quot;Single Staff&quot;, &quot;2 or more Staff&quot;))
+
+soc_care11$multi_staff &lt;- factor(soc_care11$multi_staff,
+                           levels = c(&quot;0&quot;, &quot;1&quot;),
+                           labels = c(&quot;Single Staff&quot;, &quot;2 or more Staff&quot;))
+
+soc_care12$multi_staff &lt;- factor(soc_care12$multi_staff,
+                           levels = c(&quot;0&quot;, &quot;1&quot;),
+                           labels = c(&quot;Single Staff&quot;, &quot;2 or more Staff&quot;))
+
+fct_count(soc_care10$multi_staff)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f                   n
+  &lt;fct&gt;           &lt;int&gt;
+1 Single Staff    71287
+2 2 or more Staff  4915</code></pre>
+<pre class="r"><code>fct_count(soc_care11$multi_staff)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f                    n
+  &lt;fct&gt;            &lt;int&gt;
+1 Single Staff    137414
+2 2 or more Staff   5052</code></pre>
+<pre class="r"><code>fct_count(soc_care12$multi_staff)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f                    n
+  &lt;fct&gt;            &lt;int&gt;
+1 Single Staff    134288
+2 2 or more Staff   6856</code></pre>
+</div>
+<div id="housing-type" class="section level2">
+<h2>Housing Type</h2>
+<p><code>housing_type</code> is an optional variable from 2010. Interesting that there is not a code for missing or not known. We’ll see completeness when visualising…..</p>
+<pre class="r"><code>soc_care10$housing_type &lt;- factor(soc_care10$housing_type,
+                                    levels = c(&quot;0&quot;, &quot;1&quot;, &quot;9&quot;),
+                                    labels = c(&quot;Mainstream&quot;, &quot;Supported Housing&quot;,
+                                               &quot;Other&quot;))
+
+soc_care11$housing_type &lt;- factor(soc_care11$housing_type,
+                                    levels = c(&quot;0&quot;, &quot;1&quot;, &quot;9&quot;),
+                                    labels = c(&quot;Mainstream&quot;, &quot;Supported Housing&quot;,
+                                               &quot;Other&quot;))
+
+soc_care12$housing_type &lt;- factor(soc_care12$housing_type,
+                                    levels = c(&quot;0&quot;, &quot;1&quot;, &quot;9&quot;),
+                                    labels = c(&quot;Mainstream&quot;, &quot;Supported Housing&quot;,
+                                               &quot;Other&quot;))
+fct_count(soc_care10$housing_type)</code></pre>
+<pre><code># A tibble: 4 x 2
+  f                     n
+  &lt;fct&gt;             &lt;int&gt;
+1 Mainstream        60086
+2 Supported Housing  9646
+3 Other              4535
+4 &lt;NA&gt;               1935</code></pre>
+<pre class="r"><code>fct_count(soc_care11$housing_type)</code></pre>
+<pre><code># A tibble: 4 x 2
+  f                      n
+  &lt;fct&gt;              &lt;int&gt;
+1 Mainstream        111834
+2 Supported Housing  22576
+3 Other               2127
+4 &lt;NA&gt;                5929</code></pre>
+<pre class="r"><code>fct_count(soc_care12$housing_type)</code></pre>
+<pre><code># A tibble: 4 x 2
+  f                     n
+  &lt;fct&gt;             &lt;int&gt;
+1 Mainstream        90691
+2 Supported Housing 35320
+3 Other             10472
+4 &lt;NA&gt;               4661</code></pre>
+<p>We have got NA values though! Good!</p>
+</div>
+<div id="laundry" class="section level2">
+<h2>Laundry</h2>
+<p><code>laundry</code> as above</p>
+<pre class="r"><code>soc_care10$laundry &lt;- factor(soc_care10$laundry,
+                                levels = c(&quot;0&quot;, &quot;1&quot;),
+                                labels = c(&quot;No&quot;, &quot;Yes&quot;))
+
+soc_care11$laundry &lt;- factor(soc_care11$laundry,
+                                levels = c(&quot;0&quot;, &quot;1&quot;),
+                                labels = c(&quot;No&quot;, &quot;Yes&quot;))
+
+soc_care12$laundry &lt;- factor(soc_care12$laundry,
+                                levels = c(&quot;0&quot;, &quot;1&quot;),
+                                labels = c(&quot;No&quot;, &quot;Yes&quot;))
+
+fct_count(soc_care10$laundry)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f         n
+  &lt;fct&gt; &lt;int&gt;
+1 No    72522
+2 Yes    3680</code></pre>
+<pre class="r"><code>fct_count(soc_care10$laundry)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f         n
+  &lt;fct&gt; &lt;int&gt;
+1 No    72522
+2 Yes    3680</code></pre>
+<pre class="r"><code>fct_count(soc_care12$laundry)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f          n
+  &lt;fct&gt;  &lt;int&gt;
+1 No    138786
+2 Yes     2358</code></pre>
+</div>
+<div id="shopping" class="section level2">
+<h2>Shopping</h2>
+<p><code>shopping</code> As above</p>
+<pre class="r"><code>soc_care10$shopping &lt;- factor(soc_care10$shopping,
+                                 levels = c(&quot;0&quot;, &quot;1&quot;),
+                                 labels = c(&quot;No&quot;, &quot;Yes&quot;))
+
+soc_care11$shopping &lt;- factor(soc_care11$shopping,
+                                 levels = c(&quot;0&quot;, &quot;1&quot;),
+                                 labels = c(&quot;No&quot;, &quot;Yes&quot;))
+
+soc_care12$shopping &lt;- factor(soc_care12$shopping,
+                                 levels = c(&quot;0&quot;, &quot;1&quot;),
+                                 labels = c(&quot;No&quot;, &quot;Yes&quot;))
+
+fct_count(soc_care10$shopping)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f         n
+  &lt;fct&gt; &lt;int&gt;
+1 No    70645
+2 Yes    5557</code></pre>
+<pre class="r"><code>fct_count(soc_care11$shopping)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f          n
+  &lt;fct&gt;  &lt;int&gt;
+1 No    137804
+2 Yes     4662</code></pre>
+<pre class="r"><code>fct_count(soc_care12$shopping)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f          n
+  &lt;fct&gt;  &lt;int&gt;
+1 No    137750
+2 Yes     3394</code></pre>
+</div>
+<div id="housing-support" class="section level2">
+<h2>Housing Support</h2>
+<p><code>housing_supp</code> As Above</p>
+<pre class="r"><code>soc_care10$housing_supp &lt;- factor(soc_care10$housing_supp,
+                                       levels = c(&quot;0&quot;, &quot;1&quot;),
+                                       labels = c(&quot;No&quot;, &quot;Yes&quot;))
+
+soc_care11$housing_supp &lt;- factor(soc_care11$housing_supp,
+                                       levels = c(&quot;0&quot;, &quot;1&quot;),
+                                       labels = c(&quot;No&quot;, &quot;Yes&quot;))
+
+soc_care12$housing_supp &lt;- factor(soc_care12$housing_supp,
+                                       levels = c(&quot;0&quot;, &quot;1&quot;),
+                                       labels = c(&quot;No&quot;, &quot;Yes&quot;))
+
+fct_count(soc_care10$housing_supp)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f         n
+  &lt;fct&gt; &lt;int&gt;
+1 No    66656
+2 Yes    9546</code></pre>
+<pre class="r"><code>fct_count(soc_care11$housing_supp)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f          n
+  &lt;fct&gt;  &lt;int&gt;
+1 No    134727
+2 Yes     7739</code></pre>
+<pre class="r"><code>fct_count(soc_care12$housing_supp)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f          n
+  &lt;fct&gt;  &lt;int&gt;
+1 No    133160
+2 Yes     7984</code></pre>
+</div>
+<div id="iorn" class="section level2">
+<h2>IoRN</h2>
+<p><code>iorn_score</code> As Above</p>
+<pre class="r"><code>soc_care10$iorn_score &lt;- factor(soc_care10$iorn_score,
+                             levels = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;, &quot;H&quot;, &quot;I&quot;),
+                             labels = c(&quot;Low&quot;, &quot;LowB&quot;, &quot;Medium&quot;, &quot;LowD&quot;, &quot;MediumE&quot;,
+                                        &quot;High&quot;, &quot;MediumG&quot;, &quot;HighH&quot;, &quot;HighI&quot;))
+
+soc_care11$iorn_score &lt;- factor(soc_care11$iorn_score,
+                             levels = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;, &quot;H&quot;, &quot;I&quot;),
+                             labels = c(&quot;Low&quot;, &quot;LowB&quot;, &quot;Medium&quot;, &quot;LowD&quot;, &quot;MediumE&quot;,
+                                        &quot;High&quot;, &quot;MediumG&quot;, &quot;HighH&quot;, &quot;HighI&quot;))
+
+soc_care12$iorn_score &lt;- factor(soc_care12$iorn_score,
+                             levels = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;, &quot;G&quot;, &quot;H&quot;, &quot;I&quot;),
+                             labels = c(&quot;Low&quot;, &quot;LowB&quot;, &quot;Medium&quot;, &quot;LowD&quot;, &quot;MediumE&quot;,
+                                        &quot;High&quot;, &quot;MediumG&quot;, &quot;HighH&quot;, &quot;HighI&quot;))
+fct_count(soc_care10$iorn_score)</code></pre>
+<pre><code># A tibble: 10 x 2
+   f           n
+   &lt;fct&gt;   &lt;int&gt;
+ 1 Low      1222
+ 2 LowB     1302
+ 3 Medium    325
+ 4 LowD      450
+ 5 MediumE   190
+ 6 High      435
+ 7 MediumG    61
+ 8 HighH     167
+ 9 HighI     435
+10 &lt;NA&gt;    71615</code></pre>
+<pre class="r"><code>fct_count(soc_care11$iorn_score)</code></pre>
+<pre><code># A tibble: 10 x 2
+   f            n
+   &lt;fct&gt;    &lt;int&gt;
+ 1 Low       1504
+ 2 LowB      2495
+ 3 Medium     894
+ 4 LowD      1058
+ 5 MediumE    331
+ 6 High       736
+ 7 MediumG     57
+ 8 HighH      142
+ 9 HighI      741
+10 &lt;NA&gt;    134508</code></pre>
+<pre class="r"><code>fct_count(soc_care12$iorn_score)</code></pre>
+<pre><code># A tibble: 10 x 2
+   f            n
+   &lt;fct&gt;    &lt;int&gt;
+ 1 Low       2225
+ 2 LowB      2763
+ 3 Medium    1020
+ 4 LowD      1199
+ 5 MediumE    221
+ 6 High       809
+ 7 MediumG     39
+ 8 HighH      102
+ 9 HighI      641
+10 &lt;NA&gt;    132125</code></pre>
+<p>So, really large levels of missing data here. I wonder if 1 council has good completion? 2012 as example again…</p>
+<pre class="r"><code>soc_care12 %&gt;%
+  ggplot(aes(x = iorn_score)) +
+  geom_bar() +
+  facet_wrap(~ council) +
+  theme(axis.text.x = element_text(angle = 45))</code></pre>
+<p><img src="figure/01_import_and_tidy.Rmd/iorn_by_LA-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<p>So the short answer is…No. Let’s drop IoRN</p>
+<pre class="r"><code>soc_care10 %&lt;&gt;% select(-iorn_score)
+
+soc_care11 %&lt;&gt;% select(-iorn_score)
+
+soc_care12 %&lt;&gt;% select(-iorn_score)</code></pre>
+</div>
+</div>
+<div id="check-results" class="section level1">
+<h1>Check results</h1>
+<pre class="r"><code>glimpse(soc_care10)</code></pre>
+<pre><code>Observations: 76,202
+Variables: 16
+$ council      &lt;fct&gt; Aberdeen City, Aberdeen City, Aberdeen City, Aber...
+$ client_id    &lt;chr&gt; &quot;ZZXJX&quot;, &quot;VLKT8&quot;, &quot;418H1&quot;, &quot;7SF1N&quot;, &quot;TKCFN&quot;, &quot;5EF...
+$ age_grp      &lt;fct&gt; NA, 85+, 75-&lt;85, 85+, 75-&lt;85, 75-&lt;85, 75-&lt;85, 75-...
+$ client_grp   &lt;fct&gt; NA, Infirmity due to Age, Infirmity due to Age, I...
+$ gender       &lt;fct&gt; NA, Male, Male, Male, Male, Female, Male, Male, M...
+$ la_hrs       &lt;fct&gt; Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero, 6...
+$ pri_hrs      &lt;fct&gt; Zero, 2-4, 6-8, 6-8, 15-20, 15-20, 2-4, 4-6, Zero...
+$ vol_hrs      &lt;fct&gt; Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero, Z...
+$ total_hrs    &lt;fct&gt; Zero, 2-4, 6-8, 6-8, 15-20, 15-20, 2-4, 4-6, 6-8,...
+$ hc_client    &lt;fct&gt; No, Yes, Yes, Yes, Yes, Yes, Yes, Yes, Yes, No, Y...
+$ living_arr   &lt;fct&gt; NA, NA, Other, Lives Alone, Lives Alone, Lives Al...
+$ multi_staff  &lt;fct&gt; Single Staff, Single Staff, Single Staff, Single ...
+$ housing_type &lt;fct&gt; Mainstream, Mainstream, Mainstream, Mainstream, M...
+$ laundry      &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No, N...
+$ shopping     &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No, N...
+$ housing_supp &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No, N...</code></pre>
+<pre class="r"><code>glimpse(soc_care11)</code></pre>
+<pre><code>Observations: 142,466
+Variables: 20
+$ council        &lt;fct&gt; Aberdeen City, Aberdeen City, Aberdeen City, Ab...
+$ client_id      &lt;chr&gt; &quot;17L9J&quot;, &quot;3Z8FK&quot;, &quot;BKKAY&quot;, &quot;8BT1I&quot;, &quot;XMH3X&quot;, &quot;Y...
+$ age_grp        &lt;fct&gt; 75-&lt;85, 85+, 75-&lt;85, 75-&lt;85, 75-&lt;85, 85+, 85+, ...
+$ client_grp     &lt;fct&gt; Infirmity due to Age, Infirmity due to Age, Dem...
+$ gender         &lt;fct&gt; Female, Female, Female, Female, Male, Male, Fem...
+$ la_hrs         &lt;fct&gt; Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero,...
+$ pri_hrs        &lt;fct&gt; Zero, Zero, Zero, Zero, 1-2, 6-8, 4-6, 15-20, Z...
+$ vol_hrs        &lt;fct&gt; Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero,...
+$ pc_hrs         &lt;fct&gt; Zero, Zero, Zero, Zero, 1-2, 6-8, 4-6, 15-20, 1...
+$ total_hrs      &lt;fct&gt; Zero, Zero, Zero, Zero, 1-2, 6-8, 4-6, 15-20, 1...
+$ hc_client      &lt;fct&gt; No, No, No, No, Yes, Yes, Yes, Yes, Yes, Yes, N...
+$ comm_alarm     &lt;fct&gt; No, Yes, Yes, No, No, No, Yes, Yes, No, No, No,...
+$ other_telecare &lt;fct&gt; Yes, No, No, No, No, No, No, No, No, No, Yes, N...
+$ alarm_and_tele &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No,...
+$ living_arr     &lt;fct&gt; NA, Other, NA, NA, NA, Lives Alone, Lives Alone...
+$ multi_staff    &lt;fct&gt; Single Staff, Single Staff, Single Staff, Singl...
+$ housing_type   &lt;fct&gt; Mainstream, Mainstream, Mainstream, Mainstream,...
+$ laundry        &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No,...
+$ shopping       &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No,...
+$ housing_supp   &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No,...</code></pre>
+<pre class="r"><code>glimpse(soc_care12)</code></pre>
+<pre><code>Observations: 141,144
+Variables: 21
+$ council        &lt;fct&gt; Aberdeen City, Aberdeen City, Aberdeen City, Ab...
+$ client_id      &lt;chr&gt; &quot;HRXYJ&quot;, &quot;U61VU&quot;, &quot;XP2LW&quot;, &quot;3VXIH&quot;, &quot;4CC3E&quot;, &quot;L...
+$ age_grp        &lt;fct&gt; 75-&lt;85, 85+, 75-&lt;85, 75-&lt;85, 85+, 75-&lt;85, 85+, ...
+$ client_grp     &lt;fct&gt; Infirmity due to Age, Infirmity due to Age, Dem...
+$ gender         &lt;fct&gt; Female, Female, Female, Male, Male, Female, Fem...
+$ new_hrs        &lt;int&gt; NA, 2, NA, 3, 7, 18, 1, NA, NA, 3, 7, NA, 8, NA...
+$ la_hrs         &lt;fct&gt; Zero, Zero, Zero, Zero, Zero, 15-20, &lt;1, Zero, ...
+$ pri_hrs        &lt;fct&gt; Zero, 2-4, Zero, 2-4, 6-8, Zero, Zero, Zero, Ze...
+$ vol_hrs        &lt;fct&gt; Zero, Zero, Zero, Zero, Zero, Zero, Zero, Zero,...
+$ pc_hrs         &lt;fct&gt; Zero, 2-4, Zero, 2-4, 6-8, 15-20, &lt;1, Zero, Zer...
+$ total_hrs      &lt;fct&gt; Zero, 2-4, Zero, 2-4, 6-8, 15-20, &lt;1, Zero, Zer...
+$ hc_client      &lt;fct&gt; No, Yes, No, Yes, Yes, Yes, Yes, No, No, Yes, Y...
+$ comm_alarm     &lt;fct&gt; No, Yes, No, No, No, No, No, No, Yes, Yes, No, ...
+$ other_telecare &lt;fct&gt; Yes, No, No, No, No, No, No, Yes, No, No, No, N...
+$ alarm_and_tele &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No,...
+$ living_arr     &lt;fct&gt; NA, Other, NA, NA, Lives Alone, NA, NA, Other, ...
+$ multi_staff    &lt;fct&gt; Single Staff, Single Staff, Single Staff, Singl...
+$ housing_type   &lt;fct&gt; Mainstream, Mainstream, Mainstream, Mainstream,...
+$ laundry        &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No,...
+$ shopping       &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No,...
+$ housing_supp   &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No,...</code></pre>
+<p>One last adjustment to make - 2012 data has a variable <code>new_hrs</code> which (correctly) has been left as an integer. However if an individual has no new home care hours a <code>NA</code> value is recorded. I’ll assign <code>NA</code> values to <code>0</code>.</p>
+<pre class="r"><code>soc_care12$new_hrs %&lt;&gt;% replace_na(0)
+glimpse(soc_care12$new_hrs)</code></pre>
+<pre><code> num [1:141144] 0 2 0 3 7 18 1 0 0 3 ...</code></pre>
+<p>Awesome!</p>
+<p>Lets’s save these tidied datasets for future reference</p>
+<pre class="r"><code>save(soc_care10, file = &quot;C://GitHub/Scottish_Social_Care_Open_Data/output/clean_data/soc_care10.RData&quot;)
+save(soc_care11, file = &quot;C://GitHub/Scottish_Social_Care_Open_Data/output/clean_data/soc_care11.RData&quot;)
+save(soc_care12, file = &quot;C://GitHub/Scottish_Social_Care_Open_Data/output/clean_data/soc_care12.RData&quot;)</code></pre>
+</div>
+<div id="summary" class="section level1">
+<h1>Summary</h1>
+<p>Here we have imported and coerced the variables from 3 datasets. I have also dropped some variables as already they are clearly of poor quality. These are:-</p>
+<ul>
+<li><code>pc_hrs</code> from the 2010 dataset only</li>
+<li><code>meals</code> from all datasets</li>
+<li><code>iorn_score</code> from all datasets.</li>
+</ul>
+<p>There may need to be other variables dropped but I will check how random data is missing in the next analysis. ## Session information</p>
 <!-- Insert the session information into the document -->
 <pre class="r"><code>devtools::session_info()</code></pre>
 <pre><code>Session info -------------------------------------------------------------</code></pre>
@@ -897,7 +1713,6 @@ soc_care12 %&lt;&gt;% select(-meals)</code></pre>
  withr        2.1.1   2017-12-19 CRAN (R 3.4.3)
  xml2         1.2.0   2018-01-24 CRAN (R 3.4.3)
  yaml         2.1.16  2017-12-12 CRAN (R 3.4.3)</code></pre>
-</div>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
