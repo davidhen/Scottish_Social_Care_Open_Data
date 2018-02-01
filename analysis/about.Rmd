@@ -5,4 +5,22 @@ output:
     toc: false
 ---
 
-Describe your project.
+Using adminstrative social care data is an important part of my PhD. I have two main projects underway with the help of the controlled data service provided by my research group, [the Urban Big Data Centre](http://www.ubdc.ac.uk). 
+
+These projects use highly sensitive data which can only be accessed through a safe haven environment. More information on measure to protect anonymity with data linkage projects is available [here](http://www.datalinkagescotland.co.uk/how-it-works). 
+
+As I was waiting to gain access to these data sets I used the open data shown in this project for a number of things:
+
+* To better understand what data was available
+* To practice writing some code that I could use in the safe haven
+* To try and form some preliminary ideas about the variation in care across Scotland
+* To practice new R skills and test new packages. 
+
+This website is a collection of these efforts. Some of the code is pretty hairy in parts - let's say I have learned a lot as part of this project! 
+
+I should say a lot of this anlaysis was done in early 2016/17. The dates are much later here as I have migrated the code to utilise the [`workflowr`](https://jdblischak.github.io/workflowr/index.html) package. This is my new favourite thing! (ref the last bullet point above).
+
+If you want to know a little more about my PhD, my [first blog](http://davidhen.com/2017-12-15-ubdc_blog/) talks a little about one of the PhD projects. 
+
+
+

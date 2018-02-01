@@ -5,10 +5,20 @@ output:
     toc: false
 ---
 
-Welcome to my research website.
+#Welcome
 
-The social care survey is collected anually by the Scottish Government from all of the 32 Local Authorities in Scotland. Full history of data collection and metadata for the public release files in available [here](http://www.gov.scot/Resource/0040/00409164.pdf). 
+Welcome to my research website showing some simple analyses with open data on social care published by the Scottish Government.
 
-Public release data is for 3 years - 2010, 2011, and 2012 and is avaiable [here](http://www.gov.scot/Topics/Statistics/Browse/Health/Data/HomeCare/HSC-Datasets-HCPRF). 
+The social care survey is collected anually by the Scottish Government from all of the 32 Local Authorities in Scotland. Full history of data collection and metadata for the public release files is available [here](http://www.gov.scot/Resource/0040/00409164.pdf). 
+
+Public release data is for 3 years - 2010, 2011, and 2012 and is avaiable [here](http://www.gov.scot/Topics/Statistics/Browse/Health/Data/HomeCare/HSC-Datasets-HCPRF). These are three files the analysis will predominantly use. Below are links to different stages in the analysis.
 
 [Import and tidy the data](01_import_and_tidy.html)
+
+#Other useful links
+
+[My home page](www.davidhen.com)
+
+
+
+
