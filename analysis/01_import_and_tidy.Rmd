@@ -1,0 +1,80 @@
+---
+title: "Import and Tidy"
+author: "David Henderson"
+date: 2018-02-01
+output: html_document
+---
+
+<!-- The file analysis/chunks.R contains chunks that define default settings
+shared across the workflowr files. -->
+```{r read-chunk, include=FALSE, cache=FALSE}
+knitr::read_chunk("chunks.R")
+```
+
+<!-- Update knitr chunk options -->
+```{r knitr-opts-chunk, include=FALSE}
+```
+
+<!-- Insert the date the file was last updated -->
+```{r last-updated, echo=FALSE, results='asis'}
+```
+
+<!-- Insert the code version (Git commit SHA1) if Git repository exists and R
+ package git2r is installed -->
+```{r code-version, echo=FALSE, results='asis'}
+```
+
+<!-- Add your analysis here -->
+
+#Introduction
+
+On this page I show how to import and tidy the three years of open data
+
+##Aims
+* Import data into R
+* Tidy and coerce variables
+* Save data as .RData objects
+
+##Packages
+Load required packages
+```{r packages, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(forcats)
+```
+
+#Import Data
+
+I've downloaded the data files (see home page) into the "data" project folder and I'll imort them into R now, 
+
+```{r import, message=FALSE, warning=FALSE}
+soc_care10 <- read_csv("C://GitHub/Scottish_Social_Care_Open_Data/data/public_release_sc_2010.csv")
+soc_care11 <- read_csv("C://GitHub/Scottish_Social_Care_Open_Data/data/public_release_sc_2011.csv")
+soc_care12 <- read_csv("C://GitHub/Scottish_Social_Care_Open_Data/data/public_release_sc_2012.csv")
+```
+
+#Tidy data
+
+Let's start by looking at each set of data
+
+##Glimpse
+
+```{r glimpse10}
+glimpse(soc_care10)
+glimpse(soc_care11)
+glimpse(soc_care12)
+```
+
+We can see in 2010 there are `r nrow(soc_care10)` observations of `r ncol(soc_care10)` variables. 2011 has `r nrow(soc_care11)` observations of `r ncol(soc_care11)` variables and 2010 has `r nrow(soc_care12)` observations of `r ncol(soc_care12)` variables. 
+
+The reason for the discrepancies in observations is that 2011 and 2012 data contains information on individuals who received not just home care, but also telecare which almost doubles the number of people included. 
+
+3 telecare variables are added in 2011. In 2012 these 3 variables are present plus an extra variable `newhours`. There are also 3 unneeded variables in 2012; `error`, `error1`, and `HCFlag`. The first two are self-explanatory. The third is a duplicate of the `HCclient` variable. I'll drop these now before we start to tidy. 
+
+```{r drop_12_unneded}
+soc_care12 %>% select(-error, -error1, -HCFlag) -> soc_care12
+```
+## Session information
+
+<!-- Insert the session information into the document -->
+```{r session-info, cache=FALSE}
+```
