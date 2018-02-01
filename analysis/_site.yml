@@ -14,8 +14,8 @@ navbar:
   right:
     - icon: fa-github
       href: https://github.com/davidhen
-    - icon: twitter
-      href: daibhaidhhen
+    - icon: fa-twitter
+      href: https://twitter.com/daibhaidhhen
 output:
   html_document:
     toc: true
