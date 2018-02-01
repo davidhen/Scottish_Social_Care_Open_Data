@@ -8,7 +8,9 @@ knitr::opts_chunk$set(
   comment = NA,
   fig.align = "center",
   tidy = FALSE,
-  fig.path = paste0("figure/", knitr::current_input(), "/")
+  fig.path = paste0("figure/", knitr::current_input(), "/"),
+  echo = TRUE,
+  cache = TRUE
 )
 
 # ---- last-updated ----
@@ -31,4 +33,4 @@ cat(sprintf("**Code version:** %s", code_version))
 rm(code_version)
 
 # ---- session-info ----
-sessionInfo()
+devtools::session_info()

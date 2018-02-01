@@ -44,12 +44,19 @@ library(forcats)
 
 #Import Data
 
-I've downloaded the data files (see home page) into the "data" project folder and I'll imort them into R now, 
+I've downloaded the data files (see home page) into the "data" project folder and I'll imort them into R now. If you are copying the code you will need to set the file paths relative to your system. 
 
-```{r import, message=FALSE, warning=FALSE}
+```{r import, message=FALSE, warning=FALSE, echo=FALSE}
+#chunk not rendered. Actual import so filepath isn't shown on website
 soc_care10 <- read_csv("C://GitHub/Scottish_Social_Care_Open_Data/data/public_release_sc_2010.csv")
 soc_care11 <- read_csv("C://GitHub/Scottish_Social_Care_Open_Data/data/public_release_sc_2011.csv")
 soc_care12 <- read_csv("C://GitHub/Scottish_Social_Care_Open_Data/data/public_release_sc_2012.csv")
+```
+
+```{r import_dummy, eval=FALSE}
+soc_care10 <- read_csv("...~/data/public_release_sc_2010.csv")
+soc_care11 <- read_csv("...~/data/public_release_sc_2011.csv")
+soc_care12 <- read_csv("...~/data/public_release_sc_2012.csv")
 ```
 
 #Tidy data
