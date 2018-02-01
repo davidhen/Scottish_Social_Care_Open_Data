@@ -18,8 +18,9 @@ output:
   html_document:
     toc: true
     toc_float: true
-    theme: cosmo
+    theme: spacelab
     highlight: textmate
+    code_folding: hide
     include:
       before_body: include/header.html
       after_body: include/footer.html
