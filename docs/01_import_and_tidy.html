@@ -341,7 +341,7 @@ shared across the workflowr files. -->
 <p><strong>Last updated:</strong> 2018-02-01</p>
 <!-- Insert the code version (Git commit SHA1) if Git repository exists and R
  package git2r is installed -->
-<p><strong>Code version:</strong> f3c664d</p>
+<p><strong>Code version:</strong> 5f33d4e</p>
 <!-- Add your analysis here -->
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
@@ -358,7 +358,9 @@ shared across the workflowr files. -->
 <h2>Packages</h2>
 <p>Load required packages</p>
 <pre class="r"><code>library(tidyverse)
-library(forcats)</code></pre>
+library(magrittr)
+library(forcats)
+library(cowplot)</code></pre>
 </div>
 </div>
 <div id="import-data" class="section level1">
@@ -452,7 +454,348 @@ $ IoRN_OV              &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...<
 <p>We can see in 2010 there are 76202 observations of 19 variables. 2011 has 142466 observations of 22 variables and 2010 has 141144 observations of 26 variables.</p>
 <p>The reason for the discrepancies in observations is that 2011 and 2012 data contains information on individuals who received not just home care, but also telecare which almost doubles the number of people included.</p>
 <p>3 telecare variables are added in 2011. In 2012 these 3 variables are present plus an extra variable <code>newhours</code>. There are also 3 unneeded variables in 2012; <code>error</code>, <code>error1</code>, and <code>HCFlag</code>. The first two are self-explanatory. The third is a duplicate of the <code>HCclient</code> variable. I’ll drop these now before we start to tidy.</p>
-<pre class="r"><code>soc_care12 %&gt;% select(-error, -error1, -HCFlag) -&gt; soc_care12</code></pre>
+<pre class="r"><code>soc_care12 %&lt;&gt;% 
+  select(-error, -error1, -HCFlag) </code></pre>
+<p>With the exception of<code>clientID</code> in each year, every variable needs coerced. The majority of these variables should be factors. I could re-import the data and try <code>stringsasFactor == TRUE</code>. I’m not so sure this would work and, anyhow, I want to explicitly name the labels for the factors.</p>
+<p>1st of all though, we’ll sort out the variable names.</p>
+</div>
+</div>
+<div id="new-names" class="section level1">
+<h1>New names</h1>
+<pre class="r"><code>#different number of coulmns in each year so requires seperate commands
+
+names(soc_care10) &lt;- c(&quot;council&quot;, &quot;client_id&quot;, &quot;age_grp&quot;, &quot;client_grp&quot;, &quot;gender&quot;, &quot;meals&quot;,
+                       &quot;la_hrs&quot;, &quot;pri_hrs&quot;, &quot;vol_hrs&quot;, &quot;pc_hrs&quot;, &quot;total_hrs&quot;, &quot;hc_client&quot;,
+                       &quot;living_arr&quot;, &quot;multi_staff&quot;, &quot;housing_type&quot;, &quot;laundry&quot;, &quot;shopping&quot;,
+                       &quot;housing_supp&quot;, &quot;iorn_score&quot;)
+
+names(soc_care11) &lt;- c(&quot;council&quot;, &quot;client_id&quot;, &quot;age_grp&quot;, &quot;client_grp&quot;, &quot;gender&quot;, &quot;meals&quot;,
+                       &quot;la_hrs&quot;, &quot;pri_hrs&quot;, &quot;vol_hrs&quot;, &quot;pc_hrs&quot;, &quot;total_hrs&quot;, &quot;hc_client&quot;,
+                       &quot;comm_alarm&quot;, &quot;other_telecare&quot;, &quot;alarm_and_tele&quot;, &quot;living_arr&quot;, 
+                       &quot;multi_staff&quot;, &quot;housing_type&quot;, &quot;laundry&quot;, &quot;shopping&quot;,
+                       &quot;housing_supp&quot;, &quot;iorn_score&quot;)
+
+names(soc_care12) &lt;- c(&quot;council&quot;, &quot;client_id&quot;, &quot;age_grp&quot;, &quot;client_grp&quot;, &quot;gender&quot;, &quot;meals&quot;,
+                       &quot;new_hrs&quot;, &quot;la_hrs&quot;, &quot;pri_hrs&quot;, &quot;vol_hrs&quot;, &quot;pc_hrs&quot;, &quot;total_hrs&quot;,
+                       &quot;hc_client&quot;, &quot;comm_alarm&quot;, &quot;other_telecare&quot;, &quot;alarm_and_tele&quot;, 
+                       &quot;living_arr&quot;, &quot;multi_staff&quot;, &quot;housing_type&quot;, &quot;laundry&quot;, &quot;shopping&quot;,
+                       &quot;housing_supp&quot;, &quot;iorn_score&quot;)</code></pre>
+</div>
+<div id="coerce-variables." class="section level1">
+<h1>Coerce variables.</h1>
+<p>I’ll coerce each in order here. I’m being explicit so I can set the labels for each factor level. All labels and levels identified from the <a href="http://www.gov.scot/Resource/0040/00409164.pdf">metadata file</a>.</p>
+<div id="local-authority-code" class="section level2">
+<h2>Local Authority Code</h2>
+<pre class="r"><code>la_levels &lt;- c(&quot;100&quot;, &quot;110&quot;, &quot;120&quot;, &quot;130&quot;, &quot;150&quot;, &quot;170&quot;,&quot;180&quot;,&quot;190&quot;,&quot;200&quot;, &quot;210&quot;, &quot;220&quot;,
+              &quot;230&quot;, &quot;235&quot;, &quot;240&quot;, &quot;250&quot;, &quot;260&quot;,&quot;270&quot;, &quot;280&quot;, &quot;290&quot;, &quot;300&quot;, &quot;310&quot;, &quot;320&quot;,
+              &quot;330&quot;, &quot;340&quot;,&quot;350&quot;, &quot;355&quot;, &quot;360&quot;, &quot;370&quot;, &quot;380&quot;, &quot;390&quot;, &quot;395&quot;, &quot;400&quot;)
+la_labels &lt;- c(&quot;Aberdeen City&quot;, &quot;Aberdeenshire&quot;, &quot;Angus&quot;, &quot;Argyll &amp; Bute&quot;, &quot;Clackmannanshire&quot;,
+              &quot;Dumfries &amp; Galloway&quot;, &quot;Dundee City&quot;, &quot;East Ayrshire&quot;, 
+              &quot;East Dunbartonshire&quot;,&quot;East Lothian&quot;, &quot;East Renfrewshire&quot;,
+              &quot;Edinburgh, City of&quot;, &quot;Eilean Siar&quot;, &quot;Falkirk&quot;, &quot;Fife&quot;, &quot;Glasgow City&quot;,
+              &quot;Highland&quot;,&quot;Inverclyde&quot;, &quot;Midlothian&quot;, &quot;Moray&quot;, &quot;North Ayrshire&quot;,
+              &quot;North Lanarkshire&quot;, &quot;Orkney Islands&quot;,&quot;Perth &amp; Kinross&quot;, &quot;Renfrewshire&quot;,
+              &quot;Scottish Borders&quot;, &quot;Shetland Islands&quot;,&quot;South Ayrshire&quot;, &quot;South Lanarkshire&quot;,
+              &quot;Stirling&quot;,&quot;West Dunbartonshire&quot;,&quot;West Lothian&quot;)
+
+soc_care10$council &lt;- factor(soc_care10$council,
+                            levels = la_levels,
+                            labels = la_labels)
+
+soc_care11$council &lt;- factor(soc_care11$council,
+                            levels = la_levels,
+                            labels = la_labels)
+
+soc_care12$council &lt;- factor(soc_care12$council,
+                            levels = la_levels,
+                            labels = la_labels)</code></pre>
+<p>Now I want to count each level of the factors as a sanity check. Do they look roughly like they should do? (I’ll explore in more detail in another file).</p>
+<pre class="r"><code>fct_count(soc_care10$council)  #Count factor levels as diagnostic check</code></pre>
+<pre><code># A tibble: 32 x 2
+   f                       n
+   &lt;fct&gt;               &lt;int&gt;
+ 1 Aberdeen City        2087
+ 2 Aberdeenshire        4284
+ 3 Angus                2843
+ 4 Argyll &amp; Bute         920
+ 5 Clackmannanshire     2395
+ 6 Dumfries &amp; Galloway  2513
+ 7 Dundee City          2479
+ 8 East Ayrshire        1904
+ 9 East Dunbartonshire  1452
+10 East Lothian         1790
+# ... with 22 more rows</code></pre>
+<pre class="r"><code>fct_count(soc_care11$council)</code></pre>
+<pre><code># A tibble: 32 x 2
+   f                       n
+   &lt;fct&gt;               &lt;int&gt;
+ 1 Aberdeen City        3337
+ 2 Aberdeenshire        4157
+ 3 Angus                4571
+ 4 Argyll &amp; Bute        1904
+ 5 Clackmannanshire     1541
+ 6 Dumfries &amp; Galloway  3733
+ 7 Dundee City          5759
+ 8 East Ayrshire        4099
+ 9 East Dunbartonshire  2580
+10 East Lothian         2752
+# ... with 22 more rows</code></pre>
+<pre class="r"><code>fct_count(soc_care12$council)</code></pre>
+<pre><code># A tibble: 32 x 2
+   f                       n
+   &lt;fct&gt;               &lt;int&gt;
+ 1 Aberdeen City        3352
+ 2 Aberdeenshire        3984
+ 3 Angus                4290
+ 4 Argyll &amp; Bute        1942
+ 5 Clackmannanshire     1612
+ 6 Dumfries &amp; Galloway  3785
+ 7 Dundee City          5791
+ 8 East Ayrshire        3736
+ 9 East Dunbartonshire  2609
+10 East Lothian         1785
+# ... with 22 more rows</code></pre>
+<pre class="r"><code>#remove unneeded object from memory
+rm(list = c(&quot;la_labels&quot;, &quot;la_levels&quot;))</code></pre>
+</div>
+<div id="age-group" class="section level2">
+<h2>Age Group</h2>
+<p><code>age_grp</code> has been imported as an integer - factorise. I’ll also convert missing data level to <code>NA</code></p>
+<pre class="r"><code>age_grp_levels = c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;)
+age_grp_labels &lt;- c(&quot;18-&lt;65&quot;, &quot;65-&lt;75&quot;, &quot;75-&lt;85&quot;, &quot;85+&quot;, &quot;Unknown&quot;)
+
+#2010
+
+soc_care10$age_grp &lt;- factor(soc_care10$age_grp,
+                            levels = age_grp_levels,
+                            labels = age_grp_labels)
+soc_care10$age_grp[soc_care10$age_grp == &quot;Unknown&quot;] &lt;- NA #Convert Missing data to NA
+soc_care10$age_grp &lt;- fct_drop(soc_care10$age_grp, only = &quot;Unknown&quot;) #Drop unknown level
+
+
+#2011
+
+soc_care11$age_grp &lt;- factor(soc_care11$age_grp,
+                            levels = age_grp_levels,
+                            labels = age_grp_labels)
+soc_care11$age_grp[soc_care11$age_grp == &quot;Unknown&quot;] &lt;- NA #Convert missing data to NA
+soc_care11$age_grp &lt;- fct_drop(soc_care11$age_grp, only = &quot;Unknown&quot;)
+
+#2012
+
+soc_care12$age_grp &lt;- factor(soc_care12$age_grp,
+                            levels = age_grp_levels,
+                            labels = age_grp_labels)
+soc_care12$age_grp[soc_care12$age_grp == &quot;Unknown&quot;] &lt;- NA #Convert Missing data to NA
+soc_care12$age_grp &lt;- fct_drop(soc_care12$age_grp, only = &quot;Unknown&quot;)</code></pre>
+<p>And another sanity check</p>
+<pre class="r"><code>fct_count(soc_care10$age_grp) #Count factor levels as diagnostic check</code></pre>
+<pre><code># A tibble: 5 x 2
+  f          n
+  &lt;fct&gt;  &lt;int&gt;
+1 18-&lt;65 12297
+2 65-&lt;75 10219
+3 75-&lt;85 23248
+4 85+    22499
+5 &lt;NA&gt;    7939</code></pre>
+<pre class="r"><code>fct_count(soc_care11$age_grp)</code></pre>
+<pre><code># A tibble: 5 x 2
+  f          n
+  &lt;fct&gt;  &lt;int&gt;
+1 18-&lt;65 23085
+2 65-&lt;75 22897
+3 75-&lt;85 49857
+4 85+    43228
+5 &lt;NA&gt;    3399</code></pre>
+<pre class="r"><code>fct_count(soc_care12$age_grp)</code></pre>
+<pre><code># A tibble: 5 x 2
+  f          n
+  &lt;fct&gt;  &lt;int&gt;
+1 18-&lt;65 23755
+2 65-&lt;75 22861
+3 75-&lt;85 49495
+4 85+    43689
+5 &lt;NA&gt;    1344</code></pre>
+<pre class="r"><code>#remove unneeded objects from memory
+rm(list = c(&quot;age_grp_labels&quot;, &quot;age_grp_levels&quot;))</code></pre>
+</div>
+<div id="client-group" class="section level2">
+<h2>Client Group</h2>
+<p><code>client_grp</code> came in as an integer for 2010 but as a character for 2011 and 2012. I will recode them all to factors and add the labels. There are <em>two</em> missing data levels here! Both to <code>NA</code></p>
+<pre class="r"><code>client_grp_levels &lt;- c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;99&quot;, &quot;.&quot;)
+client_grp_labels &lt;- c(&quot;Dementia &amp; Mental Health&quot;, &quot;Learning Disability&quot;, 
+                     &quot;Physical Disability&quot;, &quot;Infirmity due to Age&quot;,&quot;Other&quot;,
+                     &quot;Not Known&quot;, &quot;Blank&quot;)
+
+#2010
+
+soc_care10$client_grp &lt;- factor(soc_care10$client_grp,
+                               levels = client_grp_levels,
+                               labels = client_grp_labels)
+
+soc_care10$client_grp &lt;- fct_collapse(soc_care10$client_grp,
+                                      missing = c(&quot;Not Known&quot;, &quot;Blank&quot;))
+
+soc_care10$client_grp[soc_care10$client_grp == &quot;missing&quot;] &lt;- NA #Covert missing data to NA
+soc_care10$client_grp &lt;- fct_drop(soc_care10$client_grp, only = &quot;missing&quot;) #drop missing level
+
+
+#2011
+
+soc_care11$client_grp &lt;- factor(soc_care11$client_grp,
+                               levels = client_grp_levels,
+                               labels = client_grp_labels)
+
+soc_care11$client_grp &lt;- fct_collapse(soc_care11$client_grp,
+                                      missing = c(&quot;Not Known&quot;, &quot;Blank&quot;))
+
+soc_care11$client_grp[soc_care11$client_grp == &quot;missing&quot;] &lt;- NA #Covert missing data to NA
+soc_care11$client_grp &lt;- fct_drop(soc_care11$client_grp, only = &quot;missing&quot;) #drop missing level
+
+
+#2012
+soc_care12$client_grp &lt;- factor(soc_care12$client_grp,
+                               levels = client_grp_levels,
+                               labels = client_grp_labels)
+soc_care12$client_grp &lt;- fct_collapse(soc_care12$client_grp,
+                                      missing = c(&quot;Not Known&quot;, &quot;Blank&quot;))
+
+soc_care12$client_grp[soc_care12$client_grp == &quot;missing&quot;] &lt;- NA #Covert missing data to NA
+soc_care12$client_grp &lt;- fct_drop(soc_care12$client_grp, only = &quot;missing&quot;) #drop missing level</code></pre>
+<p>Sanity check on client group</p>
+<pre class="r"><code>fct_count(soc_care10$client_grp) #Count for diagnostic purposes</code></pre>
+<pre><code># A tibble: 6 x 2
+  f                            n
+  &lt;fct&gt;                    &lt;int&gt;
+1 Dementia &amp; Mental Health  6720
+2 Learning Disability       4213
+3 Physical Disability      17347
+4 Infirmity due to Age     37100
+5 Other                     2103
+6 &lt;NA&gt;                      8719</code></pre>
+<pre class="r"><code>fct_count(soc_care11$client_grp)</code></pre>
+<pre><code># A tibble: 6 x 2
+  f                            n
+  &lt;fct&gt;                    &lt;int&gt;
+1 Dementia &amp; Mental Health  8058
+2 Learning Disability       5425
+3 Physical Disability      33471
+4 Infirmity due to Age     64587
+5 Other                     5020
+6 &lt;NA&gt;                     25905</code></pre>
+<pre class="r"><code>fct_count(soc_care12$client_grp)</code></pre>
+<pre><code># A tibble: 6 x 2
+  f                            n
+  &lt;fct&gt;                    &lt;int&gt;
+1 Dementia &amp; Mental Health  8188
+2 Learning Disability       5905
+3 Physical Disability      35928
+4 Infirmity due to Age     69342
+5 Other                     4618
+6 &lt;NA&gt;                     17163</code></pre>
+<pre class="r"><code>#remove unneeded objs
+rm(list = c(&quot;client_grp_labels&quot;, &quot;client_grp_levels&quot;))</code></pre>
+</div>
+<div id="gender" class="section level2">
+<h2>Gender</h2>
+<p><code>gender</code> again imported as an integer in 2010 but as a charcterin other 2 years. Again will recode all years to add labels.</p>
+<pre class="r"><code>#2010
+soc_care10$gender &lt;- factor(soc_care10$gender,
+                               levels = c(&quot;1&quot;, &quot;2&quot;, &quot;.&quot;),
+                               labels = c(&quot;Male&quot;, &quot;Female&quot;, &quot;Blank&quot;))
+soc_care10$gender[soc_care10$gender == &quot;Blank&quot;] &lt;- NA #Convert missing to NA level
+soc_care10$gender &lt;- fct_drop(soc_care10$gender, only = &quot;Blank&quot;) #and drop empty level
+
+#2011
+soc_care11$gender &lt;- factor(soc_care11$gender,
+                               levels = c(&quot;1&quot;, &quot;2&quot;, &quot;.&quot;),
+                               labels = c(&quot;Male&quot;, &quot;Female&quot;, &quot;Blank&quot;))
+soc_care11$gender[soc_care11$gender == &quot;Blank&quot;] &lt;- NA #Convert missing to NA level
+soc_care11$gender &lt;- fct_drop(soc_care11$gender, only = &quot;Blank&quot;) #and drop empty level
+
+#2012
+soc_care12$gender &lt;- factor(soc_care12$gender,
+                               levels = c(&quot;1&quot;, &quot;2&quot;, &quot;.&quot;),
+                               labels = c(&quot;Male&quot;, &quot;Female&quot;, &quot;Blank&quot;))
+soc_care12$gender[soc_care12$gender == &quot;Blank&quot;] &lt;- NA #Convert missing to NA level
+soc_care12$gender &lt;- fct_drop(soc_care12$gender, only = &quot;Blank&quot;) #and drop empty level</code></pre>
+<p>Gender sanity check</p>
+<pre class="r"><code>fct_count(soc_care10$gender)</code></pre>
+<pre><code># A tibble: 3 x 2
+  f          n
+  &lt;fct&gt;  &lt;int&gt;
+1 Male   22384
+2 Female 45893
+3 &lt;NA&gt;    7925</code></pre>
+<pre class="r"><code>fct_count(soc_care11$gender)</code></pre>
+<pre><code># A tibble: 3 x 2
+  f          n
+  &lt;fct&gt;  &lt;int&gt;
+1 Male   46281
+2 Female 93832
+3 &lt;NA&gt;    2353</code></pre>
+<pre class="r"><code>fct_count(soc_care12$gender)</code></pre>
+<pre><code># A tibble: 3 x 2
+  f          n
+  &lt;fct&gt;  &lt;int&gt;
+1 Male   46846
+2 Female 94282
+3 &lt;NA&gt;      16</code></pre>
+</div>
+<div id="meals" class="section level2">
+<h2>Meals</h2>
+<p>Factorise meals - dichotomous variable. <strong>The 2011 and 2012 .csv files only seem to have values for meals meaning we have to presume empty values are “no meals”, rather than missing data.</strong> Not too sure about this but will investgate further in the analysis. For now the data stays as missing and will be computed as NA</p>
+<pre class="r"><code>soc_care10$meals &lt;- factor(soc_care10$meals,
+                           levels = c(&quot;0&quot;, &quot;1&quot;),
+                           labels = c(&quot;No meals&quot;, &quot;Meals&quot;)) 
+
+
+soc_care11$meals &lt;- factor(soc_care11$meals,
+                           levels = c(&quot;0&quot;, &quot;1&quot;),
+                           labels = c(&quot;No meals&quot;, &quot;Meals&quot;))
+
+
+soc_care12$meals &lt;- factor(soc_care12$meals,
+                           levels = c(&quot;0&quot;, &quot;1&quot;),
+                           labels = c(&quot;No meals&quot;, &quot;Meals&quot;)) 
+
+#Slightly different coding from metadata to make Graph labels more readable</code></pre>
+<p>Meals sanity check</p>
+<pre class="r"><code>fct_count(soc_care10$meals)</code></pre>
+<pre><code># A tibble: 2 x 2
+  f            n
+  &lt;fct&gt;    &lt;int&gt;
+1 No meals 66125
+2 Meals    10077</code></pre>
+<pre class="r"><code>fct_count(soc_care11$meals)</code></pre>
+<pre><code># A tibble: 3 x 2
+  f             n
+  &lt;fct&gt;     &lt;int&gt;
+1 No meals      0
+2 Meals     10089
+3 &lt;NA&gt;     132377</code></pre>
+<pre class="r"><code>fct_count(soc_care12$meals)</code></pre>
+<pre><code># A tibble: 3 x 2
+  f             n
+  &lt;fct&gt;     &lt;int&gt;
+1 No meals      0
+2 Meals      9621
+3 &lt;NA&gt;     131523</code></pre>
+<p>The Scottish Government report of the Social Care Survey states that Local Authorities found it difficult to collect and return data on meals. We can see that when visualising returns by Local Authority - I’m using 2012 as an example here:-</p>
+<pre class="r"><code>library(ggplot2)
+soc_care12 %&gt;%
+  ggplot(aes(x = meals)) +
+  geom_bar(aes(y = (..count..)/sum(..count..))) +
+  scale_y_continuous(labels = scales::percent) +
+  facet_wrap(~ council)</code></pre>
+<p><img src="figure/01_import_and_tidy.Rmd/meals_by_LA-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<p>Missing data does not seem to be at random here suggesting there is more of a structural issue with reporting of meals data.</p>
+<p>I’ll drop this variable from the datasets</p>
+<pre class="r"><code>soc_care10 %&lt;&gt;% select(-meals)
+
+soc_care11 %&lt;&gt;% select(-meals)
+
+soc_care12 %&lt;&gt;% select(-meals)</code></pre>
 </div>
 <div id="session-information" class="section level2">
 <h2>Session information</h2>
@@ -468,75 +811,31 @@ $ IoRN_OV              &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...<
  tz       Europe/London               
  date     2018-02-01                  </code></pre>
 <pre><code>Packages -----------------------------------------------------------------</code></pre>
-<pre><code> package    * version date       source        
- assertthat   0.2.0   2017-04-11 CRAN (R 3.4.2)
- backports    1.1.2   2017-12-13 CRAN (R 3.4.3)
- base       * 3.4.3   2017-12-06 local         
- bindr        0.1     2016-11-13 CRAN (R 3.4.2)
- bindrcpp     0.2     2017-06-17 CRAN (R 3.4.2)
- broom        0.4.3   2017-11-20 CRAN (R 3.4.3)
- cellranger   1.1.0   2016-07-27 CRAN (R 3.4.2)
- cli          1.0.0   2017-11-05 CRAN (R 3.4.2)
- colorspace   1.3-2   2016-12-14 CRAN (R 3.4.2)
- compiler     3.4.3   2017-12-06 local         
- crayon       1.3.4   2017-09-16 CRAN (R 3.4.2)
- datasets   * 3.4.3   2017-12-06 local         
- devtools     1.13.4  2017-11-09 CRAN (R 3.4.2)
- digest       0.6.15  2018-01-28 CRAN (R 3.4.3)
- dplyr      * 0.7.4   2017-09-28 CRAN (R 3.4.2)
- evaluate     0.10.1  2017-06-24 CRAN (R 3.4.2)
- forcats    * 0.2.0   2017-01-23 CRAN (R 3.4.2)
- foreign      0.8-69  2017-06-22 CRAN (R 3.4.3)
- ggplot2    * 2.2.1   2016-12-30 CRAN (R 3.4.2)
- glue         1.2.0   2017-10-29 CRAN (R 3.4.2)
- graphics   * 3.4.3   2017-12-06 local         
- grDevices  * 3.4.3   2017-12-06 local         
- grid         3.4.3   2017-12-06 local         
- gtable       0.2.0   2016-02-26 CRAN (R 3.4.0)
- haven        1.1.1   2018-01-18 CRAN (R 3.4.3)
- hms          0.4.1   2018-01-24 CRAN (R 3.4.3)
- htmltools    0.3.6   2017-04-28 CRAN (R 3.4.0)
- httr         1.3.1   2017-08-20 CRAN (R 3.4.1)
- jsonlite     1.5     2017-06-01 CRAN (R 3.4.0)
- knitr        1.19    2018-01-29 CRAN (R 3.4.3)
- lattice      0.20-35 2017-03-25 CRAN (R 3.4.3)
- lazyeval     0.2.1   2017-10-29 CRAN (R 3.4.2)
- lubridate    1.7.1   2017-11-03 CRAN (R 3.4.2)
- magrittr     1.5     2014-11-22 CRAN (R 3.4.1)
- memoise      1.1.0   2017-04-21 CRAN (R 3.4.0)
- methods    * 3.4.3   2017-12-06 local         
- mnormt       1.5-5   2016-10-15 CRAN (R 3.4.0)
- modelr       0.1.1   2017-07-24 CRAN (R 3.4.0)
- munsell      0.4.3   2016-02-13 CRAN (R 3.4.0)
- nlme         3.1-131 2017-02-06 CRAN (R 3.4.3)
- parallel     3.4.3   2017-12-06 local         
- pillar       1.1.0   2018-01-14 CRAN (R 3.4.3)
- pkgconfig    2.0.1   2017-03-21 CRAN (R 3.4.0)
- plyr         1.8.4   2016-06-08 CRAN (R 3.4.2)
- psych        1.7.8   2017-09-09 CRAN (R 3.4.1)
- purrr      * 0.2.4   2017-10-18 CRAN (R 3.4.2)
- R6           2.2.2   2017-06-17 CRAN (R 3.4.0)
- Rcpp         0.12.15 2018-01-20 CRAN (R 3.4.3)
- readr      * 1.1.1   2017-05-16 CRAN (R 3.4.2)
- readxl       1.0.0   2017-04-18 CRAN (R 3.4.2)
- reshape2     1.4.3   2017-12-11 CRAN (R 3.4.3)
- rlang        0.1.6   2017-12-21 CRAN (R 3.4.3)
- rmarkdown    1.8     2017-11-17 CRAN (R 3.4.3)
- rprojroot    1.3-2   2018-01-03 CRAN (R 3.4.3)
- rstudioapi   0.7     2017-09-07 CRAN (R 3.4.1)
- rvest        0.3.2   2016-06-17 CRAN (R 3.4.0)
- scales       0.5.0   2017-08-24 CRAN (R 3.4.2)
- stats      * 3.4.3   2017-12-06 local         
- stringi      1.1.6   2017-11-17 CRAN (R 3.4.2)
- stringr    * 1.2.0   2017-02-18 CRAN (R 3.4.2)
- tibble     * 1.4.2   2018-01-22 CRAN (R 3.4.3)
- tidyr      * 0.8.0   2018-01-29 CRAN (R 3.4.3)
- tidyverse  * 1.2.1   2017-11-14 CRAN (R 3.4.2)
- tools        3.4.3   2017-12-06 local         
- utils      * 3.4.3   2017-12-06 local         
- withr        2.1.1   2017-12-19 CRAN (R 3.4.3)
- xml2         1.2.0   2018-01-24 CRAN (R 3.4.3)
- yaml         2.1.16  2017-12-12 CRAN (R 3.4.3)</code></pre>
+<pre><code> package   * version date       source        
+ backports   1.1.2   2017-12-13 CRAN (R 3.4.3)
+ base      * 3.4.3   2017-12-06 local         
+ compiler    3.4.3   2017-12-06 local         
+ datasets  * 3.4.3   2017-12-06 local         
+ devtools    1.13.4  2017-11-09 CRAN (R 3.4.2)
+ digest      0.6.15  2018-01-28 CRAN (R 3.4.3)
+ evaluate    0.10.1  2017-06-24 CRAN (R 3.4.2)
+ graphics  * 3.4.3   2017-12-06 local         
+ grDevices * 3.4.3   2017-12-06 local         
+ htmltools   0.3.6   2017-04-28 CRAN (R 3.4.0)
+ knitr       1.19    2018-01-29 CRAN (R 3.4.3)
+ magrittr    1.5     2014-11-22 CRAN (R 3.4.1)
+ memoise     1.1.0   2017-04-21 CRAN (R 3.4.0)
+ methods   * 3.4.3   2017-12-06 local         
+ Rcpp        0.12.15 2018-01-20 CRAN (R 3.4.3)
+ rmarkdown   1.8     2017-11-17 CRAN (R 3.4.3)
+ rprojroot   1.3-2   2018-01-03 CRAN (R 3.4.3)
+ stats     * 3.4.3   2017-12-06 local         
+ stringi     1.1.6   2017-11-17 CRAN (R 3.4.2)
+ stringr     1.2.0   2017-02-18 CRAN (R 3.4.2)
+ tools       3.4.3   2017-12-06 local         
+ utils     * 3.4.3   2017-12-06 local         
+ withr       2.1.1   2017-12-19 CRAN (R 3.4.3)
+ yaml        2.1.16  2017-12-12 CRAN (R 3.4.3)</code></pre>
 </div>
 </div>
 
