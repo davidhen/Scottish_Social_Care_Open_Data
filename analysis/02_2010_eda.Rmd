@@ -43,7 +43,6 @@ library(magrittr)
 library(ggplot2)
 library(cowplot)
 library(skimr)
-library(sjmisc)
 ```
 
 ##Load in data
@@ -60,8 +59,8 @@ load("/GitHub/Scottish_Social_Care_Open_Data/output/clean_data/soc_care10.RData"
 
 First look at the descriptives
 
-```{r skim_2010}
-soc_care10 %>% skim
+```{r skim_2010, results='asis'}
+soc_care10 %>% skim %>% kable
 ```
 
 Lots of really interesting information here. Working from the top down:
