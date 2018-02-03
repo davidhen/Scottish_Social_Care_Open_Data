@@ -371,8 +371,7 @@ shared across the workflowr files. -->
 library(magrittr)
 library(ggplot2)
 library(cowplot)
-library(skimr)
-library(sjmisc)</code></pre>
+library(skimr)</code></pre>
 </div>
 <div id="load-in-data" class="section level2">
 <h2>Load in data</h2>
@@ -385,48 +384,188 @@ library(sjmisc)</code></pre>
 <div id="skim" class="section level2">
 <h2>Skim</h2>
 <p>First look at the descriptives</p>
-<pre class="r"><code>soc_care10 %&gt;% skim</code></pre>
-<pre><code>Skim summary statistics
- n obs: 76202 
- n variables: 16 
-
-Variable type: character 
-  variable missing complete     n min max empty n_unique
- client_id       0    76202 76202   3   9     0    76157
-
-Variable type: factor 
-     variable missing complete     n n_unique
-      age_grp    7939    68263 76202        4
-   client_grp    8719    67483 76202        5
-      council       0    76202 76202       32
-       gender    7925    68277 76202        2
-    hc_client       0    76202 76202        2
- housing_supp       0    76202 76202        2
- housing_type    1935    74267 76202        3
-       la_hrs       0    76202 76202       13
-      laundry       0    76202 76202        2
-   living_arr   27418    48784 76202        2
-  multi_staff       0    76202 76202        2
-      pri_hrs       0    76202 76202       13
-     shopping       0    76202 76202        2
-    total_hrs       0    76202 76202       13
-      vol_hrs     191    76011 76202       13
-                                     top_counts ordered
- 75-: 23248, 85+: 22499, 18-: 12297, 65-: 10219   FALSE
-    Inf: 37100, Phy: 17347, NA: 8719, Dem: 6720   FALSE
-     Gla: 7869, Fif: 5171, Edi: 4600, Abe: 4284   FALSE
-               Fem: 45893, Mal: 22384, NA: 7925   FALSE
-                   Yes: 65515, No: 10687, NA: 0   FALSE
-                    No: 66656, Yes: 9546, NA: 0   FALSE
-     Mai: 60086, Sup: 9646, Oth: 4535, NA: 1935   FALSE
-   Zer: 28319, 2-4: 11357, 1-2: 8290, 10-: 6510   FALSE
-                    No: 72522, Yes: 3680, NA: 0   FALSE
-              Liv: 31537, NA: 27418, Oth: 17247   FALSE
-                   Sin: 71287, 2 o: 4915, NA: 0   FALSE
-    Zer: 57566, 2-4: 3636, 10-: 3352, 6-8: 2804   FALSE
-                    No: 70645, Yes: 5557, NA: 0   FALSE
-  2-4: 13289, Zer: 10687, 10-: 10402, 1-2: 8826   FALSE
-       Zer: 72201, 2-4: 742, ove: 547, 4-6: 479   FALSE</code></pre>
+<pre class="r"><code>soc_care10 %&gt;% skim %&gt;% kable</code></pre>
+<p>Skim summary statistics<br />
+n obs: 76202<br />
+n variables: 16</p>
+<p>Variable type: character</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">variable</th>
+<th align="left">missing</th>
+<th align="left">complete</th>
+<th align="left">n</th>
+<th align="left">min</th>
+<th align="left">max</th>
+<th align="left">empty</th>
+<th align="left">n_unique</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">client_id</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">3</td>
+<td align="left">9</td>
+<td align="left">0</td>
+<td align="left">76157</td>
+</tr>
+</tbody>
+</table>
+<p>Variable type: factor</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">variable</th>
+<th align="left">missing</th>
+<th align="left">complete</th>
+<th align="left">n</th>
+<th align="left">n_unique</th>
+<th align="left">top_counts</th>
+<th align="left">ordered</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">age_grp</td>
+<td align="left">7939</td>
+<td align="left">68263</td>
+<td align="left">76202</td>
+<td align="left">4</td>
+<td align="left">75-: 23248, 85+: 22499, 18-: 12297, 65-: 10219</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">client_grp</td>
+<td align="left">8719</td>
+<td align="left">67483</td>
+<td align="left">76202</td>
+<td align="left">5</td>
+<td align="left">Inf: 37100, Phy: 17347, NA: 8719, Dem: 6720</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">council</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">32</td>
+<td align="left">Gla: 7869, Fif: 5171, Edi: 4600, Abe: 4284</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">gender</td>
+<td align="left">7925</td>
+<td align="left">68277</td>
+<td align="left">76202</td>
+<td align="left">2</td>
+<td align="left">Fem: 45893, Mal: 22384, NA: 7925</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">hc_client</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">2</td>
+<td align="left">Yes: 65515, No: 10687, NA: 0</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">housing_supp</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">2</td>
+<td align="left">No: 66656, Yes: 9546, NA: 0</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">housing_type</td>
+<td align="left">1935</td>
+<td align="left">74267</td>
+<td align="left">76202</td>
+<td align="left">3</td>
+<td align="left">Mai: 60086, Sup: 9646, Oth: 4535, NA: 1935</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">la_hrs</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">13</td>
+<td align="left">Zer: 28319, 2-4: 11357, 1-2: 8290, 10-: 6510</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">laundry</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">2</td>
+<td align="left">No: 72522, Yes: 3680, NA: 0</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">living_arr</td>
+<td align="left">27418</td>
+<td align="left">48784</td>
+<td align="left">76202</td>
+<td align="left">2</td>
+<td align="left">Liv: 31537, NA: 27418, Oth: 17247</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">multi_staff</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">2</td>
+<td align="left">Sin: 71287, 2 o: 4915, NA: 0</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">pri_hrs</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">13</td>
+<td align="left">Zer: 57566, 2-4: 3636, 10-: 3352, 6-8: 2804</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">shopping</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">2</td>
+<td align="left">No: 70645, Yes: 5557, NA: 0</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">total_hrs</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">13</td>
+<td align="left">2-4: 13289, Zer: 10687, 10-: 10402, 1-2: 8826</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">vol_hrs</td>
+<td align="left">191</td>
+<td align="left">76011</td>
+<td align="left">76202</td>
+<td align="left">13</td>
+<td align="left">Zer: 72201, 2-4: 742, ove: 547, 4-6: 479</td>
+<td align="left">FALSE</td>
+</tr>
+</tbody>
+</table>
 <p>Lots of really interesting information here. Working from the top down:</p>
 <ul>
 <li>76202 observations in total</li>
