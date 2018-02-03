@@ -6,3 +6,7 @@ if (requireNamespace("workflowr", quietly = TRUE)) {
 } else {
   message("workflowr package not installed, please run devtools::install_github('jdblischak/workflowr') to use the workflowr functions")
 }
+options(prompt="R> ",
+        digits=2,
+        show.signif.stars=FALSE,
+        scipen = 9)
