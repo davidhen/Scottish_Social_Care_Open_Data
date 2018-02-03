@@ -9,4 +9,5 @@ if (requireNamespace("workflowr", quietly = TRUE)) {
 options(prompt="R> ",
         digits=2,
         show.signif.stars=FALSE,
-        scipen = 9)
+        scipen = 9,
+        knitr.table.format = "html")
