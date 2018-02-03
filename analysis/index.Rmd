@@ -11,7 +11,8 @@ The social care survey is collected anually by the Scottish Government from all 
 
 Public release data is for 3 years - 2010, 2011, and 2012 and is avaiable [here](http://www.gov.scot/Topics/Statistics/Browse/Health/Data/HomeCare/HSC-Datasets-HCPRF). These are three files the analysis will predominantly use. Below are links to different stages in the analysis.
 
-[Import and tidy the data](01_import_and_tidy.html)
+[Import and tidy the data](01_import_and_tidy.html)  
+
 [Exploratory Data Analysis - 2010 data](02_2010_eda.html)
 
 #Other useful links
