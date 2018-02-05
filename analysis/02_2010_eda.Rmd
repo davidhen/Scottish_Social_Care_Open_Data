@@ -74,8 +74,7 @@ Lots of really interesting information here. Working from the top down:
 * `hc_client` gives us a quick count of the number of people the do or do not receive home care. Presumably the `r soc_care10 %>% filter(hc_client == "No") %>% nrow` observations that did not receive home care only received housing support, laundry, or shopping services. The other potential option is that they received telecare only but we have no data on that sort of service for this dataset (there is in 2011 and 2012 datasets).
 
 
-
-
+This is a change
 
 
 
