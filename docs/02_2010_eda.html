@@ -353,7 +353,7 @@ shared across the workflowr files. -->
 <p><strong>Last updated:</strong> 2018-02-06</p>
 <!-- Insert the code version (Git commit SHA1) if Git repository exists and R
  package git2r is installed -->
-<p><strong>Code version:</strong> 061cca7</p>
+<p><strong>Code version:</strong> 84bc40a</p>
 <!-- Add your analysis here -->
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
@@ -570,11 +570,19 @@ n variables: 16</p>
 <ul>
 <li>76202 observations in total</li>
 <li>There are duplicated id values - same individuals or an error in assigning values to individuals?</li>
-<li>10.4183617% of observations of <code>age-grp</code> are missing. The vast majority of individuals are over 65 years of age. In fact over half of individuals are over 75.</li>
-<li>11.4419569% of observation of <code>client_grp</code> are missing. The highest number of observation for this variable are for those designated “Infirmity due to age” and “Physical Disability”</li>
-<li>10.3999895% of observations of <code>gender</code> are missing (very similar to the proportion of <code>age_grp</code> that are missing). A big skew towards female gender in the dataset.</li>
+<li>10.42% of observations of <code>age-grp</code> are missing. The vast majority of individuals are over 65 years of age. In fact over half of individuals are over 75.</li>
+<li>11.44% of observation of <code>client_grp</code> are missing. The highest number of observation for this variable are for those designated “Infirmity due to age” and “Physical Disability”</li>
+<li>10.4% of observations of <code>gender</code> are missing (very similar to the proportion of <code>age_grp</code> that are missing). A big skew towards female gender in the dataset.</li>
 <li><code>hc_client</code> gives us a quick count of the number of people the do or do not receive home care. Presumably the 10687 observations that did not receive home care only received housing support, laundry, or shopping services. The other potential option is that they received telecare only but we have no data on that sort of service for this dataset (there is in 2011 and 2012 datasets).</li>
+<li>All variables (apart form id) are factors. This is an unfortunate result of the way the data was released by the Scottish Government. They had to be very careful to ensure there was absoultely no way for individuals to be identified from this data. Having said that, there is still a lot we can do with it.</li>
 </ul>
+</div>
+</div>
+<div id="visualise" class="section level1">
+<h1>Visualise</h1>
+<div id="univariate-visualisations" class="section level2">
+<h2>Univariate visualisations</h2>
+<p>Quick look at each variable on its own to begin with</p>
 </div>
 <div id="session-information" class="section level2">
 <h2>Session information</h2>
