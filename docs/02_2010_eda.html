@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="David Henderson" />
+
+<meta name="date" content="2018-02-03" />
+
+<title>Exploratory data analysis - 2010 social care data</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 52px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+
+.section h2 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h3 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h4 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h5 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h6 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Scottish_Social_Care_Open_Data</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/davidhen">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/daibhaidhhen">
+    <span class="fa fa-twitter"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://www.ubdc.ac.uk">
+    <span class="fa fa-building"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Exploratory data analysis - 2010 social care data</h1>
+<h4 class="author"><em>David Henderson</em></h4>
+<h4 class="date"><em>2018-02-03</em></h4>
+
+</div>
+
+
+<!-- The file analysis/chunks.R contains chunks that define default settings
+shared across the workflowr files. -->
+<!-- Update knitr chunk options -->
+<!-- Insert the date the file was last updated -->
+<p><strong>Last updated:</strong> 2018-02-06</p>
+<!-- Insert the code version (Git commit SHA1) if Git repository exists and R
+ package git2r is installed -->
+<p><strong>Code version:</strong> e147f9a</p>
+<!-- Add your analysis here -->
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>On this page I will explore the 2010 social care data using the <code>soc_care10</code> object created in <a href="http://davidhen.com/Scottish_Social_Care_Open_Data/01_import_and_tidy.html">import and tidy the data</a>.</p>
+<div id="aims" class="section level2">
+<h2>Aims</h2>
+<ul>
+<li>Use the <code>skimr</code> package to explore descriptive stats of the dataset.</li>
+<li>Visualise important relationships</li>
+</ul>
+</div>
+<div id="load-required-packages" class="section level2">
+<h2>Load required packages</h2>
+<pre class="r"><code>library(dplyr)
+library(magrittr)
+library(ggplot2)
+library(ggalt)
+library(cowplot)
+library(skimr)
+ubdc_palette &lt;- c(&quot;#13AFD6&quot;, &quot;#E6E600&quot;, &quot;#F07329&quot;, &quot;#35B14E&quot;, &quot;#D7509A&quot;, &quot;#2165AF&quot;,
+                  &quot;#BCD032&quot;,&quot;#866BAC&quot;, &quot;#545A5D&quot;,  &quot;#7A8082&quot;, &quot;#E2D988&quot;, &quot;#628DB7&quot;,
+                  &quot;#929B9A&quot;, &quot;#93B8DA&quot;, &quot;#31649B&quot;, &quot;#FBF8D0&quot;, &quot;#ACB2B4&quot;, &quot;#D1DAE2&quot;)</code></pre>
+</div>
+<div id="load-in-data" class="section level2">
+<h2>Load in data</h2>
+<p>The data object <code>soc_care10</code> was created in the <a href="http://davidhen.com/Scottish_Social_Care_Open_Data/01_import_and_tidy.html">import and tidy the data</a> analysis. I’ll load the results of that into memory now. This is the cleaned dataset for that year.</p>
+<pre class="r"><code>load(&quot;/GitHub/Scottish_Social_Care_Open_Data/output/clean_data/soc_care10.RData&quot;)</code></pre>
+</div>
+</div>
+<div id="descriptive-statistics" class="section level1">
+<h1>Descriptive statistics</h1>
+<div id="skim" class="section level2">
+<h2>Skim</h2>
+<p>First look at the descriptives</p>
+<pre class="r"><code>soc_care10 %&gt;% skim %&gt;% kable</code></pre>
+<p>Skim summary statistics<br />
+n obs: 76202<br />
+n variables: 16</p>
+<p>Variable type: character</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">variable</th>
+<th align="left">missing</th>
+<th align="left">complete</th>
+<th align="left">n</th>
+<th align="left">min</th>
+<th align="left">max</th>
+<th align="left">empty</th>
+<th align="left">n_unique</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">client_id</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">3</td>
+<td align="left">9</td>
+<td align="left">0</td>
+<td align="left">76157</td>
+</tr>
+</tbody>
+</table>
+<p>Variable type: factor</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">variable</th>
+<th align="left">missing</th>
+<th align="left">complete</th>
+<th align="left">n</th>
+<th align="left">n_unique</th>
+<th align="left">top_counts</th>
+<th align="left">ordered</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">age_grp</td>
+<td align="left">7939</td>
+<td align="left">68263</td>
+<td align="left">76202</td>
+<td align="left">4</td>
+<td align="left">75-: 23248, 85+: 22499, 18-: 12297, 65-: 10219</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">client_grp</td>
+<td align="left">8719</td>
+<td align="left">67483</td>
+<td align="left">76202</td>
+<td align="left">5</td>
+<td align="left">Inf: 37100, Phy: 17347, NA: 8719, Dem: 6720</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">council</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">32</td>
+<td align="left">Gla: 7869, Fif: 5171, Edi: 4600, Abe: 4284</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">gender</td>
+<td align="left">7925</td>
+<td align="left">68277</td>
+<td align="left">76202</td>
+<td align="left">2</td>
+<td align="left">Fem: 45893, Mal: 22384, NA: 7925</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">hc_client</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">2</td>
+<td align="left">Yes: 65515, No: 10687, NA: 0</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">housing_supp</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">2</td>
+<td align="left">No: 66656, Yes: 9546, NA: 0</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">housing_type</td>
+<td align="left">1935</td>
+<td align="left">74267</td>
+<td align="left">76202</td>
+<td align="left">3</td>
+<td align="left">Mai: 60086, Sup: 9646, Oth: 4535, NA: 1935</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">la_hrs</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">13</td>
+<td align="left">Zer: 28319, 2-4: 11357, 1-2: 8290, 10-: 6510</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">laundry</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">2</td>
+<td align="left">No: 72522, Yes: 3680, NA: 0</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">living_arr</td>
+<td align="left">27418</td>
+<td align="left">48784</td>
+<td align="left">76202</td>
+<td align="left">2</td>
+<td align="left">Liv: 31537, NA: 27418, Oth: 17247</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">multi_staff</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">2</td>
+<td align="left">Sin: 71287, 2 o: 4915, NA: 0</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">pri_hrs</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">13</td>
+<td align="left">Zer: 57566, 2-4: 3636, 10-: 3352, 6-8: 2804</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">shopping</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">2</td>
+<td align="left">No: 70645, Yes: 5557, NA: 0</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">total_hrs</td>
+<td align="left">0</td>
+<td align="left">76202</td>
+<td align="left">76202</td>
+<td align="left">13</td>
+<td align="left">2-4: 13289, Zer: 10687, 10-: 10402, 1-2: 8826</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">vol_hrs</td>
+<td align="left">191</td>
+<td align="left">76011</td>
+<td align="left">76202</td>
+<td align="left">13</td>
+<td align="left">Zer: 72201, 2-4: 742, ove: 547, 4-6: 479</td>
+<td align="left">FALSE</td>
+</tr>
+</tbody>
+</table>
+<p>Lots of really interesting information here. Working from the top down:</p>
+<ul>
+<li>76202 observations in total</li>
+<li>There are duplicated id values - same individuals or an error in assigning values to individuals?</li>
+<li>10.42% of observations of <code>age-grp</code> are missing. The vast majority of individuals are over 65 years of age. In fact over half of individuals are over 75.</li>
+<li>11.44% of observation of <code>client_grp</code> are missing. The highest number of observation for this variable are for those designated “Infirmity due to age” and “Physical Disability”</li>
+<li>10.4% of observations of <code>gender</code> are missing (very similar to the proportion of <code>age_grp</code> that are missing). A big skew towards female gender in the dataset.</li>
+<li><code>hc_client</code> gives us a quick count of the number of people the do or do not receive home care. Presumably the 10687 observations that did not receive home care only received housing support, laundry, or shopping services. The other potential option is that they received telecare only but we have no data on that sort of service for this dataset (there is in 2011 and 2012 datasets).</li>
+<li>Housing support and (especially) Living arrangements also have missing data.</li>
+<li>All variables (apart form id) are factors. This is an unfortunate result of the way the data was released by the Scottish Government. They had to be very careful to ensure there was absoultely no way for individuals to be identified from this data. Having said that, there is still a lot we can do with it.</li>
+</ul>
+</div>
+</div>
+<div id="visualise" class="section level1">
+<h1>Visualise</h1>
+<div id="univariate-visualisations" class="section level2">
+<h2>Univariate visualisations</h2>
+<p>Quick look at each variable on its own to begin with. These are purely for a quick visualisation so am not going to order the factor levels or anything just now.</p>
+<p>I have created a function <code>factor_plot()</code> which will save me a lot of typing! I also have a theme: <code>x_45</code> which adjusts the x axis text when required. They are both in the “code” folder of the project if you are looking on github.</p>
+<pre class="r"><code>source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/factor_plot.R&quot;)
+source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R&quot;)</code></pre>
+<div id="age-group" class="section level3">
+<h3>Age group</h3>
+<pre class="r"><code>factor_plot(soc_care10, age_grp) +
+  labs(x= &quot;Age group&quot;,
+       caption = &quot;Source:Social Care Survey 2010&quot;) </code></pre>
+<p><img src="figure/02_2010_eda.Rmd/viz_age_grp-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="client-group" class="section level3">
+<h3>Client Group</h3>
+<pre class="r"><code>factor_plot(soc_care10, client_grp) +
+  x_45 +
+  labs(x = &quot;Client Group&quot;,
+       caption = &quot;Source:Social Care Survey 2010&quot;)</code></pre>
+<p><img src="figure/02_2010_eda.Rmd/viz_client_grp-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="local-authority" class="section level3">
+<h3>Local Authority</h3>
+<pre class="r"><code>factor_plot(soc_care10, council) +
+  coord_flip() +
+  expand_limits(y = 8500)</code></pre>
+<p><img src="figure/02_2010_eda.Rmd/viz_la-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="session-information" class="section level2">
+<h2>Session information</h2>
+<!-- Insert the session information into the document -->
+<pre class="r"><code>devtools::session_info()</code></pre>
+<pre><code>Session info -------------------------------------------------------------</code></pre>
+<pre><code> setting  value                       
+ version  R version 3.4.3 (2017-11-30)
+ system   x86_64, mingw32             
+ ui       RTerm                       
+ language (EN)                        
+ collate  English_United Kingdom.1252 
+ tz       Europe/London               
+ date     2018-02-06                  </code></pre>
+<pre><code>Packages -----------------------------------------------------------------</code></pre>
+<pre><code> package      * version date       source        
+ ash            1.0-15  2015-09-01 CRAN (R 3.4.1)
+ assertthat     0.2.0   2017-04-11 CRAN (R 3.4.2)
+ backports      1.1.2   2017-12-13 CRAN (R 3.4.3)
+ base         * 3.4.3   2017-12-06 local         
+ bindr          0.1     2016-11-13 CRAN (R 3.4.2)
+ bindrcpp     * 0.2     2017-06-17 CRAN (R 3.4.2)
+ codetools      0.2-15  2016-10-05 CRAN (R 3.4.3)
+ colorspace     1.3-2   2016-12-14 CRAN (R 3.4.2)
+ compiler       3.4.3   2017-12-06 local         
+ cowplot      * 0.9.2   2017-12-17 CRAN (R 3.4.3)
+ datasets     * 3.4.3   2017-12-06 local         
+ devtools       1.13.4  2017-11-09 CRAN (R 3.4.2)
+ digest         0.6.15  2018-01-28 CRAN (R 3.4.3)
+ dplyr        * 0.7.4   2017-09-28 CRAN (R 3.4.2)
+ evaluate       0.10.1  2017-06-24 CRAN (R 3.4.2)
+ extrafont      0.17    2014-12-08 CRAN (R 3.4.1)
+ extrafontdb    1.0     2012-06-11 CRAN (R 3.4.1)
+ ggalt        * 0.4.0   2017-02-15 CRAN (R 3.4.3)
+ ggplot2      * 2.2.1   2016-12-30 CRAN (R 3.4.2)
+ git2r          0.21.0  2018-01-04 CRAN (R 3.4.3)
+ glue           1.2.0   2017-10-29 CRAN (R 3.4.2)
+ graphics     * 3.4.3   2017-12-06 local         
+ grDevices    * 3.4.3   2017-12-06 local         
+ grid           3.4.3   2017-12-06 local         
+ gtable         0.2.0   2016-02-26 CRAN (R 3.4.0)
+ highr          0.6     2016-05-09 CRAN (R 3.4.0)
+ htmltools      0.3.6   2017-04-28 CRAN (R 3.4.0)
+ KernSmooth     2.23-15 2015-06-29 CRAN (R 3.4.3)
+ knitr          1.19    2018-01-29 CRAN (R 3.4.3)
+ labeling       0.3     2014-08-23 CRAN (R 3.4.0)
+ lazyeval       0.2.1   2017-10-29 CRAN (R 3.4.2)
+ magrittr     * 1.5     2014-11-22 CRAN (R 3.4.1)
+ maps           3.2.0   2017-06-08 CRAN (R 3.4.1)
+ MASS           7.3-47  2017-02-26 CRAN (R 3.4.3)
+ memoise        1.1.0   2017-04-21 CRAN (R 3.4.0)
+ methods      * 3.4.3   2017-12-06 local         
+ munsell        0.4.3   2016-02-13 CRAN (R 3.4.0)
+ pander         0.6.1   2017-08-06 CRAN (R 3.4.1)
+ pillar         1.1.0   2018-01-14 CRAN (R 3.4.3)
+ pkgconfig      2.0.1   2017-03-21 CRAN (R 3.4.0)
+ plyr           1.8.4   2016-06-08 CRAN (R 3.4.2)
+ proj4          1.0-8   2012-08-05 CRAN (R 3.4.1)
+ purrr          0.2.4   2017-10-18 CRAN (R 3.4.2)
+ R6             2.2.2   2017-06-17 CRAN (R 3.4.0)
+ RColorBrewer   1.1-2   2014-12-07 CRAN (R 3.4.1)
+ Rcpp           0.12.15 2018-01-20 CRAN (R 3.4.3)
+ rlang          0.1.6   2017-12-21 CRAN (R 3.4.3)
+ rmarkdown      1.8     2017-11-17 CRAN (R 3.4.3)
+ rprojroot      1.3-2   2018-01-03 CRAN (R 3.4.3)
+ Rttf2pt1       1.3.5   2017-12-04 CRAN (R 3.4.3)
+ scales         0.5.0   2017-08-24 CRAN (R 3.4.2)
+ skimr        * 1.0.1   2018-01-10 CRAN (R 3.4.3)
+ stats        * 3.4.3   2017-12-06 local         
+ stringi        1.1.6   2017-11-17 CRAN (R 3.4.2)
+ stringr        1.2.0   2017-02-18 CRAN (R 3.4.2)
+ tibble         1.4.2   2018-01-22 CRAN (R 3.4.3)
+ tidyr          0.8.0   2018-01-29 CRAN (R 3.4.3)
+ tidyselect     0.2.3   2017-11-06 CRAN (R 3.4.2)
+ tools          3.4.3   2017-12-06 local         
+ utils        * 3.4.3   2017-12-06 local         
+ withr          2.1.1   2017-12-19 CRAN (R 3.4.3)
+ yaml           2.1.16  2017-12-12 CRAN (R 3.4.3)</code></pre>
+</div>
+</div>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+<hr>
+<p>
+    This <a href="http://rmarkdown.rstudio.com">R Markdown</a> site was created with <a href="https://github.com/jdblischak/workflowr">workflowr</a>
+</p>
+<hr>
+
+<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
+
+<!-- disqus
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'rmarkdown'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+-->
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
