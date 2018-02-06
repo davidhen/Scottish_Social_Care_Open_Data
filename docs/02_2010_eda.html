@@ -370,8 +370,12 @@ shared across the workflowr files. -->
 <pre class="r"><code>library(dplyr)
 library(magrittr)
 library(ggplot2)
+library(ggalt)
 library(cowplot)
-library(skimr)</code></pre>
+library(skimr)
+ubdc_palette &lt;- c(&quot;#13AFD6&quot;, &quot;#E6E600&quot;, &quot;#F07329&quot;, &quot;#35B14E&quot;, &quot;#D7509A&quot;, &quot;#2165AF&quot;,
+                  &quot;#BCD032&quot;,&quot;#866BAC&quot;, &quot;#545A5D&quot;,  &quot;#7A8082&quot;, &quot;#E2D988&quot;, &quot;#628DB7&quot;,
+                  &quot;#929B9A&quot;, &quot;#93B8DA&quot;, &quot;#31649B&quot;, &quot;#FBF8D0&quot;, &quot;#ACB2B4&quot;, &quot;#D1DAE2&quot;)</code></pre>
 </div>
 <div id="load-in-data" class="section level2">
 <h2>Load in data</h2>
@@ -574,6 +578,7 @@ n variables: 16</p>
 <li>11.44% of observation of <code>client_grp</code> are missing. The highest number of observation for this variable are for those designated “Infirmity due to age” and “Physical Disability”</li>
 <li>10.4% of observations of <code>gender</code> are missing (very similar to the proportion of <code>age_grp</code> that are missing). A big skew towards female gender in the dataset.</li>
 <li><code>hc_client</code> gives us a quick count of the number of people the do or do not receive home care. Presumably the 10687 observations that did not receive home care only received housing support, laundry, or shopping services. The other potential option is that they received telecare only but we have no data on that sort of service for this dataset (there is in 2011 and 2012 datasets).</li>
+<li>Housing support and (especially) Living arrangements also have missing data.</li>
 <li>All variables (apart form id) are factors. This is an unfortunate result of the way the data was released by the Scottish Government. They had to be very careful to ensure there was absoultely no way for individuals to be identified from this data. Having said that, there is still a lot we can do with it.</li>
 </ul>
 </div>
@@ -582,7 +587,31 @@ n variables: 16</p>
 <h1>Visualise</h1>
 <div id="univariate-visualisations" class="section level2">
 <h2>Univariate visualisations</h2>
-<p>Quick look at each variable on its own to begin with</p>
+<p>Quick look at each variable on its own to begin with. These are purely for a quick visualisation so am not going to order the factor levels or anything just now.</p>
+<p>I have created a function <code>factor_plot()</code> which will save me a lot of typing! I also have a theme: <code>x_45</code> which adjusts the x axis text when required. They are both in the “code” folder of the project if you are looking on github.</p>
+<pre class="r"><code>source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/factor_plot.R&quot;)
+source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R&quot;)</code></pre>
+<div id="age-group" class="section level3">
+<h3>Age group</h3>
+<pre class="r"><code>factor_plot(soc_care10, age_grp) +
+  labs(x= &quot;Age group&quot;,
+       caption = &quot;Source:Social Care Survey 2010&quot;) </code></pre>
+</div>
+<div id="client-group" class="section level3">
+<h3>Client Group</h3>
+<pre class="r"><code>factor_plot(soc_care10, client_grp) +
+  x_45 +
+  labs(x = &quot;Client Group&quot;,
+       caption = &quot;Source:Social Care Survey 2010&quot;)</code></pre>
+<p><img src="figure/02_2010_eda.Rmd/viz_client_grp-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="local-authority" class="section level3">
+<h3>Local Authority</h3>
+<pre class="r"><code>factor_plot(soc_care10, council) +
+  coord_flip() +
+  expand_limits(y = 8100)</code></pre>
+<p><img src="figure/02_2010_eda.Rmd/viz_la-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="session-information" class="section level2">
 <h2>Session information</h2>
