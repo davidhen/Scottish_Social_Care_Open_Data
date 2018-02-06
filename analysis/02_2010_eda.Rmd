@@ -41,8 +41,12 @@ On this page I will explore the 2010 social care data using the `soc_care10` obj
 library(dplyr)
 library(magrittr)
 library(ggplot2)
+library(ggalt)
 library(cowplot)
 library(skimr)
+ubdc_palette <- c("#13AFD6", "#E6E600", "#F07329", "#35B14E", "#D7509A", "#2165AF",
+                  "#BCD032","#866BAC", "#545A5D",  "#7A8082", "#E2D988", "#628DB7",
+                  "#929B9A", "#93B8DA", "#31649B", "#FBF8D0", "#ACB2B4", "#D1DAE2")
 ```
 
 ##Load in data
@@ -71,16 +75,46 @@ Lots of really interesting information here. Working from the top down:
 * `r round((sum(is.na(soc_care10$client_grp))/nrow(soc_care10)) * 100,2)`% of observation of `client_grp` are missing. The highest number of observation for this variable are for those designated "Infirmity due to age" and "Physical Disability"
 * `r round((soc_care10$gender %>% is.na %>% sum)/nrow(soc_care10) * 100, 2)`% of observations of `gender` are missing (very similar to the proportion of `age_grp` that are missing). A big skew towards female gender in the dataset.
 * `hc_client` gives us a quick count of the number of people the do or do not receive home care. Presumably the `r soc_care10 %>% filter(hc_client == "No") %>% nrow` observations that did not receive home care only received housing support, laundry, or shopping services. The other potential option is that they received telecare only but we have no data on that sort of service for this dataset (there is in 2011 and 2012 datasets).
+* Housing support and (especially) Living arrangements also have missing data. 
 * All variables (apart form id) are factors. This is an unfortunate result of the way the data was released by the Scottish Government. They had to be very careful to ensure there was absoultely no way for individuals to be identified from this data. Having said that, there is still a lot we can do with it. 
 
 # Visualise
 
 ## Univariate visualisations
 
-Quick look at each variable on its own to begin with
+Quick look at each variable on its own to begin with. These are purely for a quick visualisation so am not going to order the factor levels or anything just now. 
 
+I have created a function `factor_plot()` which will save me a lot of typing! I also have a theme: `x_45` which adjusts the x axis text when required. They are both in the "code" folder of the project if you are looking on github.
 
+```{r load_factor_plot}
+source("/GitHub/Scottish_Social_Care_Open_Data/code/factor_plot.R")
+source("/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R")
+```
 
+### Age group
+
+```{r viz_age_grp, eval=FALSE}
+factor_plot(soc_care10, age_grp) +
+  labs(x= "Age group",
+       caption = "Source:Social Care Survey 2010") 
+```
+
+###Client Group
+
+```{r viz_client_grp}
+factor_plot(soc_care10, client_grp) +
+  x_45 +
+  labs(x = "Client Group",
+       caption = "Source:Social Care Survey 2010")
+```
+
+###Local Authority
+
+```{r viz_la, fig.height=7, fig.width=6}
+factor_plot(soc_care10, council) +
+  coord_flip() +
+  expand_limits(y = 8100)
+```
 
 
 
