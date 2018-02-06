@@ -13,7 +13,9 @@ Public release data is for 3 years - 2010, 2011, and 2012 and is avaiable [here]
 
 [Import and tidy the data](01_import_and_tidy.html)  
 
-[Exploratory Data Analysis - 2010 data](02_2010_eda.html)
+[Exploratory Data Analysis - 2010 data](02_2010_eda.html)   
+
+[Functions created for analysis](functions.Rmd)
 
 #Other useful links
 

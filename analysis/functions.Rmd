@@ -1,0 +1,74 @@
+---
+title: "Functions"
+author: "David Henderson"
+date: 2018-02-06
+output: html_document
+---
+
+<!-- The file analysis/chunks.R contains chunks that define default settings
+shared across the workflowr files. -->
+```{r read-chunk, include=FALSE, cache=FALSE}
+knitr::read_chunk("chunks.R")
+```
+
+<!-- Update knitr chunk options -->
+```{r knitr-opts-chunk, include=FALSE}
+```
+
+<!-- Insert the date the file was last updated -->
+```{r last-updated, echo=FALSE, results='asis'}
+```
+
+<!-- Insert the code version (Git commit SHA1) if Git repository exists and R
+ package git2r is installed -->
+```{r code-version, echo=FALSE, results='asis'}
+```
+
+<!-- Add your analysis here -->
+
+# A list of my own created functions. 
+
+These functions are stored in the "code" project folder and are called from there for any analysis. This page provides a quick reference for the functions
+
+##factor_plot()
+
+`factor_plot()` is function which has two arguments `df` and `group`. The former refers to the dataframe to use, the latter the variable to be plotted. 
+
+The dataframe is grouped by the `group` variable, factor levels are counted and propotions calculated. This is then fed into a ggplot which plots the values using `geom_lollipop()` from the `ggalt` package. Many examples in [Exploratory Data Analysis - 2010 data](02_2010_eda.html)
+
+```{r factor_plot, eval=FALSE}
+factor_plot <- function(df, group){
+
+  group <- enquo(group)
+
+  x <-
+    df %>%
+    group_by(!!group) %>%
+    summarise(N = n()) %>%
+    mutate(pct = round((N/sum(N)) * 100, 1))
+
+  ggplot(x, aes_(substitute(group), substitute(N), colour = substitute(group))) +
+    geom_lollipop(point.size = 3) +
+    geom_text(aes(label=paste0(pct,"%")), size=3, hjust = -0.3, vjust = -0.2) +
+    scale_fill_manual(values = ubdc_palette) +
+    theme(legend.position = "none") +
+    labs(y = "Count",
+         title = "Number of individuals receiving social care")
+
+}
+```
+
+##x_45
+
+This is more of a ggplot theme than a function. Often, depending on the plot, I need to tilt the label on the x-axis so avoid them overlapping. It is one line of code but I honestly have written it so many times it bugs me! This is an easy wrapper to save my poor fingers
+
+```{r x_45, eval=FALSE}
+x_45 <- theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 8))
+
+```
+wflow
+## Session information
+
+<!-- Insert the session information into the document -->
+```{r session-info}
+```
