@@ -99,6 +99,8 @@ factor_plot(soc_care10, age_grp) +
        caption = "Source:Social Care Survey 2010") 
 ```
 
+The majority of individuals receiving social care are over the age of 75. 
+
 ###Client Group
 
 ```{r viz_client_grp}
@@ -108,6 +110,9 @@ factor_plot(soc_care10, client_grp) +
        caption = "Source:Social Care Survey 2010")
 ```
 
+Whilst these groups might look very interesting, the quality of the data is questionable. The social care survey summary reports mention that there is quite a difference between how different local authorities use these codes. Infirmity due to age and Physical disability are almost interchangeable. Dementia is very underecorded. The fact that dementia and mental health are lumoed together is not particularly helpful - there is a good chance this refelects two very different client groups. 
+
+
 ###Local Authority
 
 ```{r viz_la, fig.height=7, fig.width=6}
@@ -116,7 +121,7 @@ factor_plot(soc_care10, council) +
   expand_limits(y = 8500)
 ```
 
-
+This plot could really do with ordering if going to be used for anything specific. As it is I don't need to just now. Glasgow City accounts for 10.3% of all social care!
 
 ## Session information
 
