@@ -353,7 +353,7 @@ shared across the workflowr files. -->
 <p><strong>Last updated:</strong> 2018-02-06</p>
 <!-- Insert the code version (Git commit SHA1) if Git repository exists and R
  package git2r is installed -->
-<p><strong>Code version:</strong> e01c2f7</p>
+<p><strong>Code version:</strong> fb9c972</p>
 <!-- Add your analysis here -->
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
@@ -597,6 +597,7 @@ source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R&quot;)</code></p
   labs(x= &quot;Age group&quot;,
        caption = &quot;Source:Social Care Survey 2010&quot;) </code></pre>
 <p><img src="figure/02_2010_eda.Rmd/viz_age_grp-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The majority of individuals receiving social care are over the age of 75.</p>
 </div>
 <div id="client-group" class="section level3">
 <h3>Client Group</h3>
@@ -605,6 +606,7 @@ source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R&quot;)</code></p
   labs(x = &quot;Client Group&quot;,
        caption = &quot;Source:Social Care Survey 2010&quot;)</code></pre>
 <p><img src="figure/02_2010_eda.Rmd/viz_client_grp-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Whilst these groups might look very interesting, the quality of the data is questionable. The social care survey summary reports mention that there is quite a difference between how different local authorities use these codes. Infirmity due to age and Physical disability are almost interchangeable. Dementia is very underecorded. The fact that dementia and mental health are lumoed together is not particularly helpful - there is a good chance this refelects two very different client groups.</p>
 </div>
 <div id="local-authority" class="section level3">
 <h3>Local Authority</h3>
@@ -612,6 +614,7 @@ source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R&quot;)</code></p
   coord_flip() +
   expand_limits(y = 8500)</code></pre>
 <p><img src="figure/02_2010_eda.Rmd/viz_la-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>This plot could really do with ordering if going to be used for anything specific. As it is I don’t need to just now. Glasgow City accounts for 10.3% of all social care!</p>
 </div>
 </div>
 <div id="session-information" class="section level2">
