@@ -9,8 +9,7 @@ knitr::opts_chunk$set(
   fig.align = "center",
   tidy = FALSE,
   fig.path = paste0("figure/", knitr::current_input(), "/"),
-  echo = TRUE,
-  cache = TRUE
+  echo = TRUE
 )
 
 # ---- last-updated ----
