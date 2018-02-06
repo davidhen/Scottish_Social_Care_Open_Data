@@ -93,7 +93,7 @@ source("/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R")
 
 ### Age group
 
-```{r viz_age_grp, eval=FALSE}
+```{r viz_age_grp}
 factor_plot(soc_care10, age_grp) +
   labs(x= "Age group",
        caption = "Source:Social Care Survey 2010") 
@@ -113,7 +113,7 @@ factor_plot(soc_care10, client_grp) +
 ```{r viz_la, fig.height=7, fig.width=6}
 factor_plot(soc_care10, council) +
   coord_flip() +
-  expand_limits(y = 8100)
+  expand_limits(y = 8500)
 ```
 
 
