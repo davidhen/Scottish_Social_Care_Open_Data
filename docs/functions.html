@@ -9,9 +9,11 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="David Henderson" />
 
+<meta name="date" content="2018-02-06" />
 
-<title>Welcome</title>
+<title>Functions</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +21,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
@@ -173,6 +178,101 @@ $(document).ready(function () {
 
 
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
@@ -239,20 +339,93 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Welcome</h1>
+<h1 class="title toc-ignore">Functions</h1>
+<h4 class="author"><em>David Henderson</em></h4>
+<h4 class="date"><em>2018-02-06</em></h4>
 
 </div>
 
 
-<p>Welcome to my research website showing some simple analyses with open data on social care published by the Scottish Government.</p>
-<p>The social care survey is collected anually by the Scottish Government from all of the 32 Local Authorities in Scotland. Full history of data collection and metadata for the public release files is available <a href="http://www.gov.scot/Resource/0040/00409164.pdf">here</a>.</p>
-<p>Public release data is for 3 years - 2010, 2011, and 2012 and is avaiable <a href="http://www.gov.scot/Topics/Statistics/Browse/Health/Data/HomeCare/HSC-Datasets-HCPRF">here</a>. These are three files the analysis will predominantly use. Below are links to different stages in the analysis.</p>
-<p><a href="01_import_and_tidy.html">Import and tidy the data</a></p>
-<p><a href="02_2010_eda.html">Exploratory Data Analysis - 2010 data</a></p>
-<p><a href="functions.Rmd">Functions created for analysis</a></p>
-<div id="other-useful-links" class="section level1">
-<h1>Other useful links</h1>
-<p><a href="http://davidhen.com/">My home page</a></p>
+<!-- The file analysis/chunks.R contains chunks that define default settings
+shared across the workflowr files. -->
+<!-- Update knitr chunk options -->
+<!-- Insert the date the file was last updated -->
+<p><strong>Last updated:</strong> 2018-02-06</p>
+<!-- Insert the code version (Git commit SHA1) if Git repository exists and R
+ package git2r is installed -->
+<p><strong>Code version:</strong> 7d0e471</p>
+<!-- Add your analysis here -->
+<div id="a-list-of-my-own-created-functions." class="section level1">
+<h1>A list of my own created functions.</h1>
+<p>These functions are stored in the “code” project folder and are called from there for any analysis. This page provides a quick reference for the functions</p>
+<div id="factor_plot" class="section level2">
+<h2>factor_plot()</h2>
+<p><code>factor_plot()</code> is function which has two arguments <code>df</code> and <code>group</code>. The former refers to the dataframe to use, the latter the variable to be plotted.</p>
+<p>The dataframe is grouped by the <code>group</code> variable, factor levels are counted and propotions calculated. This is then fed into a ggplot which plots the values using <code>geom_lollipop()</code> from the <code>ggalt</code> package. Many examples in <a href="02_2010_eda.html">Exploratory Data Analysis - 2010 data</a></p>
+<pre class="r"><code>factor_plot &lt;- function(df, group){
+
+  group &lt;- enquo(group)
+
+  x &lt;-
+    df %&gt;%
+    group_by(!!group) %&gt;%
+    summarise(N = n()) %&gt;%
+    mutate(pct = round((N/sum(N)) * 100, 1))
+
+  ggplot(x, aes_(substitute(group), substitute(N), colour = substitute(group))) +
+    geom_lollipop(point.size = 3) +
+    geom_text(aes(label=paste0(pct,&quot;%&quot;)), size=3, hjust = -0.3, vjust = -0.2) +
+    scale_fill_manual(values = ubdc_palette) +
+    theme(legend.position = &quot;none&quot;) +
+    labs(y = &quot;Count&quot;,
+         title = &quot;Number of individuals receiving social care&quot;)
+
+}</code></pre>
+</div>
+<div id="x_45" class="section level2">
+<h2>x_45</h2>
+<p>This is more of a ggplot theme than a function. Often, depending on the plot, I need to tilt the label on the x-axis so avoid them overlapping. It is one line of code but I honestly have written it so many times it bugs me! This is an easy wrapper to save my poor fingers</p>
+<pre class="r"><code>x_45 &lt;- theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 8))</code></pre>
+<p>wflow ## Session information</p>
+<!-- Insert the session information into the document -->
+<pre class="r"><code>devtools::session_info()</code></pre>
+<pre><code>Session info -------------------------------------------------------------</code></pre>
+<pre><code> setting  value                       
+ version  R version 3.4.3 (2017-11-30)
+ system   x86_64, mingw32             
+ ui       RTerm                       
+ language (EN)                        
+ collate  English_United Kingdom.1252 
+ tz       Europe/London               
+ date     2018-02-06                  </code></pre>
+<pre><code>Packages -----------------------------------------------------------------</code></pre>
+<pre><code> package   * version date       source        
+ backports   1.1.2   2017-12-13 CRAN (R 3.4.3)
+ base      * 3.4.3   2017-12-06 local         
+ compiler    3.4.3   2017-12-06 local         
+ datasets  * 3.4.3   2017-12-06 local         
+ devtools    1.13.4  2017-11-09 CRAN (R 3.4.2)
+ digest      0.6.15  2018-01-28 CRAN (R 3.4.3)
+ evaluate    0.10.1  2017-06-24 CRAN (R 3.4.2)
+ git2r       0.21.0  2018-01-04 CRAN (R 3.4.3)
+ graphics  * 3.4.3   2017-12-06 local         
+ grDevices * 3.4.3   2017-12-06 local         
+ htmltools   0.3.6   2017-04-28 CRAN (R 3.4.0)
+ knitr       1.19    2018-01-29 CRAN (R 3.4.3)
+ magrittr    1.5     2014-11-22 CRAN (R 3.4.1)
+ memoise     1.1.0   2017-04-21 CRAN (R 3.4.0)
+ methods   * 3.4.3   2017-12-06 local         
+ Rcpp        0.12.15 2018-01-20 CRAN (R 3.4.3)
+ rmarkdown   1.8     2017-11-17 CRAN (R 3.4.3)
+ rprojroot   1.3-2   2018-01-03 CRAN (R 3.4.3)
+ stats     * 3.4.3   2017-12-06 local         
+ stringi     1.1.6   2017-11-17 CRAN (R 3.4.2)
+ stringr     1.2.0   2017-02-18 CRAN (R 3.4.2)
+ tools       3.4.3   2017-12-06 local         
+ utils     * 3.4.3   2017-12-06 local         
+ withr       2.1.1   2017-12-19 CRAN (R 3.4.3)
+ yaml        2.1.16  2017-12-12 CRAN (R 3.4.3)</code></pre>
+</div>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
@@ -293,6 +466,8 @@ footer is added to webpages before the MathJax javascript. -->
 -->
 
 
+</div>
+</div>
 
 </div>
 
