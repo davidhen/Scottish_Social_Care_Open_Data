@@ -10,7 +10,7 @@ factor_plot <- function(df, group){
     df %>%
     group_by(!!group) %>%
     summarise(N = n()) %>%
-    mutate(pct = round((N/sum(N)) * 100),1)
+    mutate(pct = round((N/sum(N)) * 100, 1))
 
   ggplot(x, aes_(substitute(group), substitute(N), colour = substitute(group))) +
     geom_lollipop(point.size = 3) +
