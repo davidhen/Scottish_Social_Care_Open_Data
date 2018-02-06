@@ -69,12 +69,9 @@ Lots of really interesting information here. Working from the top down:
 * There are duplicated id values - same individuals or an error in assigning values to individuals?
 * `r (sum(is.na(soc_care10$age_grp))/nrow(soc_care10)) * 100`% of observations of `age-grp` are missing. The vast majority of individuals are over 65 years of age. In fact over half of individuals are over 75. 
 * `r (sum(is.na(soc_care10$client_grp))/nrow(soc_care10)) * 100`% of observation of `client_grp` are missing. The highest number of observation for this variable are for those designated "Infirmity due to age" and "Physical Disability"
-* `council` data is well completed. unsurprisingly the most observations come from Glasgow city council.
 * `r (soc_care10$gender %>% is.na %>% sum)/nrow(soc_care10) * 100`% of observations of `gender` are missing (very similar to the proportion of `age_grp` that are missing). A big skew towards female gender in the dataset.
 * `hc_client` gives us a quick count of the number of people the do or do not receive home care. Presumably the `r soc_care10 %>% filter(hc_client == "No") %>% nrow` observations that did not receive home care only received housing support, laundry, or shopping services. The other potential option is that they received telecare only but we have no data on that sort of service for this dataset (there is in 2011 and 2012 datasets).
 
-
-This is a change
 
 
 
