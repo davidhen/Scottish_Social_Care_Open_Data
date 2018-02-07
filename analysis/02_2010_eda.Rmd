@@ -91,14 +91,15 @@ I have created a function `factor_plot()` which will save me a lot of typing! I 
 ```{r load_factor_plot}
 source("/GitHub/Scottish_Social_Care_Open_Data/code/factor_plot.R")
 source("/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R")
+source("/GitHub/Scottish_Social_Care_Open_Data/code/labels_factor_2010.R")
 ```
 
 ### Age group
 
 ```{r viz_age_grp}
 factor_plot(soc_care10, age_grp) +
-  labs(x= "Age group",
-       caption = "Source:Social Care Survey 2010") 
+  labs(subtitle = "by Age group") +
+  labels_2010
 ```
 
 The majority of individuals receiving social care are over the age of 75. 
@@ -108,8 +109,8 @@ The majority of individuals receiving social care are over the age of 75.
 ```{r viz_client_grp}
 factor_plot(soc_care10, client_grp) +
   x_45 +
-  labs(x = "Client Group",
-       caption = "Source:Social Care Survey 2010")
+  labs(subtitle = "by Client group") +
+  labels_2010
 ```
 
 Whilst these groups might look very interesting, the quality of the data is questionable. The social care survey summary reports mention that there is quite a difference between how different local authorities use these codes. Infirmity due to age and Physical disability are almost interchangeable. Dementia is very underecorded. The fact that dementia and mental health are lumoed together is not particularly helpful - there is a good chance this refelects two very different client groups. 
@@ -117,15 +118,53 @@ Whilst these groups might look very interesting, the quality of the data is ques
 
 ###Local Authority
 
-```{r viz_la, fig.height=7, fig.width=6}
+```{r viz_la, fig.height=7, fig.width=8}
 factor_plot(soc_care10, council) +
   coord_flip() +
   expand_limits(y = 8500) +
-  labs(x = "",
-       caption = "Source: Social Care Survey 2010")
+  labs(subtitle = "by Local Authority") +
+  labels_2010
 ```
 
 This plot could really do with ordering if going to be used for anything specific. As it is I don't need to just now. Glasgow City accounts for 10.3% of all social care!
+
+### Gender
+
+```{r viz_gender}
+factor_plot(soc_care10, gender) +
+  labs(subtitle = "by Gender") +
+  labels_2010
+```
+
+###Housing type
+
+```{r viz_housing}
+factor_plot(soc_care10, housing_type) +
+  labs(subtitle = "by Housing type") +
+  labels_2010
+```
+
+###Living Arrangements
+
+```{r viz_living_arr}
+factor_plot(soc_care10, living_arr) +
+  labs(subtitle = "by Living arrangements") +
+  labels_2010
+```
+
+Really large amount of missing data here - I will investigate this further on a different page. 
+
+###Total hours
+
+```{r viz_total_hrs}
+factor_plot(soc_care10, total_hrs) +
+  labs(subtitle = "by Total weekly hours of care") +
+  labels_2010
+```
+
+
+
+
 
 ## Session information
 
