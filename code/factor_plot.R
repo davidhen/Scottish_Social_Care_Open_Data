@@ -16,8 +16,11 @@ factor_plot <- function(df, group){
     geom_lollipop(point.size = 3) +
     geom_text(aes(label=paste0(pct,"%")), size=3, hjust = -0.3, vjust = -0.2) +
     scale_fill_manual(values = ubdc_palette) +
-    theme(legend.position = "none") +
-    labs(y = "Count",
+    theme(legend.position = "none",
+          title = element_text(hjust = 0),
+          axis.title.x = element_text(hjust = 0.5),
+          plot.caption = element_text(colour = "#AAAAAA", size = 8)) +
+    labs(y = "",
          title = "Number of individuals receiving social care")
 
 }
