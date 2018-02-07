@@ -42,6 +42,7 @@ library(dplyr)
 library(magrittr)
 library(ggplot2)
 library(ggalt)
+library(ggstance)
 library(cowplot)
 library(skimr)
 library(extrafont)
@@ -92,6 +93,7 @@ I have created a function `factor_plot()` which will save me a lot of typing! I 
 source("/GitHub/Scottish_Social_Care_Open_Data/code/factor_plot.R")
 source("/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R")
 source("/GitHub/Scottish_Social_Care_Open_Data/code/labels_factor_2010.R")
+source("/GitHub/Scottish_Social_Care_Open_Data/code/legends.R")
 ```
 
 ### Age group
@@ -162,6 +164,38 @@ factor_plot(soc_care10, total_hrs) +
   labels_2010
 ```
 
+##Multivariate visualisation
+
+###Age group by Local Authority
+
+```{r age_la, fig.height=12, fig.width=12}
+x <-
+  soc_care10 %>% 
+  group_by(council, gender, age_grp) %>% 
+  summarise(n = n()) %>% 
+  mutate(frq = n/sum(n))
+x
+```
+
+
+```{r, fig.height=12, fig.width=16}
+ggplot(x, aes(age_grp, n, colour = gender)) +
+  geom_pointrange(aes(ymin=0, ymax = n), 
+                  position = position_dodge(width = 0.5)) +
+  facet_wrap(~council) +
+  legend_top +
+  theme(strip.background = element_rect(fill = "white"),
+        strip.text = element_text(face = "bold"),
+        title = element_text(hjust = 0, size = 14),
+        axis.title.x = element_text(hjust = 0.5, size = 10),
+        legend.justification = "centre") +
+  labs(title = "Number of individuals receiving social care",
+       subtitle = "by Age group, gender, and local authority",
+       y = "",
+       x = "Age group",
+       colour = "Gender",
+       caption = "Source:Social Care Survey 2010") 
+```
 
 
 
