@@ -46,6 +46,7 @@ library(ggstance)
 library(cowplot)
 library(skimr)
 library(extrafont)
+library(kableExtra)
 theme_set(theme_cowplot(font_family = "Roboto Condensed"))
 ubdc_palette <- c("#13AFD6", "#E6E600", "#F07329", "#35B14E", "#D7509A", "#2165AF",
                   "#BCD032","#866BAC", "#545A5D",  "#7A8082", "#E2D988", "#628DB7",
@@ -166,17 +167,22 @@ factor_plot(soc_care10, total_hrs) +
 
 ##Multivariate visualisation
 
-###Age group by Local Authority
+###Age group by gender and local authority
 
-```{r age_la, fig.height=12, fig.width=12}
+Create a summary table first of all
+
+```{r age_la,results='asis'}
 x <-
   soc_care10 %>% 
   group_by(council, gender, age_grp) %>% 
   summarise(n = n()) %>% 
   mutate(frq = n/sum(n))
-x
+kable(x, "html") %>% 
+  kable_styling() %>% 
+  scroll_box(height = "500px")
 ```
 
+And now plot the total numbers.
 
 ```{r, fig.height=12, fig.width=16}
 ggplot(x, aes(age_grp, n, colour = gender)) +
@@ -194,10 +200,39 @@ ggplot(x, aes(age_grp, n, colour = gender)) +
        y = "",
        x = "Age group",
        colour = "Gender",
-       caption = "Source:Social Care Survey 2010") 
+       caption = "Source:Social Care Survey 2010") +
+  scale_colour_manual(values = ubdc_palette, na.value = ubdc_palette[3])
 ```
 
+It is difficult to see proportions from this plot but I like it because we can see that Angus, Clackmannanshire, Perth & Kinross, and Stirling local authorities have large amounts of missing data compared to other councils. 
 
+To get a better feel of the proportion of individuals in each age group I'll plot the frequency.
+
+**Needs re calculated or replotted** Shows proportion of all men and all women, Not age group.
+
+```{r la_age_freq, fig.height=12, fig.width=16}
+
+x %>% 
+  filter(!is.na(gender) &  !is.na(age_grp)) %>% 
+  ggplot(aes(age_grp, frq, colour = gender)) +
+  geom_pointrange(aes(ymin=0, ymax = frq), 
+                  position = position_dodge(width = 0.5)) +
+  facet_wrap(~council) +
+  legend_top +
+  scale_y_continuous(labels = scales::percent_format()) +
+  theme(strip.background = element_rect(fill = "white"),
+        strip.text = element_text(face = "bold"),
+        title = element_text(hjust = 0, size = 14),
+        axis.title.x = element_text(hjust = 0.5, size = 10),
+        legend.justification = "centre") +
+  labs(title = "Number of individuals receiving social care",
+       subtitle = "by Age group, gender, and local authority",
+       y = "",
+       x = "Age group",
+       colour = "Gender",
+       caption = "Source:Social Care Survey 2010") +
+  scale_colour_manual(values = ubdc_palette, na.value = ubdc_palette[3])
+```
 
 
 ## Session information
