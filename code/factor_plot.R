@@ -21,6 +21,6 @@ factor_plot <- function(df, group){
           axis.title.x = element_text(hjust = 0.5),
           plot.caption = element_text(colour = "#AAAAAA", size = 8)) +
     labs(y = "",
-         title = "Number of individuals receiving social care")
+         title = "Number and proportion of individuals receiving social care")
 
 }
