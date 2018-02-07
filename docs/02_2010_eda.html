@@ -353,7 +353,7 @@ shared across the workflowr files. -->
 <p><strong>Last updated:</strong> 2018-02-07</p>
 <!-- Insert the code version (Git commit SHA1) if Git repository exists and R
  package git2r is installed -->
-<p><strong>Code version:</strong> 0c66685</p>
+<p><strong>Code version:</strong> 87f69d6</p>
 <!-- Add your analysis here -->
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
@@ -592,12 +592,13 @@ n variables: 16</p>
 <p>Quick look at each variable on its own to begin with. These are purely for a quick visualisation so am not going to order the factor levels or anything just now.</p>
 <p>I have created a function <code>factor_plot()</code> which will save me a lot of typing! I also have a theme: <code>x_45</code> which adjusts the x axis text when required. They are both in the “code” folder of the project if you are looking on github.</p>
 <pre class="r"><code>source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/factor_plot.R&quot;)
-source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R&quot;)</code></pre>
+source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R&quot;)
+source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/labels_factor_2010.R&quot;)</code></pre>
 <div id="age-group" class="section level3">
 <h3>Age group</h3>
 <pre class="r"><code>factor_plot(soc_care10, age_grp) +
-  labs(x= &quot;Age group&quot;,
-       caption = &quot;Source:Social Care Survey 2010&quot;) </code></pre>
+  labs(subtitle = &quot;by Age group&quot;) +
+  labels_2010</code></pre>
 <p><img src="figure/02_2010_eda.Rmd/viz_age_grp-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The majority of individuals receiving social care are over the age of 75.</p>
 </div>
@@ -605,8 +606,8 @@ source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R&quot;)</code></p
 <h3>Client Group</h3>
 <pre class="r"><code>factor_plot(soc_care10, client_grp) +
   x_45 +
-  labs(x = &quot;Client Group&quot;,
-       caption = &quot;Source:Social Care Survey 2010&quot;)</code></pre>
+  labs(subtitle = &quot;by Client group&quot;) +
+  labels_2010</code></pre>
 <p><img src="figure/02_2010_eda.Rmd/viz_client_grp-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Whilst these groups might look very interesting, the quality of the data is questionable. The social care survey summary reports mention that there is quite a difference between how different local authorities use these codes. Infirmity due to age and Physical disability are almost interchangeable. Dementia is very underecorded. The fact that dementia and mental health are lumoed together is not particularly helpful - there is a good chance this refelects two very different client groups.</p>
 </div>
@@ -615,10 +616,39 @@ source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R&quot;)</code></p
 <pre class="r"><code>factor_plot(soc_care10, council) +
   coord_flip() +
   expand_limits(y = 8500) +
-  labs(x = &quot;&quot;,
-       caption = &quot;Source: Social Care Survey 2010&quot;)</code></pre>
-<p><img src="figure/02_2010_eda.Rmd/viz_la-1.png" width="576" style="display: block; margin: auto;" /></p>
+  labs(subtitle = &quot;by Local Authority&quot;) +
+  labels_2010</code></pre>
+<p><img src="figure/02_2010_eda.Rmd/viz_la-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>This plot could really do with ordering if going to be used for anything specific. As it is I don’t need to just now. Glasgow City accounts for 10.3% of all social care!</p>
+</div>
+<div id="gender" class="section level3">
+<h3>Gender</h3>
+<pre class="r"><code>factor_plot(soc_care10, gender) +
+  labs(subtitle = &quot;by Gender&quot;) +
+  labels_2010</code></pre>
+<p><img src="figure/02_2010_eda.Rmd/viz_gender-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="housing-type" class="section level3">
+<h3>Housing type</h3>
+<pre class="r"><code>factor_plot(soc_care10, housing_type) +
+  labs(subtitle = &quot;by Housing type&quot;) +
+  labels_2010</code></pre>
+<p><img src="figure/02_2010_eda.Rmd/viz_housing-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="living-arrangements" class="section level3">
+<h3>Living Arrangements</h3>
+<pre class="r"><code>factor_plot(soc_care10, living_arr) +
+  labs(subtitle = &quot;by Living arrangements&quot;) +
+  labels_2010</code></pre>
+<p><img src="figure/02_2010_eda.Rmd/viz_living_arr-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Really large amount of missing data here - I will investigate this further on a different page.</p>
+</div>
+<div id="total-hours" class="section level3">
+<h3>Total hours</h3>
+<pre class="r"><code>factor_plot(soc_care10, total_hrs) +
+  labs(subtitle = &quot;by Total weekly hours of care&quot;) +
+  labels_2010</code></pre>
+<p><img src="figure/02_2010_eda.Rmd/viz_total_hrs-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="session-information" class="section level2">
