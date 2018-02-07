@@ -353,7 +353,7 @@ shared across the workflowr files. -->
 <p><strong>Last updated:</strong> 2018-02-07</p>
 <!-- Insert the code version (Git commit SHA1) if Git repository exists and R
  package git2r is installed -->
-<p><strong>Code version:</strong> c5da4c5</p>
+<p><strong>Code version:</strong> 0c66685</p>
 <!-- Add your analysis here -->
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
@@ -373,6 +373,8 @@ library(ggplot2)
 library(ggalt)
 library(cowplot)
 library(skimr)
+library(extrafont)
+theme_set(theme_cowplot(font_family = &quot;Roboto Condensed&quot;))
 ubdc_palette &lt;- c(&quot;#13AFD6&quot;, &quot;#E6E600&quot;, &quot;#F07329&quot;, &quot;#35B14E&quot;, &quot;#D7509A&quot;, &quot;#2165AF&quot;,
                   &quot;#BCD032&quot;,&quot;#866BAC&quot;, &quot;#545A5D&quot;,  &quot;#7A8082&quot;, &quot;#E2D988&quot;, &quot;#628DB7&quot;,
                   &quot;#929B9A&quot;, &quot;#93B8DA&quot;, &quot;#31649B&quot;, &quot;#FBF8D0&quot;, &quot;#ACB2B4&quot;, &quot;#D1DAE2&quot;)</code></pre>
@@ -648,7 +650,7 @@ source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R&quot;)</code></p
  digest         0.6.15  2018-01-28 CRAN (R 3.4.3)
  dplyr        * 0.7.4   2017-09-28 CRAN (R 3.4.2)
  evaluate       0.10.1  2017-06-24 CRAN (R 3.4.2)
- extrafont      0.17    2014-12-08 CRAN (R 3.4.1)
+ extrafont    * 0.17    2014-12-08 CRAN (R 3.4.1)
  extrafontdb    1.0     2012-06-11 CRAN (R 3.4.1)
  ggalt        * 0.4.0   2017-02-15 CRAN (R 3.4.3)
  ggplot2      * 2.2.1   2016-12-30 CRAN (R 3.4.2)
