@@ -8,5 +8,4 @@ if (requireNamespace("workflowr", quietly = TRUE)) {
 }
 options(prompt="R> ",
         show.signif.stars=FALSE,
-        scipen = 9,
-        knitr.table.format = "html")
+        scipen = 9)
