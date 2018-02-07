@@ -44,6 +44,8 @@ library(ggplot2)
 library(ggalt)
 library(cowplot)
 library(skimr)
+library(extrafont)
+theme_set(theme_cowplot(font_family = "Roboto Condensed"))
 ubdc_palette <- c("#13AFD6", "#E6E600", "#F07329", "#35B14E", "#D7509A", "#2165AF",
                   "#BCD032","#866BAC", "#545A5D",  "#7A8082", "#E2D988", "#628DB7",
                   "#929B9A", "#93B8DA", "#31649B", "#FBF8D0", "#ACB2B4", "#D1DAE2")
