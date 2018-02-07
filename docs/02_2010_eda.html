@@ -350,10 +350,10 @@ div.section {
 shared across the workflowr files. -->
 <!-- Update knitr chunk options -->
 <!-- Insert the date the file was last updated -->
-<p><strong>Last updated:</strong> 2018-02-06</p>
+<p><strong>Last updated:</strong> 2018-02-07</p>
 <!-- Insert the code version (Git commit SHA1) if Git repository exists and R
  package git2r is installed -->
-<p><strong>Code version:</strong> fb9c972</p>
+<p><strong>Code version:</strong> d337a97</p>
 <!-- Add your analysis here -->
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
@@ -612,7 +612,9 @@ source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R&quot;)</code></p
 <h3>Local Authority</h3>
 <pre class="r"><code>factor_plot(soc_care10, council) +
   coord_flip() +
-  expand_limits(y = 8500)</code></pre>
+  expand_limits(y = 8500) +
+  labs(x = &quot;&quot;,
+       caption = &quot;Source: Social Care Survey 2010&quot;)</code></pre>
 <p><img src="figure/02_2010_eda.Rmd/viz_la-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>This plot could really do with ordering if going to be used for anything specific. As it is I don’t need to just now. Glasgow City accounts for 10.3% of all social care!</p>
 </div>
@@ -629,7 +631,7 @@ source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/x_45.R&quot;)</code></p
  language (EN)                        
  collate  English_United Kingdom.1252 
  tz       Europe/London               
- date     2018-02-06                  </code></pre>
+ date     2018-02-07                  </code></pre>
 <pre><code>Packages -----------------------------------------------------------------</code></pre>
 <pre><code> package      * version date       source        
  ash            1.0-15  2015-09-01 CRAN (R 3.4.1)
