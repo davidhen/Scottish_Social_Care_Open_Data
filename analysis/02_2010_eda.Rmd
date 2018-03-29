@@ -171,15 +171,20 @@ factor_plot(soc_care10, total_hrs) +
 
 Create a summary table first of all
 
-```{r age_la,results='asis'}
+```{r age_la, results='asis'}
 x <-
   soc_care10 %>% 
   group_by(council, gender, age_grp) %>% 
   summarise(n = n()) %>% 
-  mutate(frq = n/sum(n))
-kable(x, "html") %>% 
-  kable_styling() %>% 
-  scroll_box(height = "500px")
+  mutate(frq = n/sum(n)) %>% 
+  group_by(council, age_grp) %>% 
+  mutate(n_age = sum(n)) %>% 
+  group_by(council) %>% 
+  mutate(frq_age = n_age/sum(n_age))
+
+
+
+kable(x)
 ```
 
 And now plot the total numbers.
@@ -208,32 +213,29 @@ It is difficult to see proportions from this plot but I like it because we can s
 
 To get a better feel of the proportion of individuals in each age group I'll plot the frequency.
 
-**Needs re calculated or replotted** Shows proportion of all men and all women, Not age group.
-
 ```{r la_age_freq, fig.height=12, fig.width=16}
 
 x %>% 
   filter(!is.na(gender) &  !is.na(age_grp)) %>% 
-  ggplot(aes(age_grp, frq, colour = gender)) +
-  geom_pointrange(aes(ymin=0, ymax = frq), 
-                  position = position_dodge(width = 0.5)) +
+  ggplot(aes(age_grp, frq_age, colour = age_grp)) +
+  geom_pointrange(aes(ymin=0, ymax = frq_age)) +
   facet_wrap(~council) +
-  legend_top +
+  legend_none +
   scale_y_continuous(labels = scales::percent_format()) +
   theme(strip.background = element_rect(fill = "white"),
         strip.text = element_text(face = "bold"),
         title = element_text(hjust = 0, size = 14),
         axis.title.x = element_text(hjust = 0.5, size = 10),
         legend.justification = "centre") +
-  labs(title = "Number of individuals receiving social care",
-       subtitle = "by Age group, gender, and local authority",
+  labs(title = "Proportion of individuals receiving social care",
+       subtitle = "by Age group, and local authority",
        y = "",
        x = "Age group",
-       colour = "Gender",
        caption = "Source:Social Care Survey 2010") +
   scale_colour_manual(values = ubdc_palette, na.value = ubdc_palette[3])
 ```
 
+Some big variations here. Easiest to look at the 18-65 age group(blue lollipop). Can be as low as 5% (East Renfrewshire) to over 15%
 
 ## Session information
 
