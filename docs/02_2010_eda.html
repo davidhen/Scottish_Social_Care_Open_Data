@@ -350,10 +350,10 @@ div.section {
 shared across the workflowr files. -->
 <!-- Update knitr chunk options -->
 <!-- Insert the date the file was last updated -->
-<p><strong>Last updated:</strong> 2018-02-07</p>
+<p><strong>Last updated:</strong> 2018-03-29</p>
 <!-- Insert the code version (Git commit SHA1) if Git repository exists and R
  package git2r is installed -->
-<p><strong>Code version:</strong> 601c4a7</p>
+<p><strong>Code version:</strong> 6374a02</p>
 <!-- Add your analysis here -->
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
@@ -663,4914 +663,2613 @@ source(&quot;/GitHub/Scottish_Social_Care_Open_Data/code/legends.R&quot;)</code>
   soc_care10 %&gt;% 
   group_by(council, gender, age_grp) %&gt;% 
   summarise(n = n()) %&gt;% 
-  mutate(frq = n/sum(n))
-kable(x, &quot;html&quot;) %&gt;% 
-  kable_styling() %&gt;% 
-  scroll_box(height = &quot;500px&quot;)</code></pre>
-<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:500px; ">
-<table class="table" style="margin-left: auto; margin-right: auto;">
+  mutate(frq = n/sum(n)) %&gt;% 
+  group_by(council, age_grp) %&gt;% 
+  mutate(n_age = sum(n)) %&gt;% 
+  group_by(council) %&gt;% 
+  mutate(frq_age = n_age/sum(n_age))
+
+
+
+kable(x)</code></pre>
+<table>
 <thead>
-<tr>
-<th style="text-align:left;">
-council
-</th>
-<th style="text-align:left;">
-gender
-</th>
-<th style="text-align:left;">
-age_grp
-</th>
-<th style="text-align:right;">
-n
-</th>
-<th style="text-align:right;">
-frq
-</th>
+<tr class="header">
+<th align="left">council</th>
+<th align="left">gender</th>
+<th align="left">age_grp</th>
+<th align="right">n</th>
+<th align="right">frq</th>
+<th align="right">n_age</th>
+<th align="right">frq_age</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-Aberdeen City
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-87
-</td>
-<td style="text-align:right;">
-0.1398714
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeen City
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-121
-</td>
-<td style="text-align:right;">
-0.1945338
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeen City
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-239
-</td>
-<td style="text-align:right;">
-0.3842444
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeen City
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-0.2813505
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeen City
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-90
-</td>
-<td style="text-align:right;">
-0.0703675
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeen City
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-141
-</td>
-<td style="text-align:right;">
-0.1102424
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeen City
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-506
-</td>
-<td style="text-align:right;">
-0.3956216
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeen City
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-542
-</td>
-<td style="text-align:right;">
-0.4237686
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeen City
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-186
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeenshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-296
-</td>
-<td style="text-align:right;">
-0.2235650
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeenshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-215
-</td>
-<td style="text-align:right;">
-0.1623867
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeenshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-433
-</td>
-<td style="text-align:right;">
-0.3270393
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeenshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-379
-</td>
-<td style="text-align:right;">
-0.2862538
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeenshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.0007553
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeenshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-355
-</td>
-<td style="text-align:right;">
-0.1199324
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeenshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-320
-</td>
-<td style="text-align:right;">
-0.1081081
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeenshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-1066
-</td>
-<td style="text-align:right;">
-0.3601351
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Aberdeenshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-1219
-</td>
-<td style="text-align:right;">
-0.4118243
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Angus
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-83
-</td>
-<td style="text-align:right;">
-0.1617934
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Angus
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-96
-</td>
-<td style="text-align:right;">
-0.1871345
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Angus
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-197
-</td>
-<td style="text-align:right;">
-0.3840156
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Angus
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-137
-</td>
-<td style="text-align:right;">
-0.2670565
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Angus
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-154
-</td>
-<td style="text-align:right;">
-0.1233974
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Angus
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-176
-</td>
-<td style="text-align:right;">
-0.1410256
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Angus
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-446
-</td>
-<td style="text-align:right;">
-0.3573718
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Angus
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-472
-</td>
-<td style="text-align:right;">
-0.3782051
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Angus
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-1082
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Argyll &amp; Bute
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-28
-</td>
-<td style="text-align:right;">
-0.1060606
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Argyll &amp; Bute
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-57
-</td>
-<td style="text-align:right;">
-0.2159091
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Argyll &amp; Bute
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-91
-</td>
-<td style="text-align:right;">
-0.3446970
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Argyll &amp; Bute
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-88
-</td>
-<td style="text-align:right;">
-0.3333333
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Argyll &amp; Bute
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-42
-</td>
-<td style="text-align:right;">
-0.0759494
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Argyll &amp; Bute
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-73
-</td>
-<td style="text-align:right;">
-0.1320072
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Argyll &amp; Bute
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-187
-</td>
-<td style="text-align:right;">
-0.3381555
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Argyll &amp; Bute
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-251
-</td>
-<td style="text-align:right;">
-0.4538879
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Argyll &amp; Bute
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-103
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clackmannanshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-69
-</td>
-<td style="text-align:right;">
-0.3108108
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clackmannanshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-37
-</td>
-<td style="text-align:right;">
-0.1666667
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clackmannanshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-69
-</td>
-<td style="text-align:right;">
-0.3108108
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clackmannanshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-47
-</td>
-<td style="text-align:right;">
-0.2117117
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clackmannanshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-68
-</td>
-<td style="text-align:right;">
-0.1428571
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clackmannanshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-74
-</td>
-<td style="text-align:right;">
-0.1554622
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clackmannanshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-162
-</td>
-<td style="text-align:right;">
-0.3403361
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clackmannanshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-172
-</td>
-<td style="text-align:right;">
-0.3613445
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clackmannanshire
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-1697
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dumfries &amp; Galloway
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-262
-</td>
-<td style="text-align:right;">
-0.3195122
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dumfries &amp; Galloway
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-133
-</td>
-<td style="text-align:right;">
-0.1621951
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dumfries &amp; Galloway
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-245
-</td>
-<td style="text-align:right;">
-0.2987805
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dumfries &amp; Galloway
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-180
-</td>
-<td style="text-align:right;">
-0.2195122
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dumfries &amp; Galloway
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-251
-</td>
-<td style="text-align:right;">
-0.1579610
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dumfries &amp; Galloway
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-196
-</td>
-<td style="text-align:right;">
-0.1233480
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dumfries &amp; Galloway
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-563
-</td>
-<td style="text-align:right;">
-0.3543109
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dumfries &amp; Galloway
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-579
-</td>
-<td style="text-align:right;">
-0.3643801
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dumfries &amp; Galloway
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-104
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dundee City
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-136
-</td>
-<td style="text-align:right;">
-0.2063733
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dundee City
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-142
-</td>
-<td style="text-align:right;">
-0.2154780
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dundee City
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-207
-</td>
-<td style="text-align:right;">
-0.3141123
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dundee City
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-174
-</td>
-<td style="text-align:right;">
-0.2640364
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dundee City
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-134
-</td>
-<td style="text-align:right;">
-0.0870130
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dundee City
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-217
-</td>
-<td style="text-align:right;">
-0.1409091
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dundee City
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-565
-</td>
-<td style="text-align:right;">
-0.3668831
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dundee City
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-624
-</td>
-<td style="text-align:right;">
-0.4051948
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dundee City
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-280
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Ayrshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-208
-</td>
-<td style="text-align:right;">
-0.3180428
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Ayrshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-99
-</td>
-<td style="text-align:right;">
-0.1513761
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Ayrshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-213
-</td>
-<td style="text-align:right;">
-0.3256881
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Ayrshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-134
-</td>
-<td style="text-align:right;">
-0.2048930
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Ayrshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-201
-</td>
-<td style="text-align:right;">
-0.1608000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Ayrshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-169
-</td>
-<td style="text-align:right;">
-0.1352000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Ayrshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-487
-</td>
-<td style="text-align:right;">
-0.3896000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Ayrshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-393
-</td>
-<td style="text-align:right;">
-0.3144000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Dunbartonshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-156
-</td>
-<td style="text-align:right;">
-0.3132530
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Dunbartonshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-64
-</td>
-<td style="text-align:right;">
-0.1285141
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Dunbartonshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-152
-</td>
-<td style="text-align:right;">
-0.3052209
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Dunbartonshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-126
-</td>
-<td style="text-align:right;">
-0.2530120
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Dunbartonshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-147
-</td>
-<td style="text-align:right;">
-0.1615385
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Dunbartonshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-98
-</td>
-<td style="text-align:right;">
-0.1076923
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Dunbartonshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-318
-</td>
-<td style="text-align:right;">
-0.3494505
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Dunbartonshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-347
-</td>
-<td style="text-align:right;">
-0.3813187
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Dunbartonshire
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-44
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Lothian
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-223
-</td>
-<td style="text-align:right;">
-0.3953901
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Lothian
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-72
-</td>
-<td style="text-align:right;">
-0.1276596
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Lothian
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-148
-</td>
-<td style="text-align:right;">
-0.2624113
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Lothian
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-121
-</td>
-<td style="text-align:right;">
-0.2145390
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Lothian
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-242
-</td>
-<td style="text-align:right;">
-0.2429719
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Lothian
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-91
-</td>
-<td style="text-align:right;">
-0.0913655
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Lothian
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-312
-</td>
-<td style="text-align:right;">
-0.3132530
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Lothian
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-351
-</td>
-<td style="text-align:right;">
-0.3524096
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Lothian
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-230
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Renfrewshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-27
-</td>
-<td style="text-align:right;">
-0.0996310
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Renfrewshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-47
-</td>
-<td style="text-align:right;">
-0.1734317
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Renfrewshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-104
-</td>
-<td style="text-align:right;">
-0.3837638
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Renfrewshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-93
-</td>
-<td style="text-align:right;">
-0.3431734
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Renfrewshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-46
-</td>
-<td style="text-align:right;">
-0.0723270
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Renfrewshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-81
-</td>
-<td style="text-align:right;">
-0.1273585
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Renfrewshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-238
-</td>
-<td style="text-align:right;">
-0.3742138
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Renfrewshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-271
-</td>
-<td style="text-align:right;">
-0.4261006
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-East Renfrewshire
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Edinburgh, City of
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-385
-</td>
-<td style="text-align:right;">
-0.2496757
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Edinburgh, City of
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-255
-</td>
-<td style="text-align:right;">
-0.1653696
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Edinburgh, City of
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-497
-</td>
-<td style="text-align:right;">
-0.3223087
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Edinburgh, City of
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-404
-</td>
-<td style="text-align:right;">
-0.2619974
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Edinburgh, City of
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.0006485
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Edinburgh, City of
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-355
-</td>
-<td style="text-align:right;">
-0.1183728
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Edinburgh, City of
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-346
-</td>
-<td style="text-align:right;">
-0.1153718
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Edinburgh, City of
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-997
-</td>
-<td style="text-align:right;">
-0.3324441
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Edinburgh, City of
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-1301
-</td>
-<td style="text-align:right;">
-0.4338113
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Edinburgh, City of
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-59
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Eilean Siar
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-37
-</td>
-<td style="text-align:right;">
-0.2341772
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Eilean Siar
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-29
-</td>
-<td style="text-align:right;">
-0.1835443
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Eilean Siar
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-63
-</td>
-<td style="text-align:right;">
-0.3987342
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Eilean Siar
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-28
-</td>
-<td style="text-align:right;">
-0.1772152
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Eilean Siar
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.0063291
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Eilean Siar
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-35
-</td>
-<td style="text-align:right;">
-0.0877193
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Eilean Siar
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-40
-</td>
-<td style="text-align:right;">
-0.1002506
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Eilean Siar
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-135
-</td>
-<td style="text-align:right;">
-0.3383459
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Eilean Siar
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-187
-</td>
-<td style="text-align:right;">
-0.4686717
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Eilean Siar
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-0.0050125
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Falkirk
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-347
-</td>
-<td style="text-align:right;">
-0.3595855
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Falkirk
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-181
-</td>
-<td style="text-align:right;">
-0.1875648
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Falkirk
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-260
-</td>
-<td style="text-align:right;">
-0.2694301
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Falkirk
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-177
-</td>
-<td style="text-align:right;">
-0.1834197
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Falkirk
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-357
-</td>
-<td style="text-align:right;">
-0.2202344
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Falkirk
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-206
-</td>
-<td style="text-align:right;">
-0.1270820
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Falkirk
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-529
-</td>
-<td style="text-align:right;">
-0.3263418
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Falkirk
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-529
-</td>
-<td style="text-align:right;">
-0.3263418
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Falkirk
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-114
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fife
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-556
-</td>
-<td style="text-align:right;">
-0.3518987
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fife
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-260
-</td>
-<td style="text-align:right;">
-0.1645570
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fife
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-446
-</td>
-<td style="text-align:right;">
-0.2822785
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fife
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-318
-</td>
-<td style="text-align:right;">
-0.2012658
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fife
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-639
-</td>
-<td style="text-align:right;">
-0.1978941
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fife
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-409
-</td>
-<td style="text-align:right;">
-0.1266646
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fife
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-1016
-</td>
-<td style="text-align:right;">
-0.3146485
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fife
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-1165
-</td>
-<td style="text-align:right;">
-0.3607928
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Fife
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-362
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Glasgow City
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-548
-</td>
-<td style="text-align:right;">
-0.2101227
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Glasgow City
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-676
-</td>
-<td style="text-align:right;">
-0.2592025
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Glasgow City
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-898
-</td>
-<td style="text-align:right;">
-0.3443252
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Glasgow City
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-486
-</td>
-<td style="text-align:right;">
-0.1863497
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Glasgow City
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-471
-</td>
-<td style="text-align:right;">
-0.0895778
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Glasgow City
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-794
-</td>
-<td style="text-align:right;">
-0.1510080
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Glasgow City
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-2059
-</td>
-<td style="text-align:right;">
-0.3915938
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Glasgow City
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-1934
-</td>
-<td style="text-align:right;">
-0.3678205
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Glasgow City
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Highland
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-97
-</td>
-<td style="text-align:right;">
-0.1582382
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Highland
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-116
-</td>
-<td style="text-align:right;">
-0.1892333
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Highland
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-209
-</td>
-<td style="text-align:right;">
-0.3409462
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Highland
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-186
-</td>
-<td style="text-align:right;">
-0.3034258
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Highland
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-0.0081566
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Highland
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-120
-</td>
-<td style="text-align:right;">
-0.0840336
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Highland
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-184
-</td>
-<td style="text-align:right;">
-0.1288515
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Highland
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-516
-</td>
-<td style="text-align:right;">
-0.3613445
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Highland
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-606
-</td>
-<td style="text-align:right;">
-0.4243697
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Highland
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-0.0014006
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Inverclyde
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-127
-</td>
-<td style="text-align:right;">
-0.2772926
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Inverclyde
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-99
-</td>
-<td style="text-align:right;">
-0.2161572
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Inverclyde
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-145
-</td>
-<td style="text-align:right;">
-0.3165939
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Inverclyde
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-87
-</td>
-<td style="text-align:right;">
-0.1899563
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Inverclyde
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-118
-</td>
-<td style="text-align:right;">
-0.1257996
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Inverclyde
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-126
-</td>
-<td style="text-align:right;">
-0.1343284
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Inverclyde
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-353
-</td>
-<td style="text-align:right;">
-0.3763326
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Inverclyde
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-341
-</td>
-<td style="text-align:right;">
-0.3635394
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Inverclyde
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-151
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Midlothian
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-108
-</td>
-<td style="text-align:right;">
-0.3272727
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Midlothian
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-58
-</td>
-<td style="text-align:right;">
-0.1757576
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Midlothian
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-77
-</td>
-<td style="text-align:right;">
-0.2333333
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Midlothian
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-87
-</td>
-<td style="text-align:right;">
-0.2636364
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Midlothian
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-138
-</td>
-<td style="text-align:right;">
-0.2126348
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Midlothian
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-57
-</td>
-<td style="text-align:right;">
-0.0878274
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Midlothian
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-208
-</td>
-<td style="text-align:right;">
-0.3204931
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Midlothian
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-246
-</td>
-<td style="text-align:right;">
-0.3790447
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Midlothian
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Moray
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-90
-</td>
-<td style="text-align:right;">
-0.2301790
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Moray
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-88
-</td>
-<td style="text-align:right;">
-0.2250639
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Moray
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-121
-</td>
-<td style="text-align:right;">
-0.3094629
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Moray
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-92
-</td>
-<td style="text-align:right;">
-0.2352941
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Moray
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-109
-</td>
-<td style="text-align:right;">
-0.1383249
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Moray
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-105
-</td>
-<td style="text-align:right;">
-0.1332487
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Moray
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-286
-</td>
-<td style="text-align:right;">
-0.3629442
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Moray
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-288
-</td>
-<td style="text-align:right;">
-0.3654822
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Moray
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-244
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Ayrshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-47
-</td>
-<td style="text-align:right;">
-0.1124402
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Ayrshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-101
-</td>
-<td style="text-align:right;">
-0.2416268
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Ayrshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-156
-</td>
-<td style="text-align:right;">
-0.3732057
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Ayrshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-114
-</td>
-<td style="text-align:right;">
-0.2727273
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Ayrshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-57
-</td>
-<td style="text-align:right;">
-0.0576340
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Ayrshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-148
-</td>
-<td style="text-align:right;">
-0.1496461
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Ayrshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-381
-</td>
-<td style="text-align:right;">
-0.3852376
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Ayrshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-403
-</td>
-<td style="text-align:right;">
-0.4074823
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Ayrshire
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-158
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Lanarkshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-290
-</td>
-<td style="text-align:right;">
-0.2478632
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Lanarkshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-253
-</td>
-<td style="text-align:right;">
-0.2162393
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Lanarkshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-395
-</td>
-<td style="text-align:right;">
-0.3376068
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Lanarkshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-232
-</td>
-<td style="text-align:right;">
-0.1982906
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Lanarkshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-318
-</td>
-<td style="text-align:right;">
-0.1301678
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Lanarkshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-385
-</td>
-<td style="text-align:right;">
-0.1575931
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Lanarkshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-933
-</td>
-<td style="text-align:right;">
-0.3819075
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Lanarkshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-807
-</td>
-<td style="text-align:right;">
-0.3303316
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-North Lanarkshire
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-73
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Orkney Islands
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-15
-</td>
-<td style="text-align:right;">
-0.1630435
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Orkney Islands
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-17
-</td>
-<td style="text-align:right;">
-0.1847826
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Orkney Islands
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-36
-</td>
-<td style="text-align:right;">
-0.3913043
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Orkney Islands
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-24
-</td>
-<td style="text-align:right;">
-0.2608696
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Orkney Islands
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-13
-</td>
-<td style="text-align:right;">
-0.0670103
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Orkney Islands
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-27
-</td>
-<td style="text-align:right;">
-0.1391753
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Orkney Islands
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-62
-</td>
-<td style="text-align:right;">
-0.3195876
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Orkney Islands
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-92
-</td>
-<td style="text-align:right;">
-0.4742268
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Orkney Islands
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Perth &amp; Kinross
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-59
-</td>
-<td style="text-align:right;">
-0.1231733
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Perth &amp; Kinross
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-91
-</td>
-<td style="text-align:right;">
-0.1899791
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Perth &amp; Kinross
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-166
-</td>
-<td style="text-align:right;">
-0.3465553
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Perth &amp; Kinross
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-163
-</td>
-<td style="text-align:right;">
-0.3402923
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Perth &amp; Kinross
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-67
-</td>
-<td style="text-align:right;">
-0.0643612
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Perth &amp; Kinross
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-107
-</td>
-<td style="text-align:right;">
-0.1027858
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Perth &amp; Kinross
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-362
-</td>
-<td style="text-align:right;">
-0.3477426
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Perth &amp; Kinross
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-505
-</td>
-<td style="text-align:right;">
-0.4851105
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Perth &amp; Kinross
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-1358
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Renfrewshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-199
-</td>
-<td style="text-align:right;">
-0.3075734
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Renfrewshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-112
-</td>
-<td style="text-align:right;">
-0.1731066
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Renfrewshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-187
-</td>
-<td style="text-align:right;">
-0.2890263
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Renfrewshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-149
-</td>
-<td style="text-align:right;">
-0.2302937
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Renfrewshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-471
-</td>
-<td style="text-align:right;">
-0.3038710
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Renfrewshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-164
-</td>
-<td style="text-align:right;">
-0.1058065
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Renfrewshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-396
-</td>
-<td style="text-align:right;">
-0.2554839
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Renfrewshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-519
-</td>
-<td style="text-align:right;">
-0.3348387
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Scottish Borders
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-82
-</td>
-<td style="text-align:right;">
-0.1872146
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Scottish Borders
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-64
-</td>
-<td style="text-align:right;">
-0.1461187
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Scottish Borders
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-148
-</td>
-<td style="text-align:right;">
-0.3378995
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Scottish Borders
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-144
-</td>
-<td style="text-align:right;">
-0.3287671
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Scottish Borders
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-98
-</td>
-<td style="text-align:right;">
-0.1037037
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Scottish Borders
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-120
-</td>
-<td style="text-align:right;">
-0.1269841
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Scottish Borders
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-314
-</td>
-<td style="text-align:right;">
-0.3322751
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Scottish Borders
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-413
-</td>
-<td style="text-align:right;">
-0.4370370
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Shetland Islands
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-31
-</td>
-<td style="text-align:right;">
-0.2000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Shetland Islands
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-34
-</td>
-<td style="text-align:right;">
-0.2193548
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Shetland Islands
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-51
-</td>
-<td style="text-align:right;">
-0.3290323
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Shetland Islands
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-39
-</td>
-<td style="text-align:right;">
-0.2516129
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Shetland Islands
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-29
-</td>
-<td style="text-align:right;">
-0.0914826
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Shetland Islands
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-39
-</td>
-<td style="text-align:right;">
-0.1230284
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Shetland Islands
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-118
-</td>
-<td style="text-align:right;">
-0.3722397
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Shetland Islands
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-131
-</td>
-<td style="text-align:right;">
-0.4132492
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Shetland Islands
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-69
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Ayrshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-337
-</td>
-<td style="text-align:right;">
-0.3243503
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Ayrshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-159
-</td>
-<td style="text-align:right;">
-0.1530318
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Ayrshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-287
-</td>
-<td style="text-align:right;">
-0.2762271
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Ayrshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-256
-</td>
-<td style="text-align:right;">
-0.2463908
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Ayrshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-296
-</td>
-<td style="text-align:right;">
-0.1485198
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Ayrshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-261
-</td>
-<td style="text-align:right;">
-0.1309584
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Ayrshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-685
-</td>
-<td style="text-align:right;">
-0.3437030
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Ayrshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-751
-</td>
-<td style="text-align:right;">
-0.3768189
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Lanarkshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-444
-</td>
-<td style="text-align:right;">
-0.3267108
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Lanarkshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-242
-</td>
-<td style="text-align:right;">
-0.1780721
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Lanarkshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-396
-</td>
-<td style="text-align:right;">
-0.2913907
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Lanarkshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-277
-</td>
-<td style="text-align:right;">
-0.2038263
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Lanarkshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-449
-</td>
-<td style="text-align:right;">
-0.1686702
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Lanarkshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-412
-</td>
-<td style="text-align:right;">
-0.1547708
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Lanarkshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-929
-</td>
-<td style="text-align:right;">
-0.3489857
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-South Lanarkshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-872
-</td>
-<td style="text-align:right;">
-0.3275733
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Stirling
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-195
-</td>
-<td style="text-align:right;">
-0.4323725
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Stirling
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-67
-</td>
-<td style="text-align:right;">
-0.1485588
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Stirling
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-115
-</td>
-<td style="text-align:right;">
-0.2549889
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Stirling
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-74
-</td>
-<td style="text-align:right;">
-0.1640798
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Stirling
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-202
-</td>
-<td style="text-align:right;">
-0.2657895
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Stirling
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-91
-</td>
-<td style="text-align:right;">
-0.1197368
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Stirling
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-222
-</td>
-<td style="text-align:right;">
-0.2921053
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Stirling
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-243
-</td>
-<td style="text-align:right;">
-0.3197368
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Stirling
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-0.0026316
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Stirling
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-1254
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Dunbartonshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-116
-</td>
-<td style="text-align:right;">
-0.2348178
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Dunbartonshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-104
-</td>
-<td style="text-align:right;">
-0.2105263
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Dunbartonshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-164
-</td>
-<td style="text-align:right;">
-0.3319838
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Dunbartonshire
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-110
-</td>
-<td style="text-align:right;">
-0.2226721
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Dunbartonshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-142
-</td>
-<td style="text-align:right;">
-0.1208511
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Dunbartonshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-186
-</td>
-<td style="text-align:right;">
-0.1582979
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Dunbartonshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-438
-</td>
-<td style="text-align:right;">
-0.3727660
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Dunbartonshire
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-409
-</td>
-<td style="text-align:right;">
-0.3480851
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Dunbartonshire
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-48
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Lothian
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-0.3412969
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Lothian
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-117
-</td>
-<td style="text-align:right;">
-0.1996587
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Lothian
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-173
-</td>
-<td style="text-align:right;">
-0.2952218
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Lothian
-</td>
-<td style="text-align:left;">
-Male
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-96
-</td>
-<td style="text-align:right;">
-0.1638225
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Lothian
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-18-&lt;65
-</td>
-<td style="text-align:right;">
-198
-</td>
-<td style="text-align:right;">
-0.1836735
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Lothian
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-65-&lt;75
-</td>
-<td style="text-align:right;">
-170
-</td>
-<td style="text-align:right;">
-0.1576994
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Lothian
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-75-&lt;85
-</td>
-<td style="text-align:right;">
-371
-</td>
-<td style="text-align:right;">
-0.3441558
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Lothian
-</td>
-<td style="text-align:left;">
-Female
-</td>
-<td style="text-align:left;">
-85+
-</td>
-<td style="text-align:right;">
-339
-</td>
-<td style="text-align:right;">
-0.3144712
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-West Lothian
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-242
-</td>
-<td style="text-align:right;">
-1.0000000
-</td>
+<tr class="odd">
+<td align="left">Aberdeen City</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">87</td>
+<td align="right">0.1398714</td>
+<td align="right">177</td>
+<td align="right">0.0443831</td>
+</tr>
+<tr class="even">
+<td align="left">Aberdeen City</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">121</td>
+<td align="right">0.1945338</td>
+<td align="right">262</td>
+<td align="right">0.0656971</td>
+</tr>
+<tr class="odd">
+<td align="left">Aberdeen City</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">239</td>
+<td align="right">0.3842444</td>
+<td align="right">745</td>
+<td align="right">0.1868104</td>
+</tr>
+<tr class="even">
+<td align="left">Aberdeen City</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">175</td>
+<td align="right">0.2813505</td>
+<td align="right">717</td>
+<td align="right">0.1797894</td>
+</tr>
+<tr class="odd">
+<td align="left">Aberdeen City</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">90</td>
+<td align="right">0.0703675</td>
+<td align="right">177</td>
+<td align="right">0.0443831</td>
+</tr>
+<tr class="even">
+<td align="left">Aberdeen City</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">141</td>
+<td align="right">0.1102424</td>
+<td align="right">262</td>
+<td align="right">0.0656971</td>
+</tr>
+<tr class="odd">
+<td align="left">Aberdeen City</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">506</td>
+<td align="right">0.3956216</td>
+<td align="right">745</td>
+<td align="right">0.1868104</td>
+</tr>
+<tr class="even">
+<td align="left">Aberdeen City</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">542</td>
+<td align="right">0.4237686</td>
+<td align="right">717</td>
+<td align="right">0.1797894</td>
+</tr>
+<tr class="odd">
+<td align="left">Aberdeen City</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">186</td>
+<td align="right">1.0000000</td>
+<td align="right">186</td>
+<td align="right">0.0466399</td>
+</tr>
+<tr class="even">
+<td align="left">Aberdeenshire</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">296</td>
+<td align="right">0.2235650</td>
+<td align="right">651</td>
+<td align="right">0.0759893</td>
+</tr>
+<tr class="odd">
+<td align="left">Aberdeenshire</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">215</td>
+<td align="right">0.1623867</td>
+<td align="right">535</td>
+<td align="right">0.0624489</td>
+</tr>
+<tr class="even">
+<td align="left">Aberdeenshire</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">433</td>
+<td align="right">0.3270393</td>
+<td align="right">1499</td>
+<td align="right">0.1749737</td>
+</tr>
+<tr class="odd">
+<td align="left">Aberdeenshire</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">379</td>
+<td align="right">0.2862538</td>
+<td align="right">1598</td>
+<td align="right">0.1865297</td>
+</tr>
+<tr class="even">
+<td align="left">Aberdeenshire</td>
+<td align="left">Male</td>
+<td align="left">NA</td>
+<td align="right">1</td>
+<td align="right">0.0007553</td>
+<td align="right">1</td>
+<td align="right">0.0001167</td>
+</tr>
+<tr class="odd">
+<td align="left">Aberdeenshire</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">355</td>
+<td align="right">0.1199324</td>
+<td align="right">651</td>
+<td align="right">0.0759893</td>
+</tr>
+<tr class="even">
+<td align="left">Aberdeenshire</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">320</td>
+<td align="right">0.1081081</td>
+<td align="right">535</td>
+<td align="right">0.0624489</td>
+</tr>
+<tr class="odd">
+<td align="left">Aberdeenshire</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">1066</td>
+<td align="right">0.3601351</td>
+<td align="right">1499</td>
+<td align="right">0.1749737</td>
+</tr>
+<tr class="even">
+<td align="left">Aberdeenshire</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">1219</td>
+<td align="right">0.4118243</td>
+<td align="right">1598</td>
+<td align="right">0.1865297</td>
+</tr>
+<tr class="odd">
+<td align="left">Angus</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">83</td>
+<td align="right">0.1617934</td>
+<td align="right">237</td>
+<td align="right">0.0514770</td>
+</tr>
+<tr class="even">
+<td align="left">Angus</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">96</td>
+<td align="right">0.1871345</td>
+<td align="right">272</td>
+<td align="right">0.0590791</td>
+</tr>
+<tr class="odd">
+<td align="left">Angus</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">197</td>
+<td align="right">0.3840156</td>
+<td align="right">643</td>
+<td align="right">0.1396612</td>
+</tr>
+<tr class="even">
+<td align="left">Angus</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">137</td>
+<td align="right">0.2670565</td>
+<td align="right">609</td>
+<td align="right">0.1322763</td>
+</tr>
+<tr class="odd">
+<td align="left">Angus</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">154</td>
+<td align="right">0.1233974</td>
+<td align="right">237</td>
+<td align="right">0.0514770</td>
+</tr>
+<tr class="even">
+<td align="left">Angus</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">176</td>
+<td align="right">0.1410256</td>
+<td align="right">272</td>
+<td align="right">0.0590791</td>
+</tr>
+<tr class="odd">
+<td align="left">Angus</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">446</td>
+<td align="right">0.3573718</td>
+<td align="right">643</td>
+<td align="right">0.1396612</td>
+</tr>
+<tr class="even">
+<td align="left">Angus</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">472</td>
+<td align="right">0.3782051</td>
+<td align="right">609</td>
+<td align="right">0.1322763</td>
+</tr>
+<tr class="odd">
+<td align="left">Angus</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">1082</td>
+<td align="right">1.0000000</td>
+<td align="right">1082</td>
+<td align="right">0.2350130</td>
+</tr>
+<tr class="even">
+<td align="left">Argyll &amp; Bute</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">28</td>
+<td align="right">0.1060606</td>
+<td align="right">70</td>
+<td align="right">0.0402994</td>
+</tr>
+<tr class="odd">
+<td align="left">Argyll &amp; Bute</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">57</td>
+<td align="right">0.2159091</td>
+<td align="right">130</td>
+<td align="right">0.0748417</td>
+</tr>
+<tr class="even">
+<td align="left">Argyll &amp; Bute</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">91</td>
+<td align="right">0.3446970</td>
+<td align="right">278</td>
+<td align="right">0.1600461</td>
+</tr>
+<tr class="odd">
+<td align="left">Argyll &amp; Bute</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">88</td>
+<td align="right">0.3333333</td>
+<td align="right">339</td>
+<td align="right">0.1951641</td>
+</tr>
+<tr class="even">
+<td align="left">Argyll &amp; Bute</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">42</td>
+<td align="right">0.0759494</td>
+<td align="right">70</td>
+<td align="right">0.0402994</td>
+</tr>
+<tr class="odd">
+<td align="left">Argyll &amp; Bute</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">73</td>
+<td align="right">0.1320072</td>
+<td align="right">130</td>
+<td align="right">0.0748417</td>
+</tr>
+<tr class="even">
+<td align="left">Argyll &amp; Bute</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">187</td>
+<td align="right">0.3381555</td>
+<td align="right">278</td>
+<td align="right">0.1600461</td>
+</tr>
+<tr class="odd">
+<td align="left">Argyll &amp; Bute</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">251</td>
+<td align="right">0.4538879</td>
+<td align="right">339</td>
+<td align="right">0.1951641</td>
+</tr>
+<tr class="even">
+<td align="left">Argyll &amp; Bute</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">103</td>
+<td align="right">1.0000000</td>
+<td align="right">103</td>
+<td align="right">0.0592976</td>
+</tr>
+<tr class="odd">
+<td align="left">Clackmannanshire</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">69</td>
+<td align="right">0.3108108</td>
+<td align="right">137</td>
+<td align="right">0.0442936</td>
+</tr>
+<tr class="even">
+<td align="left">Clackmannanshire</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">37</td>
+<td align="right">0.1666667</td>
+<td align="right">111</td>
+<td align="right">0.0358875</td>
+</tr>
+<tr class="odd">
+<td align="left">Clackmannanshire</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">69</td>
+<td align="right">0.3108108</td>
+<td align="right">231</td>
+<td align="right">0.0746848</td>
+</tr>
+<tr class="even">
+<td align="left">Clackmannanshire</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">47</td>
+<td align="right">0.2117117</td>
+<td align="right">219</td>
+<td align="right">0.0708050</td>
+</tr>
+<tr class="odd">
+<td align="left">Clackmannanshire</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">68</td>
+<td align="right">0.1428571</td>
+<td align="right">137</td>
+<td align="right">0.0442936</td>
+</tr>
+<tr class="even">
+<td align="left">Clackmannanshire</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">74</td>
+<td align="right">0.1554622</td>
+<td align="right">111</td>
+<td align="right">0.0358875</td>
+</tr>
+<tr class="odd">
+<td align="left">Clackmannanshire</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">162</td>
+<td align="right">0.3403361</td>
+<td align="right">231</td>
+<td align="right">0.0746848</td>
+</tr>
+<tr class="even">
+<td align="left">Clackmannanshire</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">172</td>
+<td align="right">0.3613445</td>
+<td align="right">219</td>
+<td align="right">0.0708050</td>
+</tr>
+<tr class="odd">
+<td align="left">Clackmannanshire</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">1697</td>
+<td align="right">1.0000000</td>
+<td align="right">1697</td>
+<td align="right">0.5486583</td>
+</tr>
+<tr class="even">
+<td align="left">Dumfries &amp; Galloway</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">262</td>
+<td align="right">0.3195122</td>
+<td align="right">513</td>
+<td align="right">0.1042259</td>
+</tr>
+<tr class="odd">
+<td align="left">Dumfries &amp; Galloway</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">133</td>
+<td align="right">0.1621951</td>
+<td align="right">329</td>
+<td align="right">0.0668427</td>
+</tr>
+<tr class="even">
+<td align="left">Dumfries &amp; Galloway</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">245</td>
+<td align="right">0.2987805</td>
+<td align="right">808</td>
+<td align="right">0.1641609</td>
+</tr>
+<tr class="odd">
+<td align="left">Dumfries &amp; Galloway</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">180</td>
+<td align="right">0.2195122</td>
+<td align="right">759</td>
+<td align="right">0.1542056</td>
+</tr>
+<tr class="even">
+<td align="left">Dumfries &amp; Galloway</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">251</td>
+<td align="right">0.1579610</td>
+<td align="right">513</td>
+<td align="right">0.1042259</td>
+</tr>
+<tr class="odd">
+<td align="left">Dumfries &amp; Galloway</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">196</td>
+<td align="right">0.1233480</td>
+<td align="right">329</td>
+<td align="right">0.0668427</td>
+</tr>
+<tr class="even">
+<td align="left">Dumfries &amp; Galloway</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">563</td>
+<td align="right">0.3543109</td>
+<td align="right">808</td>
+<td align="right">0.1641609</td>
+</tr>
+<tr class="odd">
+<td align="left">Dumfries &amp; Galloway</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">579</td>
+<td align="right">0.3643801</td>
+<td align="right">759</td>
+<td align="right">0.1542056</td>
+</tr>
+<tr class="even">
+<td align="left">Dumfries &amp; Galloway</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">104</td>
+<td align="right">1.0000000</td>
+<td align="right">104</td>
+<td align="right">0.0211296</td>
+</tr>
+<tr class="odd">
+<td align="left">Dundee City</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">136</td>
+<td align="right">0.2063733</td>
+<td align="right">270</td>
+<td align="right">0.0577170</td>
+</tr>
+<tr class="even">
+<td align="left">Dundee City</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">142</td>
+<td align="right">0.2154780</td>
+<td align="right">359</td>
+<td align="right">0.0767422</td>
+</tr>
+<tr class="odd">
+<td align="left">Dundee City</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">207</td>
+<td align="right">0.3141123</td>
+<td align="right">772</td>
+<td align="right">0.1650278</td>
+</tr>
+<tr class="even">
+<td align="left">Dundee City</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">174</td>
+<td align="right">0.2640364</td>
+<td align="right">798</td>
+<td align="right">0.1705857</td>
+</tr>
+<tr class="odd">
+<td align="left">Dundee City</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">134</td>
+<td align="right">0.0870130</td>
+<td align="right">270</td>
+<td align="right">0.0577170</td>
+</tr>
+<tr class="even">
+<td align="left">Dundee City</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">217</td>
+<td align="right">0.1409091</td>
+<td align="right">359</td>
+<td align="right">0.0767422</td>
+</tr>
+<tr class="odd">
+<td align="left">Dundee City</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">565</td>
+<td align="right">0.3668831</td>
+<td align="right">772</td>
+<td align="right">0.1650278</td>
+</tr>
+<tr class="even">
+<td align="left">Dundee City</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">624</td>
+<td align="right">0.4051948</td>
+<td align="right">798</td>
+<td align="right">0.1705857</td>
+</tr>
+<tr class="odd">
+<td align="left">Dundee City</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">280</td>
+<td align="right">1.0000000</td>
+<td align="right">280</td>
+<td align="right">0.0598546</td>
+</tr>
+<tr class="even">
+<td align="left">East Ayrshire</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">208</td>
+<td align="right">0.3180428</td>
+<td align="right">409</td>
+<td align="right">0.1074055</td>
+</tr>
+<tr class="odd">
+<td align="left">East Ayrshire</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">99</td>
+<td align="right">0.1513761</td>
+<td align="right">268</td>
+<td align="right">0.0703782</td>
+</tr>
+<tr class="even">
+<td align="left">East Ayrshire</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">213</td>
+<td align="right">0.3256881</td>
+<td align="right">700</td>
+<td align="right">0.1838235</td>
+</tr>
+<tr class="odd">
+<td align="left">East Ayrshire</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">134</td>
+<td align="right">0.2048930</td>
+<td align="right">527</td>
+<td align="right">0.1383929</td>
+</tr>
+<tr class="even">
+<td align="left">East Ayrshire</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">201</td>
+<td align="right">0.1608000</td>
+<td align="right">409</td>
+<td align="right">0.1074055</td>
+</tr>
+<tr class="odd">
+<td align="left">East Ayrshire</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">169</td>
+<td align="right">0.1352000</td>
+<td align="right">268</td>
+<td align="right">0.0703782</td>
+</tr>
+<tr class="even">
+<td align="left">East Ayrshire</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">487</td>
+<td align="right">0.3896000</td>
+<td align="right">700</td>
+<td align="right">0.1838235</td>
+</tr>
+<tr class="odd">
+<td align="left">East Ayrshire</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">393</td>
+<td align="right">0.3144000</td>
+<td align="right">527</td>
+<td align="right">0.1383929</td>
+</tr>
+<tr class="even">
+<td align="left">East Dunbartonshire</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">156</td>
+<td align="right">0.3132530</td>
+<td align="right">303</td>
+<td align="right">0.1059441</td>
+</tr>
+<tr class="odd">
+<td align="left">East Dunbartonshire</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">64</td>
+<td align="right">0.1285141</td>
+<td align="right">162</td>
+<td align="right">0.0566434</td>
+</tr>
+<tr class="even">
+<td align="left">East Dunbartonshire</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">152</td>
+<td align="right">0.3052209</td>
+<td align="right">470</td>
+<td align="right">0.1643357</td>
+</tr>
+<tr class="odd">
+<td align="left">East Dunbartonshire</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">126</td>
+<td align="right">0.2530120</td>
+<td align="right">473</td>
+<td align="right">0.1653846</td>
+</tr>
+<tr class="even">
+<td align="left">East Dunbartonshire</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">147</td>
+<td align="right">0.1615385</td>
+<td align="right">303</td>
+<td align="right">0.1059441</td>
+</tr>
+<tr class="odd">
+<td align="left">East Dunbartonshire</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">98</td>
+<td align="right">0.1076923</td>
+<td align="right">162</td>
+<td align="right">0.0566434</td>
+</tr>
+<tr class="even">
+<td align="left">East Dunbartonshire</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">318</td>
+<td align="right">0.3494505</td>
+<td align="right">470</td>
+<td align="right">0.1643357</td>
+</tr>
+<tr class="odd">
+<td align="left">East Dunbartonshire</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">347</td>
+<td align="right">0.3813187</td>
+<td align="right">473</td>
+<td align="right">0.1653846</td>
+</tr>
+<tr class="even">
+<td align="left">East Dunbartonshire</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">44</td>
+<td align="right">1.0000000</td>
+<td align="right">44</td>
+<td align="right">0.0153846</td>
+</tr>
+<tr class="odd">
+<td align="left">East Lothian</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">223</td>
+<td align="right">0.3953901</td>
+<td align="right">465</td>
+<td align="right">0.1388060</td>
+</tr>
+<tr class="even">
+<td align="left">East Lothian</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">72</td>
+<td align="right">0.1276596</td>
+<td align="right">163</td>
+<td align="right">0.0486567</td>
+</tr>
+<tr class="odd">
+<td align="left">East Lothian</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">148</td>
+<td align="right">0.2624113</td>
+<td align="right">460</td>
+<td align="right">0.1373134</td>
+</tr>
+<tr class="even">
+<td align="left">East Lothian</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">121</td>
+<td align="right">0.2145390</td>
+<td align="right">472</td>
+<td align="right">0.1408955</td>
+</tr>
+<tr class="odd">
+<td align="left">East Lothian</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">242</td>
+<td align="right">0.2429719</td>
+<td align="right">465</td>
+<td align="right">0.1388060</td>
+</tr>
+<tr class="even">
+<td align="left">East Lothian</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">91</td>
+<td align="right">0.0913655</td>
+<td align="right">163</td>
+<td align="right">0.0486567</td>
+</tr>
+<tr class="odd">
+<td align="left">East Lothian</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">312</td>
+<td align="right">0.3132530</td>
+<td align="right">460</td>
+<td align="right">0.1373134</td>
+</tr>
+<tr class="even">
+<td align="left">East Lothian</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">351</td>
+<td align="right">0.3524096</td>
+<td align="right">472</td>
+<td align="right">0.1408955</td>
+</tr>
+<tr class="odd">
+<td align="left">East Lothian</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">230</td>
+<td align="right">1.0000000</td>
+<td align="right">230</td>
+<td align="right">0.0686567</td>
+</tr>
+<tr class="even">
+<td align="left">East Renfrewshire</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">27</td>
+<td align="right">0.0996310</td>
+<td align="right">73</td>
+<td align="right">0.0400219</td>
+</tr>
+<tr class="odd">
+<td align="left">East Renfrewshire</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">47</td>
+<td align="right">0.1734317</td>
+<td align="right">128</td>
+<td align="right">0.0701754</td>
+</tr>
+<tr class="even">
+<td align="left">East Renfrewshire</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">104</td>
+<td align="right">0.3837638</td>
+<td align="right">342</td>
+<td align="right">0.1875000</td>
+</tr>
+<tr class="odd">
+<td align="left">East Renfrewshire</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">93</td>
+<td align="right">0.3431734</td>
+<td align="right">364</td>
+<td align="right">0.1995614</td>
+</tr>
+<tr class="even">
+<td align="left">East Renfrewshire</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">46</td>
+<td align="right">0.0723270</td>
+<td align="right">73</td>
+<td align="right">0.0400219</td>
+</tr>
+<tr class="odd">
+<td align="left">East Renfrewshire</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">81</td>
+<td align="right">0.1273585</td>
+<td align="right">128</td>
+<td align="right">0.0701754</td>
+</tr>
+<tr class="even">
+<td align="left">East Renfrewshire</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">238</td>
+<td align="right">0.3742138</td>
+<td align="right">342</td>
+<td align="right">0.1875000</td>
+</tr>
+<tr class="odd">
+<td align="left">East Renfrewshire</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">271</td>
+<td align="right">0.4261006</td>
+<td align="right">364</td>
+<td align="right">0.1995614</td>
+</tr>
+<tr class="even">
+<td align="left">East Renfrewshire</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">10</td>
+<td align="right">1.0000000</td>
+<td align="right">10</td>
+<td align="right">0.0054825</td>
+</tr>
+<tr class="odd">
+<td align="left">Edinburgh, City of</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">385</td>
+<td align="right">0.2496757</td>
+<td align="right">740</td>
+<td align="right">0.0804348</td>
+</tr>
+<tr class="even">
+<td align="left">Edinburgh, City of</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">255</td>
+<td align="right">0.1653696</td>
+<td align="right">601</td>
+<td align="right">0.0653261</td>
+</tr>
+<tr class="odd">
+<td align="left">Edinburgh, City of</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">497</td>
+<td align="right">0.3223087</td>
+<td align="right">1494</td>
+<td align="right">0.1623913</td>
+</tr>
+<tr class="even">
+<td align="left">Edinburgh, City of</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">404</td>
+<td align="right">0.2619974</td>
+<td align="right">1705</td>
+<td align="right">0.1853261</td>
+</tr>
+<tr class="odd">
+<td align="left">Edinburgh, City of</td>
+<td align="left">Male</td>
+<td align="left">NA</td>
+<td align="right">1</td>
+<td align="right">0.0006485</td>
+<td align="right">60</td>
+<td align="right">0.0065217</td>
+</tr>
+<tr class="even">
+<td align="left">Edinburgh, City of</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">355</td>
+<td align="right">0.1183728</td>
+<td align="right">740</td>
+<td align="right">0.0804348</td>
+</tr>
+<tr class="odd">
+<td align="left">Edinburgh, City of</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">346</td>
+<td align="right">0.1153718</td>
+<td align="right">601</td>
+<td align="right">0.0653261</td>
+</tr>
+<tr class="even">
+<td align="left">Edinburgh, City of</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">997</td>
+<td align="right">0.3324441</td>
+<td align="right">1494</td>
+<td align="right">0.1623913</td>
+</tr>
+<tr class="odd">
+<td align="left">Edinburgh, City of</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">1301</td>
+<td align="right">0.4338113</td>
+<td align="right">1705</td>
+<td align="right">0.1853261</td>
+</tr>
+<tr class="even">
+<td align="left">Edinburgh, City of</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">59</td>
+<td align="right">1.0000000</td>
+<td align="right">60</td>
+<td align="right">0.0065217</td>
+</tr>
+<tr class="odd">
+<td align="left">Eilean Siar</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">37</td>
+<td align="right">0.2341772</td>
+<td align="right">72</td>
+<td align="right">0.0646320</td>
+</tr>
+<tr class="even">
+<td align="left">Eilean Siar</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">29</td>
+<td align="right">0.1835443</td>
+<td align="right">69</td>
+<td align="right">0.0619390</td>
+</tr>
+<tr class="odd">
+<td align="left">Eilean Siar</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">63</td>
+<td align="right">0.3987342</td>
+<td align="right">198</td>
+<td align="right">0.1777379</td>
+</tr>
+<tr class="even">
+<td align="left">Eilean Siar</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">28</td>
+<td align="right">0.1772152</td>
+<td align="right">215</td>
+<td align="right">0.1929982</td>
+</tr>
+<tr class="odd">
+<td align="left">Eilean Siar</td>
+<td align="left">Male</td>
+<td align="left">NA</td>
+<td align="right">1</td>
+<td align="right">0.0063291</td>
+<td align="right">3</td>
+<td align="right">0.0026930</td>
+</tr>
+<tr class="even">
+<td align="left">Eilean Siar</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">35</td>
+<td align="right">0.0877193</td>
+<td align="right">72</td>
+<td align="right">0.0646320</td>
+</tr>
+<tr class="odd">
+<td align="left">Eilean Siar</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">40</td>
+<td align="right">0.1002506</td>
+<td align="right">69</td>
+<td align="right">0.0619390</td>
+</tr>
+<tr class="even">
+<td align="left">Eilean Siar</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">135</td>
+<td align="right">0.3383459</td>
+<td align="right">198</td>
+<td align="right">0.1777379</td>
+</tr>
+<tr class="odd">
+<td align="left">Eilean Siar</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">187</td>
+<td align="right">0.4686717</td>
+<td align="right">215</td>
+<td align="right">0.1929982</td>
+</tr>
+<tr class="even">
+<td align="left">Eilean Siar</td>
+<td align="left">Female</td>
+<td align="left">NA</td>
+<td align="right">2</td>
+<td align="right">0.0050125</td>
+<td align="right">3</td>
+<td align="right">0.0026930</td>
+</tr>
+<tr class="odd">
+<td align="left">Falkirk</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">347</td>
+<td align="right">0.3595855</td>
+<td align="right">704</td>
+<td align="right">0.1331820</td>
+</tr>
+<tr class="even">
+<td align="left">Falkirk</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">181</td>
+<td align="right">0.1875648</td>
+<td align="right">387</td>
+<td align="right">0.0732123</td>
+</tr>
+<tr class="odd">
+<td align="left">Falkirk</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">260</td>
+<td align="right">0.2694301</td>
+<td align="right">789</td>
+<td align="right">0.1492622</td>
+</tr>
+<tr class="even">
+<td align="left">Falkirk</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">177</td>
+<td align="right">0.1834197</td>
+<td align="right">706</td>
+<td align="right">0.1335603</td>
+</tr>
+<tr class="odd">
+<td align="left">Falkirk</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">357</td>
+<td align="right">0.2202344</td>
+<td align="right">704</td>
+<td align="right">0.1331820</td>
+</tr>
+<tr class="even">
+<td align="left">Falkirk</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">206</td>
+<td align="right">0.1270820</td>
+<td align="right">387</td>
+<td align="right">0.0732123</td>
+</tr>
+<tr class="odd">
+<td align="left">Falkirk</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">529</td>
+<td align="right">0.3263418</td>
+<td align="right">789</td>
+<td align="right">0.1492622</td>
+</tr>
+<tr class="even">
+<td align="left">Falkirk</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">529</td>
+<td align="right">0.3263418</td>
+<td align="right">706</td>
+<td align="right">0.1335603</td>
+</tr>
+<tr class="odd">
+<td align="left">Falkirk</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">114</td>
+<td align="right">1.0000000</td>
+<td align="right">114</td>
+<td align="right">0.0215664</td>
+</tr>
+<tr class="even">
+<td align="left">Fife</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">556</td>
+<td align="right">0.3518987</td>
+<td align="right">1195</td>
+<td align="right">0.1197395</td>
+</tr>
+<tr class="odd">
+<td align="left">Fife</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">260</td>
+<td align="right">0.1645570</td>
+<td align="right">669</td>
+<td align="right">0.0670341</td>
+</tr>
+<tr class="even">
+<td align="left">Fife</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">446</td>
+<td align="right">0.2822785</td>
+<td align="right">1462</td>
+<td align="right">0.1464930</td>
+</tr>
+<tr class="odd">
+<td align="left">Fife</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">318</td>
+<td align="right">0.2012658</td>
+<td align="right">1483</td>
+<td align="right">0.1485972</td>
+</tr>
+<tr class="even">
+<td align="left">Fife</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">639</td>
+<td align="right">0.1978941</td>
+<td align="right">1195</td>
+<td align="right">0.1197395</td>
+</tr>
+<tr class="odd">
+<td align="left">Fife</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">409</td>
+<td align="right">0.1266646</td>
+<td align="right">669</td>
+<td align="right">0.0670341</td>
+</tr>
+<tr class="even">
+<td align="left">Fife</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">1016</td>
+<td align="right">0.3146485</td>
+<td align="right">1462</td>
+<td align="right">0.1464930</td>
+</tr>
+<tr class="odd">
+<td align="left">Fife</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">1165</td>
+<td align="right">0.3607928</td>
+<td align="right">1483</td>
+<td align="right">0.1485972</td>
+</tr>
+<tr class="even">
+<td align="left">Fife</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">362</td>
+<td align="right">1.0000000</td>
+<td align="right">362</td>
+<td align="right">0.0362725</td>
+</tr>
+<tr class="odd">
+<td align="left">Glasgow City</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">548</td>
+<td align="right">0.2101227</td>
+<td align="right">1019</td>
+<td align="right">0.0647601</td>
+</tr>
+<tr class="even">
+<td align="left">Glasgow City</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">676</td>
+<td align="right">0.2592025</td>
+<td align="right">1470</td>
+<td align="right">0.0934223</td>
+</tr>
+<tr class="odd">
+<td align="left">Glasgow City</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">898</td>
+<td align="right">0.3443252</td>
+<td align="right">2957</td>
+<td align="right">0.1879250</td>
+</tr>
+<tr class="even">
+<td align="left">Glasgow City</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">486</td>
+<td align="right">0.1863497</td>
+<td align="right">2420</td>
+<td align="right">0.1537973</td>
+</tr>
+<tr class="odd">
+<td align="left">Glasgow City</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">471</td>
+<td align="right">0.0895778</td>
+<td align="right">1019</td>
+<td align="right">0.0647601</td>
+</tr>
+<tr class="even">
+<td align="left">Glasgow City</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">794</td>
+<td align="right">0.1510080</td>
+<td align="right">1470</td>
+<td align="right">0.0934223</td>
+</tr>
+<tr class="odd">
+<td align="left">Glasgow City</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">2059</td>
+<td align="right">0.3915938</td>
+<td align="right">2957</td>
+<td align="right">0.1879250</td>
+</tr>
+<tr class="even">
+<td align="left">Glasgow City</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">1934</td>
+<td align="right">0.3678205</td>
+<td align="right">2420</td>
+<td align="right">0.1537973</td>
+</tr>
+<tr class="odd">
+<td align="left">Glasgow City</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">3</td>
+<td align="right">1.0000000</td>
+<td align="right">3</td>
+<td align="right">0.0001907</td>
+</tr>
+<tr class="even">
+<td align="left">Highland</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">97</td>
+<td align="right">0.1582382</td>
+<td align="right">217</td>
+<td align="right">0.0531602</td>
+</tr>
+<tr class="odd">
+<td align="left">Highland</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">116</td>
+<td align="right">0.1892333</td>
+<td align="right">300</td>
+<td align="right">0.0734934</td>
+</tr>
+<tr class="even">
+<td align="left">Highland</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">209</td>
+<td align="right">0.3409462</td>
+<td align="right">725</td>
+<td align="right">0.1776090</td>
+</tr>
+<tr class="odd">
+<td align="left">Highland</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">186</td>
+<td align="right">0.3034258</td>
+<td align="right">792</td>
+<td align="right">0.1940225</td>
+</tr>
+<tr class="even">
+<td align="left">Highland</td>
+<td align="left">Male</td>
+<td align="left">NA</td>
+<td align="right">5</td>
+<td align="right">0.0081566</td>
+<td align="right">7</td>
+<td align="right">0.0017148</td>
+</tr>
+<tr class="odd">
+<td align="left">Highland</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">120</td>
+<td align="right">0.0840336</td>
+<td align="right">217</td>
+<td align="right">0.0531602</td>
+</tr>
+<tr class="even">
+<td align="left">Highland</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">184</td>
+<td align="right">0.1288515</td>
+<td align="right">300</td>
+<td align="right">0.0734934</td>
+</tr>
+<tr class="odd">
+<td align="left">Highland</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">516</td>
+<td align="right">0.3613445</td>
+<td align="right">725</td>
+<td align="right">0.1776090</td>
+</tr>
+<tr class="even">
+<td align="left">Highland</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">606</td>
+<td align="right">0.4243697</td>
+<td align="right">792</td>
+<td align="right">0.1940225</td>
+</tr>
+<tr class="odd">
+<td align="left">Highland</td>
+<td align="left">Female</td>
+<td align="left">NA</td>
+<td align="right">2</td>
+<td align="right">0.0014006</td>
+<td align="right">7</td>
+<td align="right">0.0017148</td>
+</tr>
+<tr class="even">
+<td align="left">Inverclyde</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">127</td>
+<td align="right">0.2772926</td>
+<td align="right">245</td>
+<td align="right">0.0832484</td>
+</tr>
+<tr class="odd">
+<td align="left">Inverclyde</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">99</td>
+<td align="right">0.2161572</td>
+<td align="right">225</td>
+<td align="right">0.0764526</td>
+</tr>
+<tr class="even">
+<td align="left">Inverclyde</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">145</td>
+<td align="right">0.3165939</td>
+<td align="right">498</td>
+<td align="right">0.1692151</td>
+</tr>
+<tr class="odd">
+<td align="left">Inverclyde</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">87</td>
+<td align="right">0.1899563</td>
+<td align="right">428</td>
+<td align="right">0.1454298</td>
+</tr>
+<tr class="even">
+<td align="left">Inverclyde</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">118</td>
+<td align="right">0.1257996</td>
+<td align="right">245</td>
+<td align="right">0.0832484</td>
+</tr>
+<tr class="odd">
+<td align="left">Inverclyde</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">126</td>
+<td align="right">0.1343284</td>
+<td align="right">225</td>
+<td align="right">0.0764526</td>
+</tr>
+<tr class="even">
+<td align="left">Inverclyde</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">353</td>
+<td align="right">0.3763326</td>
+<td align="right">498</td>
+<td align="right">0.1692151</td>
+</tr>
+<tr class="odd">
+<td align="left">Inverclyde</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">341</td>
+<td align="right">0.3635394</td>
+<td align="right">428</td>
+<td align="right">0.1454298</td>
+</tr>
+<tr class="even">
+<td align="left">Inverclyde</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">151</td>
+<td align="right">1.0000000</td>
+<td align="right">151</td>
+<td align="right">0.0513082</td>
+</tr>
+<tr class="odd">
+<td align="left">Midlothian</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">108</td>
+<td align="right">0.3272727</td>
+<td align="right">246</td>
+<td align="right">0.1225100</td>
+</tr>
+<tr class="even">
+<td align="left">Midlothian</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">58</td>
+<td align="right">0.1757576</td>
+<td align="right">115</td>
+<td align="right">0.0572709</td>
+</tr>
+<tr class="odd">
+<td align="left">Midlothian</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">77</td>
+<td align="right">0.2333333</td>
+<td align="right">285</td>
+<td align="right">0.1419323</td>
+</tr>
+<tr class="even">
+<td align="left">Midlothian</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">87</td>
+<td align="right">0.2636364</td>
+<td align="right">333</td>
+<td align="right">0.1658367</td>
+</tr>
+<tr class="odd">
+<td align="left">Midlothian</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">138</td>
+<td align="right">0.2126348</td>
+<td align="right">246</td>
+<td align="right">0.1225100</td>
+</tr>
+<tr class="even">
+<td align="left">Midlothian</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">57</td>
+<td align="right">0.0878274</td>
+<td align="right">115</td>
+<td align="right">0.0572709</td>
+</tr>
+<tr class="odd">
+<td align="left">Midlothian</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">208</td>
+<td align="right">0.3204931</td>
+<td align="right">285</td>
+<td align="right">0.1419323</td>
+</tr>
+<tr class="even">
+<td align="left">Midlothian</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">246</td>
+<td align="right">0.3790447</td>
+<td align="right">333</td>
+<td align="right">0.1658367</td>
+</tr>
+<tr class="odd">
+<td align="left">Midlothian</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">50</td>
+<td align="right">1.0000000</td>
+<td align="right">50</td>
+<td align="right">0.0249004</td>
+</tr>
+<tr class="even">
+<td align="left">Moray</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">90</td>
+<td align="right">0.2301790</td>
+<td align="right">199</td>
+<td align="right">0.0764796</td>
+</tr>
+<tr class="odd">
+<td align="left">Moray</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">88</td>
+<td align="right">0.2250639</td>
+<td align="right">193</td>
+<td align="right">0.0741737</td>
+</tr>
+<tr class="even">
+<td align="left">Moray</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">121</td>
+<td align="right">0.3094629</td>
+<td align="right">407</td>
+<td align="right">0.1564181</td>
+</tr>
+<tr class="odd">
+<td align="left">Moray</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">92</td>
+<td align="right">0.2352941</td>
+<td align="right">380</td>
+<td align="right">0.1460415</td>
+</tr>
+<tr class="even">
+<td align="left">Moray</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">109</td>
+<td align="right">0.1383249</td>
+<td align="right">199</td>
+<td align="right">0.0764796</td>
+</tr>
+<tr class="odd">
+<td align="left">Moray</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">105</td>
+<td align="right">0.1332487</td>
+<td align="right">193</td>
+<td align="right">0.0741737</td>
+</tr>
+<tr class="even">
+<td align="left">Moray</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">286</td>
+<td align="right">0.3629442</td>
+<td align="right">407</td>
+<td align="right">0.1564181</td>
+</tr>
+<tr class="odd">
+<td align="left">Moray</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">288</td>
+<td align="right">0.3654822</td>
+<td align="right">380</td>
+<td align="right">0.1460415</td>
+</tr>
+<tr class="even">
+<td align="left">Moray</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">244</td>
+<td align="right">1.0000000</td>
+<td align="right">244</td>
+<td align="right">0.0937740</td>
+</tr>
+<tr class="odd">
+<td align="left">North Ayrshire</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">47</td>
+<td align="right">0.1124402</td>
+<td align="right">104</td>
+<td align="right">0.0349933</td>
+</tr>
+<tr class="even">
+<td align="left">North Ayrshire</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">101</td>
+<td align="right">0.2416268</td>
+<td align="right">249</td>
+<td align="right">0.0837820</td>
+</tr>
+<tr class="odd">
+<td align="left">North Ayrshire</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">156</td>
+<td align="right">0.3732057</td>
+<td align="right">537</td>
+<td align="right">0.1806864</td>
+</tr>
+<tr class="even">
+<td align="left">North Ayrshire</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">114</td>
+<td align="right">0.2727273</td>
+<td align="right">517</td>
+<td align="right">0.1739569</td>
+</tr>
+<tr class="odd">
+<td align="left">North Ayrshire</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">57</td>
+<td align="right">0.0576340</td>
+<td align="right">104</td>
+<td align="right">0.0349933</td>
+</tr>
+<tr class="even">
+<td align="left">North Ayrshire</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">148</td>
+<td align="right">0.1496461</td>
+<td align="right">249</td>
+<td align="right">0.0837820</td>
+</tr>
+<tr class="odd">
+<td align="left">North Ayrshire</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">381</td>
+<td align="right">0.3852376</td>
+<td align="right">537</td>
+<td align="right">0.1806864</td>
+</tr>
+<tr class="even">
+<td align="left">North Ayrshire</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">403</td>
+<td align="right">0.4074823</td>
+<td align="right">517</td>
+<td align="right">0.1739569</td>
+</tr>
+<tr class="odd">
+<td align="left">North Ayrshire</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">158</td>
+<td align="right">1.0000000</td>
+<td align="right">158</td>
+<td align="right">0.0531629</td>
+</tr>
+<tr class="even">
+<td align="left">North Lanarkshire</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">290</td>
+<td align="right">0.2478632</td>
+<td align="right">608</td>
+<td align="right">0.0832991</td>
+</tr>
+<tr class="odd">
+<td align="left">North Lanarkshire</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">253</td>
+<td align="right">0.2162393</td>
+<td align="right">638</td>
+<td align="right">0.0874092</td>
+</tr>
+<tr class="even">
+<td align="left">North Lanarkshire</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">395</td>
+<td align="right">0.3376068</td>
+<td align="right">1328</td>
+<td align="right">0.1819427</td>
+</tr>
+<tr class="odd">
+<td align="left">North Lanarkshire</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">232</td>
+<td align="right">0.1982906</td>
+<td align="right">1039</td>
+<td align="right">0.1423483</td>
+</tr>
+<tr class="even">
+<td align="left">North Lanarkshire</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">318</td>
+<td align="right">0.1301678</td>
+<td align="right">608</td>
+<td align="right">0.0832991</td>
+</tr>
+<tr class="odd">
+<td align="left">North Lanarkshire</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">385</td>
+<td align="right">0.1575931</td>
+<td align="right">638</td>
+<td align="right">0.0874092</td>
+</tr>
+<tr class="even">
+<td align="left">North Lanarkshire</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">933</td>
+<td align="right">0.3819075</td>
+<td align="right">1328</td>
+<td align="right">0.1819427</td>
+</tr>
+<tr class="odd">
+<td align="left">North Lanarkshire</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">807</td>
+<td align="right">0.3303316</td>
+<td align="right">1039</td>
+<td align="right">0.1423483</td>
+</tr>
+<tr class="even">
+<td align="left">North Lanarkshire</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">73</td>
+<td align="right">1.0000000</td>
+<td align="right">73</td>
+<td align="right">0.0100014</td>
+</tr>
+<tr class="odd">
+<td align="left">Orkney Islands</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">15</td>
+<td align="right">0.1630435</td>
+<td align="right">28</td>
+<td align="right">0.0486111</td>
+</tr>
+<tr class="even">
+<td align="left">Orkney Islands</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">17</td>
+<td align="right">0.1847826</td>
+<td align="right">44</td>
+<td align="right">0.0763889</td>
+</tr>
+<tr class="odd">
+<td align="left">Orkney Islands</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">36</td>
+<td align="right">0.3913043</td>
+<td align="right">98</td>
+<td align="right">0.1701389</td>
+</tr>
+<tr class="even">
+<td align="left">Orkney Islands</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">24</td>
+<td align="right">0.2608696</td>
+<td align="right">116</td>
+<td align="right">0.2013889</td>
+</tr>
+<tr class="odd">
+<td align="left">Orkney Islands</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">13</td>
+<td align="right">0.0670103</td>
+<td align="right">28</td>
+<td align="right">0.0486111</td>
+</tr>
+<tr class="even">
+<td align="left">Orkney Islands</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">27</td>
+<td align="right">0.1391753</td>
+<td align="right">44</td>
+<td align="right">0.0763889</td>
+</tr>
+<tr class="odd">
+<td align="left">Orkney Islands</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">62</td>
+<td align="right">0.3195876</td>
+<td align="right">98</td>
+<td align="right">0.1701389</td>
+</tr>
+<tr class="even">
+<td align="left">Orkney Islands</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">92</td>
+<td align="right">0.4742268</td>
+<td align="right">116</td>
+<td align="right">0.2013889</td>
+</tr>
+<tr class="odd">
+<td align="left">Orkney Islands</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">4</td>
+<td align="right">1.0000000</td>
+<td align="right">4</td>
+<td align="right">0.0069444</td>
+</tr>
+<tr class="even">
+<td align="left">Perth &amp; Kinross</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">59</td>
+<td align="right">0.1231733</td>
+<td align="right">126</td>
+<td align="right">0.0286494</td>
+</tr>
+<tr class="odd">
+<td align="left">Perth &amp; Kinross</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">91</td>
+<td align="right">0.1899791</td>
+<td align="right">198</td>
+<td align="right">0.0450205</td>
+</tr>
+<tr class="even">
+<td align="left">Perth &amp; Kinross</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">166</td>
+<td align="right">0.3465553</td>
+<td align="right">528</td>
+<td align="right">0.1200546</td>
+</tr>
+<tr class="odd">
+<td align="left">Perth &amp; Kinross</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">163</td>
+<td align="right">0.3402923</td>
+<td align="right">668</td>
+<td align="right">0.1518872</td>
+</tr>
+<tr class="even">
+<td align="left">Perth &amp; Kinross</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">67</td>
+<td align="right">0.0643612</td>
+<td align="right">126</td>
+<td align="right">0.0286494</td>
+</tr>
+<tr class="odd">
+<td align="left">Perth &amp; Kinross</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">107</td>
+<td align="right">0.1027858</td>
+<td align="right">198</td>
+<td align="right">0.0450205</td>
+</tr>
+<tr class="even">
+<td align="left">Perth &amp; Kinross</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">362</td>
+<td align="right">0.3477426</td>
+<td align="right">528</td>
+<td align="right">0.1200546</td>
+</tr>
+<tr class="odd">
+<td align="left">Perth &amp; Kinross</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">505</td>
+<td align="right">0.4851105</td>
+<td align="right">668</td>
+<td align="right">0.1518872</td>
+</tr>
+<tr class="even">
+<td align="left">Perth &amp; Kinross</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">1358</td>
+<td align="right">1.0000000</td>
+<td align="right">1358</td>
+<td align="right">0.3087767</td>
+</tr>
+<tr class="odd">
+<td align="left">Renfrewshire</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">199</td>
+<td align="right">0.3075734</td>
+<td align="right">670</td>
+<td align="right">0.1524807</td>
+</tr>
+<tr class="even">
+<td align="left">Renfrewshire</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">112</td>
+<td align="right">0.1731066</td>
+<td align="right">276</td>
+<td align="right">0.0628129</td>
+</tr>
+<tr class="odd">
+<td align="left">Renfrewshire</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">187</td>
+<td align="right">0.2890263</td>
+<td align="right">583</td>
+<td align="right">0.1326809</td>
+</tr>
+<tr class="even">
+<td align="left">Renfrewshire</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">149</td>
+<td align="right">0.2302937</td>
+<td align="right">668</td>
+<td align="right">0.1520255</td>
+</tr>
+<tr class="odd">
+<td align="left">Renfrewshire</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">471</td>
+<td align="right">0.3038710</td>
+<td align="right">670</td>
+<td align="right">0.1524807</td>
+</tr>
+<tr class="even">
+<td align="left">Renfrewshire</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">164</td>
+<td align="right">0.1058065</td>
+<td align="right">276</td>
+<td align="right">0.0628129</td>
+</tr>
+<tr class="odd">
+<td align="left">Renfrewshire</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">396</td>
+<td align="right">0.2554839</td>
+<td align="right">583</td>
+<td align="right">0.1326809</td>
+</tr>
+<tr class="even">
+<td align="left">Renfrewshire</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">519</td>
+<td align="right">0.3348387</td>
+<td align="right">668</td>
+<td align="right">0.1520255</td>
+</tr>
+<tr class="odd">
+<td align="left">Scottish Borders</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">82</td>
+<td align="right">0.1872146</td>
+<td align="right">180</td>
+<td align="right">0.0650759</td>
+</tr>
+<tr class="even">
+<td align="left">Scottish Borders</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">64</td>
+<td align="right">0.1461187</td>
+<td align="right">184</td>
+<td align="right">0.0665221</td>
+</tr>
+<tr class="odd">
+<td align="left">Scottish Borders</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">148</td>
+<td align="right">0.3378995</td>
+<td align="right">462</td>
+<td align="right">0.1670282</td>
+</tr>
+<tr class="even">
+<td align="left">Scottish Borders</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">144</td>
+<td align="right">0.3287671</td>
+<td align="right">557</td>
+<td align="right">0.2013738</td>
+</tr>
+<tr class="odd">
+<td align="left">Scottish Borders</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">98</td>
+<td align="right">0.1037037</td>
+<td align="right">180</td>
+<td align="right">0.0650759</td>
+</tr>
+<tr class="even">
+<td align="left">Scottish Borders</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">120</td>
+<td align="right">0.1269841</td>
+<td align="right">184</td>
+<td align="right">0.0665221</td>
+</tr>
+<tr class="odd">
+<td align="left">Scottish Borders</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">314</td>
+<td align="right">0.3322751</td>
+<td align="right">462</td>
+<td align="right">0.1670282</td>
+</tr>
+<tr class="even">
+<td align="left">Scottish Borders</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">413</td>
+<td align="right">0.4370370</td>
+<td align="right">557</td>
+<td align="right">0.2013738</td>
+</tr>
+<tr class="odd">
+<td align="left">Shetland Islands</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">31</td>
+<td align="right">0.2000000</td>
+<td align="right">60</td>
+<td align="right">0.0592300</td>
+</tr>
+<tr class="even">
+<td align="left">Shetland Islands</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">34</td>
+<td align="right">0.2193548</td>
+<td align="right">73</td>
+<td align="right">0.0720632</td>
+</tr>
+<tr class="odd">
+<td align="left">Shetland Islands</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">51</td>
+<td align="right">0.3290323</td>
+<td align="right">169</td>
+<td align="right">0.1668312</td>
+</tr>
+<tr class="even">
+<td align="left">Shetland Islands</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">39</td>
+<td align="right">0.2516129</td>
+<td align="right">170</td>
+<td align="right">0.1678184</td>
+</tr>
+<tr class="odd">
+<td align="left">Shetland Islands</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">29</td>
+<td align="right">0.0914826</td>
+<td align="right">60</td>
+<td align="right">0.0592300</td>
+</tr>
+<tr class="even">
+<td align="left">Shetland Islands</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">39</td>
+<td align="right">0.1230284</td>
+<td align="right">73</td>
+<td align="right">0.0720632</td>
+</tr>
+<tr class="odd">
+<td align="left">Shetland Islands</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">118</td>
+<td align="right">0.3722397</td>
+<td align="right">169</td>
+<td align="right">0.1668312</td>
+</tr>
+<tr class="even">
+<td align="left">Shetland Islands</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">131</td>
+<td align="right">0.4132492</td>
+<td align="right">170</td>
+<td align="right">0.1678184</td>
+</tr>
+<tr class="odd">
+<td align="left">Shetland Islands</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">69</td>
+<td align="right">1.0000000</td>
+<td align="right">69</td>
+<td align="right">0.0681145</td>
+</tr>
+<tr class="even">
+<td align="left">South Ayrshire</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">337</td>
+<td align="right">0.3243503</td>
+<td align="right">633</td>
+<td align="right">0.1043865</td>
+</tr>
+<tr class="odd">
+<td align="left">South Ayrshire</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">159</td>
+<td align="right">0.1530318</td>
+<td align="right">420</td>
+<td align="right">0.0692612</td>
+</tr>
+<tr class="even">
+<td align="left">South Ayrshire</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">287</td>
+<td align="right">0.2762271</td>
+<td align="right">972</td>
+<td align="right">0.1602902</td>
+</tr>
+<tr class="odd">
+<td align="left">South Ayrshire</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">256</td>
+<td align="right">0.2463908</td>
+<td align="right">1007</td>
+<td align="right">0.1660620</td>
+</tr>
+<tr class="even">
+<td align="left">South Ayrshire</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">296</td>
+<td align="right">0.1485198</td>
+<td align="right">633</td>
+<td align="right">0.1043865</td>
+</tr>
+<tr class="odd">
+<td align="left">South Ayrshire</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">261</td>
+<td align="right">0.1309584</td>
+<td align="right">420</td>
+<td align="right">0.0692612</td>
+</tr>
+<tr class="even">
+<td align="left">South Ayrshire</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">685</td>
+<td align="right">0.3437030</td>
+<td align="right">972</td>
+<td align="right">0.1602902</td>
+</tr>
+<tr class="odd">
+<td align="left">South Ayrshire</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">751</td>
+<td align="right">0.3768189</td>
+<td align="right">1007</td>
+<td align="right">0.1660620</td>
+</tr>
+<tr class="even">
+<td align="left">South Lanarkshire</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">444</td>
+<td align="right">0.3267108</td>
+<td align="right">893</td>
+<td align="right">0.1110420</td>
+</tr>
+<tr class="odd">
+<td align="left">South Lanarkshire</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">242</td>
+<td align="right">0.1780721</td>
+<td align="right">654</td>
+<td align="right">0.0813231</td>
+</tr>
+<tr class="even">
+<td align="left">South Lanarkshire</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">396</td>
+<td align="right">0.2913907</td>
+<td align="right">1325</td>
+<td align="right">0.1647600</td>
+</tr>
+<tr class="odd">
+<td align="left">South Lanarkshire</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">277</td>
+<td align="right">0.2038263</td>
+<td align="right">1149</td>
+<td align="right">0.1428749</td>
+</tr>
+<tr class="even">
+<td align="left">South Lanarkshire</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">449</td>
+<td align="right">0.1686702</td>
+<td align="right">893</td>
+<td align="right">0.1110420</td>
+</tr>
+<tr class="odd">
+<td align="left">South Lanarkshire</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">412</td>
+<td align="right">0.1547708</td>
+<td align="right">654</td>
+<td align="right">0.0813231</td>
+</tr>
+<tr class="even">
+<td align="left">South Lanarkshire</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">929</td>
+<td align="right">0.3489857</td>
+<td align="right">1325</td>
+<td align="right">0.1647600</td>
+</tr>
+<tr class="odd">
+<td align="left">South Lanarkshire</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">872</td>
+<td align="right">0.3275733</td>
+<td align="right">1149</td>
+<td align="right">0.1428749</td>
+</tr>
+<tr class="even">
+<td align="left">Stirling</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">195</td>
+<td align="right">0.4323725</td>
+<td align="right">397</td>
+<td align="right">0.0805274</td>
+</tr>
+<tr class="odd">
+<td align="left">Stirling</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">67</td>
+<td align="right">0.1485588</td>
+<td align="right">158</td>
+<td align="right">0.0320487</td>
+</tr>
+<tr class="even">
+<td align="left">Stirling</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">115</td>
+<td align="right">0.2549889</td>
+<td align="right">337</td>
+<td align="right">0.0683570</td>
+</tr>
+<tr class="odd">
+<td align="left">Stirling</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">74</td>
+<td align="right">0.1640798</td>
+<td align="right">317</td>
+<td align="right">0.0643002</td>
+</tr>
+<tr class="even">
+<td align="left">Stirling</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">202</td>
+<td align="right">0.2657895</td>
+<td align="right">397</td>
+<td align="right">0.0805274</td>
+</tr>
+<tr class="odd">
+<td align="left">Stirling</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">91</td>
+<td align="right">0.1197368</td>
+<td align="right">158</td>
+<td align="right">0.0320487</td>
+</tr>
+<tr class="even">
+<td align="left">Stirling</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">222</td>
+<td align="right">0.2921053</td>
+<td align="right">337</td>
+<td align="right">0.0683570</td>
+</tr>
+<tr class="odd">
+<td align="left">Stirling</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">243</td>
+<td align="right">0.3197368</td>
+<td align="right">317</td>
+<td align="right">0.0643002</td>
+</tr>
+<tr class="even">
+<td align="left">Stirling</td>
+<td align="left">Female</td>
+<td align="left">NA</td>
+<td align="right">2</td>
+<td align="right">0.0026316</td>
+<td align="right">1256</td>
+<td align="right">0.2547667</td>
+</tr>
+<tr class="odd">
+<td align="left">Stirling</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">1254</td>
+<td align="right">1.0000000</td>
+<td align="right">1256</td>
+<td align="right">0.2547667</td>
+</tr>
+<tr class="even">
+<td align="left">West Dunbartonshire</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">116</td>
+<td align="right">0.2348178</td>
+<td align="right">258</td>
+<td align="right">0.0761961</td>
+</tr>
+<tr class="odd">
+<td align="left">West Dunbartonshire</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">104</td>
+<td align="right">0.2105263</td>
+<td align="right">290</td>
+<td align="right">0.0856468</td>
+</tr>
+<tr class="even">
+<td align="left">West Dunbartonshire</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">164</td>
+<td align="right">0.3319838</td>
+<td align="right">602</td>
+<td align="right">0.1777909</td>
+</tr>
+<tr class="odd">
+<td align="left">West Dunbartonshire</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">110</td>
+<td align="right">0.2226721</td>
+<td align="right">519</td>
+<td align="right">0.1532782</td>
+</tr>
+<tr class="even">
+<td align="left">West Dunbartonshire</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">142</td>
+<td align="right">0.1208511</td>
+<td align="right">258</td>
+<td align="right">0.0761961</td>
+</tr>
+<tr class="odd">
+<td align="left">West Dunbartonshire</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">186</td>
+<td align="right">0.1582979</td>
+<td align="right">290</td>
+<td align="right">0.0856468</td>
+</tr>
+<tr class="even">
+<td align="left">West Dunbartonshire</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">438</td>
+<td align="right">0.3727660</td>
+<td align="right">602</td>
+<td align="right">0.1777909</td>
+</tr>
+<tr class="odd">
+<td align="left">West Dunbartonshire</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">409</td>
+<td align="right">0.3480851</td>
+<td align="right">519</td>
+<td align="right">0.1532782</td>
+</tr>
+<tr class="even">
+<td align="left">West Dunbartonshire</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">48</td>
+<td align="right">1.0000000</td>
+<td align="right">48</td>
+<td align="right">0.0141760</td>
+</tr>
+<tr class="odd">
+<td align="left">West Lothian</td>
+<td align="left">Male</td>
+<td align="left">18-&lt;65</td>
+<td align="right">200</td>
+<td align="right">0.3412969</td>
+<td align="right">398</td>
+<td align="right">0.1114846</td>
+</tr>
+<tr class="even">
+<td align="left">West Lothian</td>
+<td align="left">Male</td>
+<td align="left">65-&lt;75</td>
+<td align="right">117</td>
+<td align="right">0.1996587</td>
+<td align="right">287</td>
+<td align="right">0.0803922</td>
+</tr>
+<tr class="odd">
+<td align="left">West Lothian</td>
+<td align="left">Male</td>
+<td align="left">75-&lt;85</td>
+<td align="right">173</td>
+<td align="right">0.2952218</td>
+<td align="right">544</td>
+<td align="right">0.1523810</td>
+</tr>
+<tr class="even">
+<td align="left">West Lothian</td>
+<td align="left">Male</td>
+<td align="left">85+</td>
+<td align="right">96</td>
+<td align="right">0.1638225</td>
+<td align="right">435</td>
+<td align="right">0.1218487</td>
+</tr>
+<tr class="odd">
+<td align="left">West Lothian</td>
+<td align="left">Female</td>
+<td align="left">18-&lt;65</td>
+<td align="right">198</td>
+<td align="right">0.1836735</td>
+<td align="right">398</td>
+<td align="right">0.1114846</td>
+</tr>
+<tr class="even">
+<td align="left">West Lothian</td>
+<td align="left">Female</td>
+<td align="left">65-&lt;75</td>
+<td align="right">170</td>
+<td align="right">0.1576994</td>
+<td align="right">287</td>
+<td align="right">0.0803922</td>
+</tr>
+<tr class="odd">
+<td align="left">West Lothian</td>
+<td align="left">Female</td>
+<td align="left">75-&lt;85</td>
+<td align="right">371</td>
+<td align="right">0.3441558</td>
+<td align="right">544</td>
+<td align="right">0.1523810</td>
+</tr>
+<tr class="even">
+<td align="left">West Lothian</td>
+<td align="left">Female</td>
+<td align="left">85+</td>
+<td align="right">339</td>
+<td align="right">0.3144712</td>
+<td align="right">435</td>
+<td align="right">0.1218487</td>
+</tr>
+<tr class="odd">
+<td align="left">West Lothian</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">242</td>
+<td align="right">1.0000000</td>
+<td align="right">242</td>
+<td align="right">0.0677871</td>
 </tr>
 </tbody>
 </table>
-</div>
 <p>And now plot the total numbers.</p>
 <pre class="r"><code>ggplot(x, aes(age_grp, n, colour = gender)) +
   geom_pointrange(aes(ymin=0, ymax = n), 
@@ -5592,28 +3291,26 @@ NA
 <p><img src="figure/02_2010_eda.Rmd/unnamed-chunk-1-1.png" width="1536" style="display: block; margin: auto;" /></p>
 <p>It is difficult to see proportions from this plot but I like it because we can see that Angus, Clackmannanshire, Perth &amp; Kinross, and Stirling local authorities have large amounts of missing data compared to other councils.</p>
 <p>To get a better feel of the proportion of individuals in each age group I’ll plot the frequency.</p>
-<p><strong>Needs re calculated or replotted</strong> Shows proportion of all men and all women, Not age group.</p>
 <pre class="r"><code>x %&gt;% 
   filter(!is.na(gender) &amp;  !is.na(age_grp)) %&gt;% 
-  ggplot(aes(age_grp, frq, colour = gender)) +
-  geom_pointrange(aes(ymin=0, ymax = frq), 
-                  position = position_dodge(width = 0.5)) +
+  ggplot(aes(age_grp, frq_age, colour = age_grp)) +
+  geom_pointrange(aes(ymin=0, ymax = frq_age)) +
   facet_wrap(~council) +
-  legend_top +
+  legend_none +
   scale_y_continuous(labels = scales::percent_format()) +
   theme(strip.background = element_rect(fill = &quot;white&quot;),
         strip.text = element_text(face = &quot;bold&quot;),
         title = element_text(hjust = 0, size = 14),
         axis.title.x = element_text(hjust = 0.5, size = 10),
         legend.justification = &quot;centre&quot;) +
-  labs(title = &quot;Number of individuals receiving social care&quot;,
-       subtitle = &quot;by Age group, gender, and local authority&quot;,
+  labs(title = &quot;Proportion of individuals receiving social care&quot;,
+       subtitle = &quot;by Age group, and local authority&quot;,
        y = &quot;&quot;,
        x = &quot;Age group&quot;,
-       colour = &quot;Gender&quot;,
        caption = &quot;Source:Social Care Survey 2010&quot;) +
   scale_colour_manual(values = ubdc_palette, na.value = ubdc_palette[3])</code></pre>
 <p><img src="figure/02_2010_eda.Rmd/la_age_freq-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<p>Some big variations here. Easiest to look at the 18-65 age group(blue lollipop). Can be as low as 5% (East Renfrewshire) to over 15%</p>
 </div>
 </div>
 <div id="session-information" class="section level2">
@@ -5622,26 +3319,26 @@ NA
 <pre class="r"><code>devtools::session_info()</code></pre>
 <pre><code>Session info -------------------------------------------------------------</code></pre>
 <pre><code> setting  value                       
- version  R version 3.4.3 (2017-11-30)
+ version  R version 3.4.4 (2018-03-15)
  system   x86_64, mingw32             
  ui       RTerm                       
  language (EN)                        
  collate  English_United Kingdom.1252 
  tz       Europe/London               
- date     2018-02-07                  </code></pre>
+ date     2018-03-29                  </code></pre>
 <pre><code>Packages -----------------------------------------------------------------</code></pre>
 <pre><code> package      * version date       source        
  ash            1.0-15  2015-09-01 CRAN (R 3.4.1)
  assertthat     0.2.0   2017-04-11 CRAN (R 3.4.2)
  backports      1.1.2   2017-12-13 CRAN (R 3.4.3)
- base         * 3.4.3   2017-12-06 local         
- bindr          0.1     2016-11-13 CRAN (R 3.4.2)
- bindrcpp     * 0.2     2017-06-17 CRAN (R 3.4.2)
+ base         * 3.4.4   2018-03-15 local         
+ bindr          0.1.1   2018-03-13 CRAN (R 3.4.4)
+ bindrcpp     * 0.2.2   2018-03-29 CRAN (R 3.4.4)
  colorspace     1.3-2   2016-12-14 CRAN (R 3.4.2)
- compiler       3.4.3   2017-12-06 local         
+ compiler       3.4.4   2018-03-15 local         
  cowplot      * 0.9.2   2017-12-17 CRAN (R 3.4.3)
- datasets     * 3.4.3   2017-12-06 local         
- devtools       1.13.4  2017-11-09 CRAN (R 3.4.2)
+ datasets     * 3.4.4   2018-03-15 local         
+ devtools       1.13.5  2018-02-18 CRAN (R 3.4.3)
  digest         0.6.15  2018-01-28 CRAN (R 3.4.3)
  dplyr        * 0.7.4   2017-09-28 CRAN (R 3.4.2)
  evaluate       0.10.1  2017-06-24 CRAN (R 3.4.2)
@@ -5652,54 +3349,54 @@ NA
  ggstance     * 0.3     2016-11-16 CRAN (R 3.4.1)
  git2r          0.21.0  2018-01-04 CRAN (R 3.4.3)
  glue           1.2.0   2017-10-29 CRAN (R 3.4.2)
- graphics     * 3.4.3   2017-12-06 local         
- grDevices    * 3.4.3   2017-12-06 local         
- grid           3.4.3   2017-12-06 local         
+ graphics     * 3.4.4   2018-03-15 local         
+ grDevices    * 3.4.4   2018-03-15 local         
+ grid           3.4.4   2018-03-15 local         
  gtable         0.2.0   2016-02-26 CRAN (R 3.4.0)
  highr          0.6     2016-05-09 CRAN (R 3.4.0)
- hms            0.4.1   2018-01-24 CRAN (R 3.4.3)
+ hms            0.4.2   2018-03-10 CRAN (R 3.4.4)
  htmltools      0.3.6   2017-04-28 CRAN (R 3.4.0)
  httr           1.3.1   2017-08-20 CRAN (R 3.4.1)
  kableExtra   * 0.7.0   2018-01-15 CRAN (R 3.4.3)
- KernSmooth     2.23-15 2015-06-29 CRAN (R 3.4.3)
- knitr          1.19    2018-01-29 CRAN (R 3.4.3)
+ KernSmooth     2.23-15 2015-06-29 CRAN (R 3.4.4)
+ knitr          1.20    2018-02-20 CRAN (R 3.4.3)
  labeling       0.3     2014-08-23 CRAN (R 3.4.0)
  lazyeval       0.2.1   2017-10-29 CRAN (R 3.4.2)
  magrittr     * 1.5     2014-11-22 CRAN (R 3.4.1)
  maps           3.2.0   2017-06-08 CRAN (R 3.4.1)
- MASS           7.3-47  2017-02-26 CRAN (R 3.4.3)
+ MASS           7.3-49  2018-02-23 CRAN (R 3.4.4)
  memoise        1.1.0   2017-04-21 CRAN (R 3.4.0)
- methods      * 3.4.3   2017-12-06 local         
+ methods      * 3.4.4   2018-03-15 local         
  munsell        0.4.3   2016-02-13 CRAN (R 3.4.0)
  pander         0.6.1   2017-08-06 CRAN (R 3.4.1)
- pillar         1.1.0   2018-01-14 CRAN (R 3.4.3)
+ pillar         1.2.1   2018-02-27 CRAN (R 3.4.4)
  pkgconfig      2.0.1   2017-03-21 CRAN (R 3.4.0)
  plyr           1.8.4   2016-06-08 CRAN (R 3.4.2)
  proj4          1.0-8   2012-08-05 CRAN (R 3.4.1)
  purrr          0.2.4   2017-10-18 CRAN (R 3.4.2)
  R6             2.2.2   2017-06-17 CRAN (R 3.4.0)
  RColorBrewer   1.1-2   2014-12-07 CRAN (R 3.4.1)
- Rcpp           0.12.15 2018-01-20 CRAN (R 3.4.3)
+ Rcpp           0.12.16 2018-03-13 CRAN (R 3.4.4)
  readr          1.1.1   2017-05-16 CRAN (R 3.4.2)
- rlang          0.1.6   2017-12-21 CRAN (R 3.4.3)
- rmarkdown      1.8     2017-11-17 CRAN (R 3.4.3)
+ rlang          0.2.0   2018-02-20 CRAN (R 3.4.3)
+ rmarkdown      1.9     2018-03-01 CRAN (R 3.4.3)
  rprojroot      1.3-2   2018-01-03 CRAN (R 3.4.3)
- Rttf2pt1       1.3.5   2017-12-04 CRAN (R 3.4.3)
+ Rttf2pt1       1.3.6   2018-02-22 CRAN (R 3.4.3)
  rvest          0.3.2   2016-06-17 CRAN (R 3.4.0)
  scales         0.5.0   2017-08-24 CRAN (R 3.4.2)
  skimr        * 1.0.1   2018-01-10 CRAN (R 3.4.3)
- stats        * 3.4.3   2017-12-06 local         
- stringi        1.1.6   2017-11-17 CRAN (R 3.4.2)
- stringr        1.2.0   2017-02-18 CRAN (R 3.4.2)
+ stats        * 3.4.4   2018-03-15 local         
+ stringi        1.1.7   2018-03-12 CRAN (R 3.4.4)
+ stringr        1.3.0   2018-02-19 CRAN (R 3.4.3)
  tibble         1.4.2   2018-01-22 CRAN (R 3.4.3)
  tidyr          0.8.0   2018-01-29 CRAN (R 3.4.3)
- tidyselect     0.2.3   2017-11-06 CRAN (R 3.4.2)
- tools          3.4.3   2017-12-06 local         
- utils        * 3.4.3   2017-12-06 local         
- viridisLite    0.2.0   2017-03-24 CRAN (R 3.4.1)
- withr          2.1.1   2017-12-19 CRAN (R 3.4.3)
+ tidyselect     0.2.4   2018-02-26 CRAN (R 3.4.4)
+ tools          3.4.4   2018-03-15 local         
+ utils        * 3.4.4   2018-03-15 local         
+ viridisLite    0.3.0   2018-02-01 CRAN (R 3.4.4)
+ withr          2.1.2   2018-03-15 CRAN (R 3.4.4)
  xml2           1.2.0   2018-01-24 CRAN (R 3.4.3)
- yaml           2.1.16  2017-12-12 CRAN (R 3.4.3)</code></pre>
+ yaml           2.1.18  2018-03-08 CRAN (R 3.4.4)</code></pre>
 </div>
 </div>
 
